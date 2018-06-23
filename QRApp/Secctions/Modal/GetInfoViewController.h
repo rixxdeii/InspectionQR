@@ -13,10 +13,16 @@
 @end
 
 @interface GetInfoViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UITextField *auditorTXT;
-@property (weak, nonatomic) IBOutlet UITextField *emailTXT;
-@property (weak, nonatomic) IBOutlet UITextField *sizeTXT;
+@property (weak, nonatomic) IBOutlet UILabel *noParte;
+@property (weak, nonatomic) IBOutlet UILabel *noLote;
+@property (weak, nonatomic) IBOutlet UILabel *cantidad;
+@property (weak, nonatomic) IBOutlet UILabel *proveedor;
+@property (weak, nonatomic) IBOutlet UILabel *fecha;
+@property (weak, nonatomic) IBOutlet UILabel *estatus;
+@property (strong, nonatomic)  NSArray *datos;
+
+
 @property (weak, nonatomic) id<GetInfoDelegate> delegate;
-@property (weak, nonatomic) IBOutlet UITextField *idInspection;
+
 
 @end

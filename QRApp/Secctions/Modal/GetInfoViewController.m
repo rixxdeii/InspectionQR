@@ -18,8 +18,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _auditorTXT.text = [[AuditorModel sharedManager] nombre];
+
     // Do any additional setup after loading the view from its nib.
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:YES];
+    [self updateifo:self.datos];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -28,37 +34,34 @@
 }
 - (IBAction)finish:(id)sender {
     
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        [_delegate didFinishView:nil];
+        
+    }];
     
-    if (![_auditorTXT.text isEqualToString:@""]
-        && ![_emailTXT.text isEqualToString:@""]
-        &&![_sizeTXT.text isEqualToString:@""]
-        &&![_idInspection.text isEqualToString:@""]) {
-        
-        
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-            [_delegate didFinishView:@{@"auditor":_auditorTXT.text,
-                                       @"email":_emailTXT.text,
-                                       @"sizeLot":_sizeTXT.text,
-                                       @"idInspection":_idInspection.text
-                                       }];
-        }];
-        
-    }else
-    {
-        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Faltan campos." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-        
-        [alert show];
-        
-    }
-    
-   
 }
 - (IBAction)gesture:(id)sender {
     
     [self.view endEditing:YES];
 }
 
+-(void)updateifo:(NSArray *)data
+{
+    if ([[data firstObject] isEqualToString:@"P"]) {
+        [self.noParte setText:[data objectAtIndex:1]];
+        [self.cantidad setText:[NSString stringWithFormat:@"%@ %@",[data objectAtIndex:2],[data objectAtIndex:3]]];
+        [self.proveedor setText:[data objectAtIndex:5]];
+        [self.noLote setText:[data objectAtIndex:4]];
+        [self.fecha setText:[data objectAtIndex:6]];
+        [self.estatus setText:@"Falta Inspección"];
+    }else{
+        [self.noParte setText:[data objectAtIndex:1]];
+        [self.noLote setText:[data objectAtIndex:2]];
+        [self.estatus setText:([[data firstObject] isEqualToString:@"L"])?@"Liberado":@"Rechazado"];
+        
+    }
+}
 
 /*
 #pragma mark - Navigation

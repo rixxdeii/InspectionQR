@@ -82,6 +82,7 @@
 		22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1BC20C7A2AC00C08582 /* ItemViewController.m */; };
 		22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */; };
 		22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C520C7A37500C08582 /* SuccessViewController.m */; };
+		22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029B20DDF77A000785D2 /* BarCodeModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,8 @@
 		22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditoriaViewController.m; sourceTree = "<group>"; };
 		22CEF1C420C7A37500C08582 /* SuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
 		22CEF1C520C7A37500C08582 /* SuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
+		22D8029A20DDF77A000785D2 /* BarCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarCodeModel.h; sourceTree = "<group>"; };
+		22D8029B20DDF77A000785D2 /* BarCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarCodeModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +226,8 @@
 				2220351E20CCC99900B42153 /* InspectionModel.m */,
 				2220352220CCCB4900B42153 /* ProductModel.h */,
 				2220352320CCCB4900B42153 /* ProductModel.m */,
+				22D8029A20DDF77A000785D2 /* BarCodeModel.h */,
+				22D8029B20DDF77A000785D2 /* BarCodeModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -585,6 +590,7 @@
 				22C79FAB20CEE650004EF7CF /* TableViewCell.m in Sources */,
 				2220352420CCCB4900B42153 /* ProductModel.m in Sources */,
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
+				22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */,
 				22C79FC520D01C3F004EF7CF /* GetInfoViewController.m in Sources */,
 				2281D9A720C6E6A300830683 /* ViewController.m in Sources */,
 				2220351F20CCC99900B42153 /* InspectionModel.m in Sources */,
@@ -797,7 +803,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = propio.QRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -816,7 +822,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = propio.QRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

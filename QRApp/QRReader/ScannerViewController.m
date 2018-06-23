@@ -55,6 +55,7 @@
     [self setupCaptureSession];
     _previewLayer.frame = _previewView.bounds;
     [_previewView.layer addSublayer:_previewLayer];
+    
     self.foundBarcodes = [[NSMutableArray alloc] init];
     
     // listen for going into the background and stop the session
@@ -81,6 +82,7 @@
     [self.allowedBarcodeTypes addObject:@"org.gs1.EAN-8"];
     [self.allowedBarcodeTypes addObject:@"com.intermec.Code93"];
     [self.allowedBarcodeTypes addObject:@"org.iso.Code128"];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -113,6 +115,7 @@
     }
     // 3
     _captureSession = [[AVCaptureSession alloc] init];
+    
     // 4
     _videoInput = [[AVCaptureDeviceInput alloc]
                    initWithDevice:_videoDevice error:nil];
@@ -125,7 +128,6 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
-    
     
     // capture and process the metadata
     _metadataOutput = [[AVCaptureMetadataOutput alloc] init];
