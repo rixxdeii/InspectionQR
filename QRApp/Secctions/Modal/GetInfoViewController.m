@@ -54,13 +54,43 @@
         [self.proveedor setText:[data objectAtIndex:5]];
         [self.noLote setText:[data objectAtIndex:4]];
         [self.fecha setText:[data objectAtIndex:6]];
-        [self.estatus setText:@"Falta Inspección"];
+        [self.estatus setText:@"Aun no se encuentra en control interno."];
+        [self.estatus setHidden:NO];
     }else{
         [self.noParte setText:[data objectAtIndex:1]];
         [self.noLote setText:[data objectAtIndex:2]];
-        [self.estatus setText:([[data firstObject] isEqualToString:@"L"])?@"Liberado":@"Rechazado"];
+        [self.estatus setText:([[data firstObject] isEqualToString:@"L"])?@"liberado":@"rechazado"];
+        [self.estatus setHidden:YES];
         
+        [self.imageStatus setImage:[UIImage imageNamed:self.estatus.text]];
     }
+    
+    [self.imagenBack setImage:[self blurredImageWithImage:[UIImage imageNamed:@""]]];
+}
+
+- (UIImage *)blurredImageWithImage:(UIImage *)sourceImage{
+    
+    //  Create our blurred image
+    CIContext *context = [CIContext contextWithOptions:nil];
+    CIImage *inputImage = [CIImage imageWithCGImage:sourceImage.CGImage];
+    
+    //  Setting up Gaussian Blur
+    CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+    [filter setValue:inputImage forKey:kCIInputImageKey];
+    [filter setValue:[NSNumber numberWithFloat:3.0f] forKey:@"inputRadius"];
+    CIImage *result = [filter valueForKey:kCIOutputImageKey];
+    
+    /*  CIGaussianBlur has a tendency to shrink the image a little, this ensures it matches
+     *  up exactly to the bounds of our original image */
+    CGImageRef cgImage = [context createCGImage:result fromRect:[inputImage extent]];
+    
+    UIImage *retVal = [UIImage imageWithCGImage:cgImage];
+    
+    if (cgImage) {
+        CGImageRelease(cgImage);
+    }
+    
+    return retVal;
 }
 
 /*

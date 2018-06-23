@@ -150,7 +150,6 @@ didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
 
 
 
-
 - (UIImage *)blurredImageWithImage:(UIImage *)sourceImage{
     
     //  Create our blurred image

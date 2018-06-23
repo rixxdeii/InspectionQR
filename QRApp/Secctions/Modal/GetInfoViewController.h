@@ -20,6 +20,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *fecha;
 @property (weak, nonatomic) IBOutlet UILabel *estatus;
 @property (strong, nonatomic)  NSArray *datos;
+@property (weak, nonatomic) IBOutlet UIImageView *imgageProduct;
+@property (weak, nonatomic) IBOutlet UIImageView *imageStatus;
+@property (weak, nonatomic) IBOutlet UIImageView *imagenBack;
 
 
 @property (weak, nonatomic) id<GetInfoDelegate> delegate;
