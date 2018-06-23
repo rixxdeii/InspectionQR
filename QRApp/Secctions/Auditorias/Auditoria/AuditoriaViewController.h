@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ProductModel.h"
+#import "InspectionModel.h"
 
 @interface AuditoriaViewController : UIViewController
+@property (weak, nonatomic) ProductModel * pdroduct;
+@property (weak, nonatomic) IBOutlet UILabel *idProductTXT;
+@property (weak, nonatomic) IBOutlet UILabel *pageIndicatorTXT;
 
 @end

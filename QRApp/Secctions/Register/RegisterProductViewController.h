@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ItemViewController.h"
 
 @interface RegisterProductViewController : UIViewController
 
+//@property (nonatomic, weak) ItemViewController * lastVC;
 @end

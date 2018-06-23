@@ -10,4 +10,8 @@
 
 @interface InspectionViewController : UIViewController
 
+@property (nonatomic,weak) IBOutlet UILabel * infolabel;
+
+@property (nonatomic, strong)NSString * textLable;
+
 @end

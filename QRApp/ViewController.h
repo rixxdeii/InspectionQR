@@ -7,9 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QRCodeGenerator.h"
+#import "InspectionModel.h"
 
 @interface ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic)  InspectionModel *inspection;
 
+@property (weak, nonatomic) IBOutlet UILabel *idProductLabel;
 
 @end
 

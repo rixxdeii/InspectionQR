@@ -10,4 +10,10 @@
 
 @interface AuditorModel : NSObject
 
++(id)sharedManager;
+
+@property (nonatomic, strong) NSString * nombre;
+@property (nonatomic, strong) NSString * idAuditor;
+
+
 @end

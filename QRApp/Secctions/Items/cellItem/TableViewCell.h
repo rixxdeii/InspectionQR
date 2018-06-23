@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface TableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel * descriptionn;
+@property (weak, nonatomic) IBOutlet UILabel * idProduct;
 
 @end

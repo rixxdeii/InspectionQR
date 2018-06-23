@@ -9,6 +9,7 @@
 
 #import "ScannerViewController.h"
 #import "SettingsViewController.h"
+#import "InspectionViewController.h"
 #import "Barcode.h"
 @import AVFoundation;   // iOS7 only import style
 
@@ -17,7 +18,10 @@
 @property (strong, nonatomic) NSMutableArray * foundBarcodes;
 @property (weak, nonatomic) IBOutlet UIView *previewView;
 
+@property (nonatomic, strong)NSString * code;
+
 @property (strong, nonatomic) SettingsViewController * settingsVC;
+@property (strong, nonatomic) InspectionViewController * insVC;
 
 @end
 
@@ -45,6 +49,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationController setNavigationBarHidden:NO];
     
     [self setupCaptureSession];
     _previewLayer.frame = _previewView.bounds;
@@ -163,6 +169,14 @@
         self.settingsVC = (SettingsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"SettingsViewController"];
         self.settingsVC = segue.destinationViewController;
         self.settingsVC.delegate = self;
+    }else if ([[segue identifier] isEqualToString:@"inspectionSegue"])
+    {
+         self.insVC = (InspectionViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"InspectionViewController"];
+        
+        self.insVC  = segue.destinationViewController;
+        self.insVC.textLable = self.code;
+        
+        
     }
 }
 
@@ -201,29 +215,20 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 - (void) validBarcodeFound:(Barcode *)barcode{
     [self stopRunning];
     [self.foundBarcodes addObject:barcode];
+    NSLog(@"codedesc. %@",[barcode getBarcodeData]);
+    
+    self.code = [barcode getBarcodeData];
+    
     [self showBarcodeAlert:barcode];
+    
+
 }
 - (void) showBarcodeAlert:(Barcode *)barcode{
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Code to do in background processing
-        NSString * alertMessage = @"You found a barcode with type ";
-        alertMessage = [alertMessage stringByAppendingString:[barcode getBarcodeType]];
-//        alertMessage = [alertMessage stringByAppendingString:@" and data "];
-//        alertMessage = [alertMessage stringByAppendingString:[barcode getBarcodeData]];
-        alertMessage = [alertMessage stringByAppendingString:@"\n\nBarcode added to array of "];
-        alertMessage = [alertMessage stringByAppendingString:[NSString stringWithFormat:@"%lu",(unsigned long)[self.foundBarcodes count]-1]];
-        alertMessage = [alertMessage stringByAppendingString:@" previously found barcodes."];
-        
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Barcode Found!"
-                                                          message:alertMessage
-                                                         delegate:self
-                                                cancelButtonTitle:@"Done"
-                                                otherButtonTitles:@"Scan again",nil];
-        
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            // Code to update the UI/send notifications based on the results of the background processing
-            [message show];
+            [self performSegueWithIdentifier:@"inspectionSegue" sender:nil];
+            
 
         });
     });

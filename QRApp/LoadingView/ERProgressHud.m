@@ -49,7 +49,7 @@
         textLabel.textColor = [UIColor darkGrayColor];
         
         //Blur Effect
-        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+        UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleProminent];
         blurEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
         //always fill the view
         blurEffectView.frame = container.bounds;
@@ -79,7 +79,7 @@
     //only apply the blur if the user hasn't disabled transparency effects
     if (!UIAccessibilityIsReduceTransparencyEnabled()) {
         container.backgroundColor = [UIColor clearColor];
-        [container addSubview:blurEffectView];
+        //[container addSubview:blurEffectView];
     } else {
         container.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.85f];
     }

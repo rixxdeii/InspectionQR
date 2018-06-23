@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 
+
 @interface ViewController ()
 
 @end
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    _imageView.image = _inspection.QRCode;//[[[QRCodeGenerator alloc] initWithString:@"Hello World"] getImage];
+    [_idProductLabel setText:_inspection.idIspection];
 }
 
 

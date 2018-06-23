@@ -16,6 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.infolabel setText:_textLable];
     // Do any additional setup after loading the view.
 }
 

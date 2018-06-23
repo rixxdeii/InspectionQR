@@ -7,6 +7,7 @@
 //
 
 #import "GetInfoViewController.h"
+#import "AuditorModel.h"
 
 @interface GetInfoViewController ()
 
@@ -16,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _auditorTXT.text = [[AuditorModel sharedManager] nombre];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -23,6 +26,39 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (IBAction)finish:(id)sender {
+    
+    
+    if (![_auditorTXT.text isEqualToString:@""]
+        && ![_emailTXT.text isEqualToString:@""]
+        &&![_sizeTXT.text isEqualToString:@""]
+        &&![_idInspection.text isEqualToString:@""]) {
+        
+        
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+            [_delegate didFinishView:@{@"auditor":_auditorTXT.text,
+                                       @"email":_emailTXT.text,
+                                       @"sizeLot":_sizeTXT.text,
+                                       @"idInspection":_idInspection.text
+                                       }];
+        }];
+        
+    }else
+    {
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Faltan campos." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        
+        [alert show];
+        
+    }
+    
+   
+}
+- (IBAction)gesture:(id)sender {
+    
+    [self.view endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation

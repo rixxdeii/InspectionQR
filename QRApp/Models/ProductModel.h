@@ -10,4 +10,14 @@
 
 @interface ProductModel : NSObject
 
+//****producto
+//-idProduct : string
+//-descrip : string
+//-measures: array
+
+@property (nonatomic , strong) NSString * idProduct;
+@property (nonatomic , strong) NSString * descrip;
+@property (nonatomic , strong) NSArray * measures;
+
+
 @end

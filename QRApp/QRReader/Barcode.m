@@ -7,6 +7,11 @@
 //
 
 #import "Barcode.h"
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/NSTextContainer.h>
+#import <UIKit/UIBezierPath.h>
+
 
 @interface Barcode() 
 

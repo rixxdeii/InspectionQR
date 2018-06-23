@@ -25,6 +25,8 @@
 
 #import <Foundation/Foundation.h>
 #import "CIColor+QRCode.h"
+#import <UIKit/UIKit.h>
+
 
 typedef NS_ENUM(NSUInteger, QRErrorCorrection) {
     QRErrorCorrectionLow = 0,
