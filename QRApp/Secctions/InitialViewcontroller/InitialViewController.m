@@ -7,16 +7,15 @@
 //
 
 #import "InitialViewController.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "AuditorModel.h"
 #import "ERProgressHud.h"
 #import "Barcode.h"
 #import "SettingsViewController.h"
+#import "RegisterUserModalViewController.h"
 
 //#import "CoreDataManager.h"
 
-@interface InitialViewController ()<FBSDKLoginButtonDelegate>
+@interface InitialViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *userlabel;
 @property (weak, nonatomic) IBOutlet UIButton *inBuuton;
@@ -97,42 +96,29 @@
 }
 
 
-- (void)loginButton:(FBSDKLoginButton *)loginButton
-didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
-              error:(NSError *)error
-{
-    
-    NSLog(@"result : %@",result);
-    
-    [[ERProgressHud sharedInstance] showWithBlurView];
-    [[[FBSDKGraphRequest alloc]initWithGraphPath:@"me" parameters:nil] startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection, id result, NSError *error) {
-        [[ERProgressHud sharedInstance] hide];
-        NSDictionary * auditor = (NSDictionary *)result;
-        
-        [[AuditorModel sharedManager] setNombre: [auditor objectForKey:@"name"]];
-        [[AuditorModel sharedManager] setIdAuditor: [auditor objectForKey:@"id"]];
-        
-        [self.userlabel setHidden:NO];
-        [self.inBuuton setHidden:NO];
-        [self.userlabel setText:[auditor objectForKey:@"name"]];
-        
-    }];
-    
-    
-}
+//- (void)loginButton:(FBSDKLoginButton *)loginButton
+//didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
+//              error:(NSError *)error
+//{
+//
+//    NSLog(@"result : %@",result);
+//
+//    [[ERProgressHud sharedInstance] showWithBlurView];
+//
+//}
 
 
 
 
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-    NSLog(@"logOut");
-    [self.userlabel setHidden:YES];
-    [self.inBuuton setHidden:YES];
-    [self.userlabel setText:@""];
-    [[AuditorModel sharedManager] setNombre:@""];
-    [[AuditorModel sharedManager] setIdAuditor: @""];
-    
-}
+//- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+//    NSLog(@"logOut");
+//    [self.userlabel setHidden:YES];
+//    [self.inBuuton setHidden:YES];
+//    [self.userlabel setText:@""];
+//    [[AuditorModel sharedManager] setNombre:@""];
+//    [[AuditorModel sharedManager] setIdAuditor: @""];
+//    
+//}
 
 
 
@@ -355,6 +341,20 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 {
     [self startRunning];
 }
+
+- (IBAction)registeruser:(id)sender
+{
+    RegisterUserModalViewController * GIVC = [[RegisterUserModalViewController alloc]init];
+//    GIVC.delegate =self;
+//    GIVC.datos = data;
+    
+    
+    self.definesPresentationContext = YES; //self is presenting view controller
+    GIVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:GIVC animated:YES completion:nil];
+    
+}
+
 
 
 

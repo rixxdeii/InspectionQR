@@ -7,6 +7,8 @@
 //
 
 #import "InspectionViewController.h"
+#include "LMSideBarController.h"
+#import "UIViewController+LMSideBarController.h"
 
 @interface InspectionViewController ()
 
@@ -19,6 +21,9 @@
     
     [self.infolabel setText:_textLable];
     // Do any additional setup after loading the view.
+    // Init side bar styles
+
+      [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
 }
 
 - (void)didReceiveMemoryWarning {

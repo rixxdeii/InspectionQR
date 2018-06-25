@@ -11,6 +11,7 @@
 #import "SettingsViewController.h"
 #import "InspectionViewController.h"
 #import "Barcode.h"
+#include "LMSideBarController.h"
 @import AVFoundation;   // iOS7 only import style
 
 @interface ScannerViewController ()
@@ -82,6 +83,10 @@
     [self.allowedBarcodeTypes addObject:@"org.gs1.EAN-8"];
     [self.allowedBarcodeTypes addObject:@"com.intermec.Code93"];
     [self.allowedBarcodeTypes addObject:@"org.iso.Code128"];
+
+    // Setup side bar controller
+
+    [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
     
 }
 
@@ -128,6 +133,11 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+    }else{
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+    }
     
     // capture and process the metadata
     _metadataOutput = [[AVCaptureMetadataOutput alloc] init];

@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FBSDKShareKit/FBSDKShareKit.h>
 #import "SettingsViewController.h"
 #import "GetInfoViewController.h"
 @interface InitialViewController : UIViewController<UIAlertViewDelegate, SettingsDelegate,GetInfoDelegate>

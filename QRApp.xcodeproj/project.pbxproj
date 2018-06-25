@@ -7,18 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22191C8820C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8720C88AC90042A917 /* FBSDKCoreKit.framework */; };
-		22191C8920C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8720C88AC90042A917 /* FBSDKCoreKit.framework */; };
-		22191C8A20C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8720C88AC90042A917 /* FBSDKCoreKit.framework */; };
-		22191C8C20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8B20C88AE30042A917 /* FBSDKShareKit.framework */; };
-		22191C8D20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8B20C88AE30042A917 /* FBSDKShareKit.framework */; };
-		22191C8E20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8B20C88AE30042A917 /* FBSDKShareKit.framework */; };
-		22191C9020C88D610042A917 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8F20C88D610042A917 /* Bolts.framework */; };
-		22191C9120C88D610042A917 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8F20C88D610042A917 /* Bolts.framework */; };
-		22191C9220C88D610042A917 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22191C8F20C88D610042A917 /* Bolts.framework */; };
-		222034F020CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222034EF20CAFE2E00B42153 /* FBSDKLoginKit.framework */; };
-		222034F120CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222034EF20CAFE2E00B42153 /* FBSDKLoginKit.framework */; };
-		222034F220CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 222034EF20CAFE2E00B42153 /* FBSDKLoginKit.framework */; };
+		19742AFCFE6CCF311F50C73F /* libPods-QRAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */; };
+		221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A745E20E06A9400D7A010 /* FireBaseManager.m */; };
+		221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221A746020E06AAA00D7A010 /* GoogleService-Info.plist */; };
+		221A746620E0718800D7A010 /* SpecificProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746320E0718700D7A010 /* SpecificProductModel.m */; };
+		221A746720E0718800D7A010 /* GenericProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746520E0718800D7A010 /* GenericProductModel.m */; };
+		221A746B20E0BCAB00D7A010 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746A20E0BCAB00D7A010 /* ConfirmViewController.m */; };
 		222034F520CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
 		222034F620CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
 		222034F720CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
@@ -83,6 +77,11 @@
 		22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */; };
 		22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C520C7A37500C08582 /* SuccessViewController.m */; };
 		22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029B20DDF77A000785D2 /* BarCodeModel.m */; };
+		22D8029F20DEC2F0000785D2 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029E20DEC2F0000785D2 /* UserModel.m */; };
+		22D802A320DEC466000785D2 /* RegisterUserModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */; };
+		22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */; };
+		31400BECEE91C03464A349D5 /* libPods-QRApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1B430E42046D087B9965 /* libPods-QRApp.a */; };
+		43714DBD6B2607FD78637550 /* libPods-QRAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A530A524AA71A65FAC8B90 /* libPods-QRAppUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,11 +102,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22191C8720C88AC90042A917 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		22191C8B20C88AE30042A917 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
-		22191C8F20C88D610042A917 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		22191C9420C8A4790042A917 /* ItemModel.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = ItemModel.geojson; sourceTree = "<group>"; };
-		222034EF20CAFE2E00B42153 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		221A745D20E06A9400D7A010 /* FireBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
+		221A745E20E06A9400D7A010 /* FireBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
+		221A746020E06AAA00D7A010 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		221A746220E0718700D7A010 /* GenericProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericProductModel.h; sourceTree = "<group>"; };
+		221A746320E0718700D7A010 /* SpecificProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecificProductModel.m; sourceTree = "<group>"; };
+		221A746420E0718800D7A010 /* SpecificProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecificProductModel.h; sourceTree = "<group>"; };
+		221A746520E0718800D7A010 /* GenericProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericProductModel.m; sourceTree = "<group>"; };
+		221A746920E0BCAB00D7A010 /* ConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
+		221A746A20E0BCAB00D7A010 /* ConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
 		222034F320CAFEF200B42153 /* AuditorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditorModel.h; sourceTree = "<group>"; };
 		222034F420CAFEF200B42153 /* AuditorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditorModel.m; sourceTree = "<group>"; };
 		222034F820CBA5C400B42153 /* Barcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Barcode.m; sourceTree = "<group>"; };
@@ -172,6 +176,20 @@
 		22CEF1C520C7A37500C08582 /* SuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
 		22D8029A20DDF77A000785D2 /* BarCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarCodeModel.h; sourceTree = "<group>"; };
 		22D8029B20DDF77A000785D2 /* BarCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarCodeModel.m; sourceTree = "<group>"; };
+		22D8029D20DEC2F0000785D2 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		22D8029E20DEC2F0000785D2 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterUserModalViewController.h; sourceTree = "<group>"; };
+		22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterUserModalViewController.m; sourceTree = "<group>"; };
+		22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterUserModalViewController.xib; sourceTree = "<group>"; };
+		23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QRAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		24A530A524AA71A65FAC8B90 /* libPods-QRAppUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QRAppUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		255B6DE389BDAA927A80DA10 /* Pods-QRAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QRAppTests/Pods-QRAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2A5C61D32705877B8E9BAD74 /* Pods-QRAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QRAppTests/Pods-QRAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		6EE284A58353D5C5D85C161E /* Pods-QRAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QRAppUITests/Pods-QRAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		8E4E1B430E42046D087B9965 /* libPods-QRApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QRApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B5CAFD7087C28148BD060D /* Pods-QRApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QRApp/Pods-QRApp.debug.xcconfig"; sourceTree = "<group>"; };
+		B4A6EBF4DC12514978CA2297 /* Pods-QRApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-QRApp/Pods-QRApp.release.xcconfig"; sourceTree = "<group>"; };
+		C9348A1A7CDE665C239642D9 /* Pods-QRAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-QRAppUITests/Pods-QRAppUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,10 +202,7 @@
 				2220350820CBA6F900B42153 /* UIKit.framework in Frameworks */,
 				2220350620CBA6EF00B42153 /* CoreGraphics.framework in Frameworks */,
 				2220350420CBA6E100B42153 /* CoreFoundation.framework in Frameworks */,
-				22191C9020C88D610042A917 /* Bolts.framework in Frameworks */,
-				22191C8C20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */,
-				222034F020CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */,
-				22191C8820C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */,
+				31400BECEE91C03464A349D5 /* libPods-QRApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,10 +210,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22191C9120C88D610042A917 /* Bolts.framework in Frameworks */,
-				22191C8D20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */,
-				222034F120CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */,
-				22191C8920C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */,
+				19742AFCFE6CCF311F50C73F /* libPods-QRAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -206,10 +218,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22191C9220C88D610042A917 /* Bolts.framework in Frameworks */,
-				22191C8E20C88AE30042A917 /* FBSDKShareKit.framework in Frameworks */,
-				222034F220CAFE2F00B42153 /* FBSDKLoginKit.framework in Frameworks */,
-				22191C8A20C88ACA0042A917 /* FBSDKCoreKit.framework in Frameworks */,
+				43714DBD6B2607FD78637550 /* libPods-QRAppUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +228,10 @@
 		22191C9320C8A44A0042A917 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				221A746220E0718700D7A010 /* GenericProductModel.h */,
+				221A746520E0718800D7A010 /* GenericProductModel.m */,
+				221A746420E0718800D7A010 /* SpecificProductModel.h */,
+				221A746320E0718700D7A010 /* SpecificProductModel.m */,
 				22191C9420C8A4790042A917 /* ItemModel.geojson */,
 				222034F320CAFEF200B42153 /* AuditorModel.h */,
 				222034F420CAFEF200B42153 /* AuditorModel.m */,
@@ -228,8 +241,29 @@
 				2220352320CCCB4900B42153 /* ProductModel.m */,
 				22D8029A20DDF77A000785D2 /* BarCodeModel.h */,
 				22D8029B20DDF77A000785D2 /* BarCodeModel.m */,
+				22D8029D20DEC2F0000785D2 /* UserModel.h */,
+				22D8029E20DEC2F0000785D2 /* UserModel.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		221A745C20E06A5A00D7A010 /* FireBaseManager */ = {
+			isa = PBXGroup;
+			children = (
+				221A746020E06AAA00D7A010 /* GoogleService-Info.plist */,
+				221A745D20E06A9400D7A010 /* FireBaseManager.h */,
+				221A745E20E06A9400D7A010 /* FireBaseManager.m */,
+			);
+			path = FireBaseManager;
+			sourceTree = "<group>";
+		};
+		221A746820E0BC7F00D7A010 /* Confirm */ = {
+			isa = PBXGroup;
+			children = (
+				221A746920E0BCAB00D7A010 /* ConfirmViewController.h */,
+				221A746A20E0BCAB00D7A010 /* ConfirmViewController.m */,
+			);
+			path = Confirm;
 			sourceTree = "<group>";
 		};
 		2220350220CBA6E000B42153 /* Frameworks */ = {
@@ -240,6 +274,9 @@
 				2220350720CBA6F900B42153 /* UIKit.framework */,
 				2220350520CBA6EF00B42153 /* CoreGraphics.framework */,
 				2220350320CBA6E100B42153 /* CoreFoundation.framework */,
+				8E4E1B430E42046D087B9965 /* libPods-QRApp.a */,
+				23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */,
+				24A530A524AA71A65FAC8B90 /* libPods-QRAppUITests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -256,15 +293,12 @@
 		2281D99620C6E6A300830683 = {
 			isa = PBXGroup;
 			children = (
-				222034EF20CAFE2E00B42153 /* FBSDKLoginKit.framework */,
-				22191C8F20C88D610042A917 /* Bolts.framework */,
-				22191C8B20C88AE30042A917 /* FBSDKShareKit.framework */,
-				22191C8720C88AC90042A917 /* FBSDKCoreKit.framework */,
 				2281D9A120C6E6A300830683 /* QRApp */,
 				2281D9BD20C6E6A300830683 /* QRAppTests */,
 				2281D9C820C6E6A300830683 /* QRAppUITests */,
 				2281D9A020C6E6A300830683 /* Products */,
 				2220350220CBA6E000B42153 /* Frameworks */,
+				8AF4AFEAE9940FE1589E73BF /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -281,6 +315,7 @@
 		2281D9A120C6E6A300830683 /* QRApp */ = {
 			isa = PBXGroup;
 			children = (
+				221A745C20E06A5A00D7A010 /* FireBaseManager */,
 				22C79FAD20CF74A5004EF7CF /* LoadingView */,
 				2220351720CCC80E00B42153 /* CoreDataManager */,
 				22191C9320C8A44A0042A917 /* Models */,
@@ -344,6 +379,9 @@
 				22C79FC220D01C3F004EF7CF /* GetInfoViewController.h */,
 				22C79FC320D01C3F004EF7CF /* GetInfoViewController.m */,
 				22C79FC420D01C3F004EF7CF /* GetInfoViewController.xib */,
+				22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */,
+				22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */,
+				22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -377,6 +415,7 @@
 		22CEF1B120C77E3300C08582 /* Secctions */ = {
 			isa = PBXGroup;
 			children = (
+				221A746820E0BC7F00D7A010 /* Confirm */,
 				22C79FB320D01720004EF7CF /* Modal */,
 				22CEF1BE20C7A32700C08582 /* Auditorias */,
 				22CEF1BA20C7A26B00C08582 /* Items */,
@@ -443,6 +482,19 @@
 			path = Success;
 			sourceTree = "<group>";
 		};
+		8AF4AFEAE9940FE1589E73BF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B0B5CAFD7087C28148BD060D /* Pods-QRApp.debug.xcconfig */,
+				B4A6EBF4DC12514978CA2297 /* Pods-QRApp.release.xcconfig */,
+				255B6DE389BDAA927A80DA10 /* Pods-QRAppTests.debug.xcconfig */,
+				2A5C61D32705877B8E9BAD74 /* Pods-QRAppTests.release.xcconfig */,
+				6EE284A58353D5C5D85C161E /* Pods-QRAppUITests.debug.xcconfig */,
+				C9348A1A7CDE665C239642D9 /* Pods-QRAppUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -450,9 +502,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2281D9CE20C6E6A300830683 /* Build configuration list for PBXNativeTarget "QRApp" */;
 			buildPhases = (
+				DDD116DA44C21FDFEEA7FAA2 /* [CP] Check Pods Manifest.lock */,
 				2281D99B20C6E6A300830683 /* Sources */,
 				2281D99C20C6E6A300830683 /* Frameworks */,
 				2281D99D20C6E6A300830683 /* Resources */,
+				64E2F4241B2989E02A828D62 /* [CP] Embed Pods Frameworks */,
+				9F5838E92B3DC33F7F0BD16F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -467,9 +522,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2281D9D120C6E6A300830683 /* Build configuration list for PBXNativeTarget "QRAppTests" */;
 			buildPhases = (
+				C8231CF8067EBAA386347AE0 /* [CP] Check Pods Manifest.lock */,
 				2281D9B620C6E6A300830683 /* Sources */,
 				2281D9B720C6E6A300830683 /* Frameworks */,
 				2281D9B820C6E6A300830683 /* Resources */,
+				A0F3EC912D064346A27CAA1A /* [CP] Embed Pods Frameworks */,
+				454A56D184868DFB213C71E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -485,9 +543,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2281D9D420C6E6A300830683 /* Build configuration list for PBXNativeTarget "QRAppUITests" */;
 			buildPhases = (
+				0EB4537B7EB429D004DA2F87 /* [CP] Check Pods Manifest.lock */,
 				2281D9C120C6E6A300830683 /* Sources */,
 				2281D9C220C6E6A300830683 /* Frameworks */,
 				2281D9C320C6E6A300830683 /* Resources */,
+				BFCEF9C636A4C8D58F5A1DF4 /* [CP] Embed Pods Frameworks */,
+				7F7BADB4F6D6A936BE8406D8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -549,11 +610,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */,
 				2281D9B220C6E6A300830683 /* LaunchScreen.storyboard in Resources */,
 				22C79FC820D01C40004EF7CF /* GetInfoViewController.xib in Resources */,
 				22C79FAC20CEE650004EF7CF /* TableViewCell.xib in Resources */,
 				2281D9AF20C6E6A300830683 /* Assets.xcassets in Resources */,
 				2281D9AA20C6E6A300830683 /* Main.storyboard in Resources */,
+				221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,18 +638,168 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0EB4537B7EB429D004DA2F87 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QRAppUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		454A56D184868DFB213C71E6 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRAppTests/Pods-QRAppTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		64E2F4241B2989E02A828D62 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRApp/Pods-QRApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7F7BADB4F6D6A936BE8406D8 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRAppUITests/Pods-QRAppUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F5838E92B3DC33F7F0BD16F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRApp/Pods-QRApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A0F3EC912D064346A27CAA1A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRAppTests/Pods-QRAppTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BFCEF9C636A4C8D58F5A1DF4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-QRAppUITests/Pods-QRAppUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8231CF8067EBAA386347AE0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QRAppTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DDD116DA44C21FDFEEA7FAA2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QRApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2281D99B20C6E6A300830683 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				22CEF1B920C7804D00C08582 /* InitialViewController.m in Sources */,
+				22D8029F20DEC2F0000785D2 /* UserModel.m in Sources */,
 				222034F520CAFEF200B42153 /* AuditorModel.m in Sources */,
 				222034FA20CBA5C500B42153 /* Barcode.m in Sources */,
 				2220350B20CBA71900B42153 /* SettingsViewController.m in Sources */,
+				221A746620E0718800D7A010 /* SpecificProductModel.m in Sources */,
 				22CEF1A720C7065400C08582 /* QRCodeGenerator.m in Sources */,
 				222034FF20CBA5FD00B42153 /* ScannerViewController.m in Sources */,
 				22CEF1AA20C7065400C08582 /* NSString+Utils.m in Sources */,
+				22D802A320DEC466000785D2 /* RegisterUserModalViewController.m in Sources */,
 				22C79FAB20CEE650004EF7CF /* TableViewCell.m in Sources */,
 				2220352420CCCB4900B42153 /* ProductModel.m in Sources */,
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
@@ -598,8 +811,11 @@
 				2281D9B520C6E6A300830683 /* main.m in Sources */,
 				22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */,
 				2220351A20CCC84E00B42153 /* CoreDataManager.m in Sources */,
+				221A746B20E0BCAB00D7A010 /* ConfirmViewController.m in Sources */,
 				2281D9A420C6E6A300830683 /* AppDelegate.m in Sources */,
+				221A746720E0718800D7A010 /* GenericProductModel.m in Sources */,
 				22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */,
+				221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */,
 				22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */,
 				22CEF1B420C7801900C08582 /* RegisterProductViewController.m in Sources */,
 				2220351220CC100700B42153 /* InspectionViewController.m in Sources */,
@@ -790,6 +1006,7 @@
 		};
 		2281D9CF20C6E6A300830683 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0B5CAFD7087C28148BD060D /* Pods-QRApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -809,6 +1026,7 @@
 		};
 		2281D9D020C6E6A300830683 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B4A6EBF4DC12514978CA2297 /* Pods-QRApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -828,6 +1046,7 @@
 		};
 		2281D9D220C6E6A300830683 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 255B6DE389BDAA927A80DA10 /* Pods-QRAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -846,6 +1065,7 @@
 		};
 		2281D9D320C6E6A300830683 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2A5C61D32705877B8E9BAD74 /* Pods-QRAppTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -864,6 +1084,7 @@
 		};
 		2281D9D520C6E6A300830683 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6EE284A58353D5C5D85C161E /* Pods-QRAppUITests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -881,6 +1102,7 @@
 		};
 		2281D9D620C6E6A300830683 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9348A1A7CDE665C239642D9 /* Pods-QRAppUITests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				FRAMEWORK_SEARCH_PATHS = (

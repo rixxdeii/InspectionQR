@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
+@import Firebase;
 
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate ()
+
 
 @end
 
@@ -19,9 +20,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
+    [FIRApp configure];
+
     return YES;
 }
 
@@ -45,7 +45,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [FBSDKAppEvents activateApp];
+    
 
 }
 
@@ -100,19 +100,6 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
-}
-
-- (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
-    
-    BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                  openURL:url
-                                                        sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
-                                                               annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
-                    ];
-    // Add any custom logic here.
-    return handled;
 }
 
 @end
