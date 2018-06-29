@@ -51,6 +51,15 @@
 		2281D9B520C6E6A300830683 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9B420C6E6A300830683 /* main.m */; };
 		2281D9BF20C6E6A300830683 /* QRAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9BE20C6E6A300830683 /* QRAppTests.m */; };
 		2281D9CA20C6E6A300830683 /* QRAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9C920C6E6A300830683 /* QRAppUITests.m */; };
+		22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */; };
+		22B7D80020E31340005C4214 /* CustomNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D7FF20E31340005C4214 /* CustomNavigationControllerViewController.m */; };
+		22B7D80320E313B2005C4214 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80120E313B1005C4214 /* UserModel.m */; };
+		22B7D80920E40757005C4214 /* LiberationPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80820E40757005C4214 /* LiberationPaper.m */; };
+		22B7D80D20E48233005C4214 /* AchiveViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */; };
+		22B7D80E20E48233005C4214 /* AchiveViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */; };
+		22B7D81320E4B5F6005C4214 /* LoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D81120E4B5F6005C4214 /* LoteTableViewCell.m */; };
+		22B7D81420E4B5F6005C4214 /* LoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B7D81220E4B5F6005C4214 /* LoteTableViewCell.xib */; };
+		22B7D81D20E56780005C4214 /* InspectionHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D81A20E56780005C4214 /* InspectionHeaderTableViewCell.m */; };
 		22C79FAB20CEE650004EF7CF /* TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C79FA920CEE650004EF7CF /* TableViewCell.m */; };
 		22C79FAC20CEE650004EF7CF /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C79FAA20CEE650004EF7CF /* TableViewCell.xib */; };
 		22C79FB020CF750A004EF7CF /* ERProgressHud.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C79FAF20CF750A004EF7CF /* ERProgressHud.m */; };
@@ -77,7 +86,6 @@
 		22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */; };
 		22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C520C7A37500C08582 /* SuccessViewController.m */; };
 		22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029B20DDF77A000785D2 /* BarCodeModel.m */; };
-		22D8029F20DEC2F0000785D2 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029E20DEC2F0000785D2 /* UserModel.m */; };
 		22D802A320DEC466000785D2 /* RegisterUserModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */; };
 		22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */; };
 		31400BECEE91C03464A349D5 /* libPods-QRApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1B430E42046D087B9965 /* libPods-QRApp.a */; };
@@ -133,7 +141,7 @@
 		2220351E20CCC99900B42153 /* InspectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectionModel.m; sourceTree = "<group>"; };
 		2220352220CCCB4900B42153 /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
 		2220352320CCCB4900B42153 /* ProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
-		2281D99F20C6E6A300830683 /* QRApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2281D99F20C6E6A300830683 /* FederalMogulM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FederalMogulM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2281D9A220C6E6A300830683 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2281D9A320C6E6A300830683 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		2281D9A520C6E6A300830683 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -150,6 +158,22 @@
 		2281D9C520C6E6A300830683 /* QRAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2281D9C920C6E6A300830683 /* QRAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAppUITests.m; sourceTree = "<group>"; };
 		2281D9CB20C6E6A300830683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22B7D7FA20E3104F005C4214 /* GlobalpositionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalpositionViewController.h; sourceTree = "<group>"; };
+		22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalpositionViewController.m; sourceTree = "<group>"; };
+		22B7D7FE20E3133F005C4214 /* CustomNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationControllerViewController.h; sourceTree = "<group>"; };
+		22B7D7FF20E31340005C4214 /* CustomNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationControllerViewController.m; sourceTree = "<group>"; };
+		22B7D80120E313B1005C4214 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = "../../../Federalmogul Proyect/FederalMogulMovil/FederalMogulMovil/Models/UserModel.m"; sourceTree = "<group>"; };
+		22B7D80220E313B2005C4214 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = "../../../Federalmogul Proyect/FederalMogulMovil/FederalMogulMovil/Models/UserModel.h"; sourceTree = "<group>"; };
+		22B7D80720E40757005C4214 /* LiberationPaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiberationPaper.h; sourceTree = "<group>"; };
+		22B7D80820E40757005C4214 /* LiberationPaper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiberationPaper.m; sourceTree = "<group>"; };
+		22B7D80A20E48233005C4214 /* AchiveViewerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchiveViewerViewController.h; sourceTree = "<group>"; };
+		22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchiveViewerViewController.m; sourceTree = "<group>"; };
+		22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchiveViewerViewController.xib; sourceTree = "<group>"; };
+		22B7D81020E4B5F6005C4214 /* LoteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoteTableViewCell.h; sourceTree = "<group>"; };
+		22B7D81120E4B5F6005C4214 /* LoteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoteTableViewCell.m; sourceTree = "<group>"; };
+		22B7D81220E4B5F6005C4214 /* LoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoteTableViewCell.xib; sourceTree = "<group>"; };
+		22B7D81A20E56780005C4214 /* InspectionHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionHeaderTableViewCell.m; sourceTree = "<group>"; };
+		22B7D81C20E56780005C4214 /* InspectionHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectionHeaderTableViewCell.h; sourceTree = "<group>"; };
 		22C79FA820CEE650004EF7CF /* TableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TableViewCell.h; sourceTree = "<group>"; };
 		22C79FA920CEE650004EF7CF /* TableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TableViewCell.m; sourceTree = "<group>"; };
 		22C79FAA20CEE650004EF7CF /* TableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
@@ -176,8 +200,6 @@
 		22CEF1C520C7A37500C08582 /* SuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
 		22D8029A20DDF77A000785D2 /* BarCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarCodeModel.h; sourceTree = "<group>"; };
 		22D8029B20DDF77A000785D2 /* BarCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarCodeModel.m; sourceTree = "<group>"; };
-		22D8029D20DEC2F0000785D2 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		22D8029E20DEC2F0000785D2 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterUserModalViewController.h; sourceTree = "<group>"; };
 		22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterUserModalViewController.m; sourceTree = "<group>"; };
 		22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterUserModalViewController.xib; sourceTree = "<group>"; };
@@ -228,6 +250,8 @@
 		22191C9320C8A44A0042A917 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				22B7D80220E313B2005C4214 /* UserModel.h */,
+				22B7D80120E313B1005C4214 /* UserModel.m */,
 				221A746220E0718700D7A010 /* GenericProductModel.h */,
 				221A746520E0718800D7A010 /* GenericProductModel.m */,
 				221A746420E0718800D7A010 /* SpecificProductModel.h */,
@@ -241,8 +265,8 @@
 				2220352320CCCB4900B42153 /* ProductModel.m */,
 				22D8029A20DDF77A000785D2 /* BarCodeModel.h */,
 				22D8029B20DDF77A000785D2 /* BarCodeModel.m */,
-				22D8029D20DEC2F0000785D2 /* UserModel.h */,
-				22D8029E20DEC2F0000785D2 /* UserModel.m */,
+				22B7D80720E40757005C4214 /* LiberationPaper.h */,
+				22B7D80820E40757005C4214 /* LiberationPaper.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -305,7 +329,7 @@
 		2281D9A020C6E6A300830683 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				2281D99F20C6E6A300830683 /* QRApp.app */,
+				2281D99F20C6E6A300830683 /* FederalMogulM.app */,
 				2281D9BA20C6E6A300830683 /* QRAppTests.xctest */,
 				2281D9C520C6E6A300830683 /* QRAppUITests.xctest */,
 			);
@@ -315,6 +339,7 @@
 		2281D9A120C6E6A300830683 /* QRApp */ = {
 			isa = PBXGroup;
 			children = (
+				22B7D7FD20E312DB005C4214 /* Navigation */,
 				221A745C20E06A5A00D7A010 /* FireBaseManager */,
 				22C79FAD20CF74A5004EF7CF /* LoadingView */,
 				2220351720CCC80E00B42153 /* CoreDataManager */,
@@ -354,6 +379,38 @@
 			path = QRAppUITests;
 			sourceTree = "<group>";
 		};
+		22B7D7F920E31032005C4214 /* GlobalPosition */ = {
+			isa = PBXGroup;
+			children = (
+				22B7D7FA20E3104F005C4214 /* GlobalpositionViewController.h */,
+				22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */,
+			);
+			path = GlobalPosition;
+			sourceTree = "<group>";
+		};
+		22B7D7FD20E312DB005C4214 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				22B7D7FE20E3133F005C4214 /* CustomNavigationControllerViewController.h */,
+				22B7D7FF20E31340005C4214 /* CustomNavigationControllerViewController.m */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		22B7D80F20E4B5C7005C4214 /* Inspection */ = {
+			isa = PBXGroup;
+			children = (
+				22B7D81C20E56780005C4214 /* InspectionHeaderTableViewCell.h */,
+				22B7D81A20E56780005C4214 /* InspectionHeaderTableViewCell.m */,
+				2220351020CC100700B42153 /* InspectionViewController.h */,
+				2220351120CC100700B42153 /* InspectionViewController.m */,
+				22B7D81020E4B5F6005C4214 /* LoteTableViewCell.h */,
+				22B7D81120E4B5F6005C4214 /* LoteTableViewCell.m */,
+				22B7D81220E4B5F6005C4214 /* LoteTableViewCell.xib */,
+			);
+			path = Inspection;
+			sourceTree = "<group>";
+		};
 		22C79FA720CED993004EF7CF /* cellItem */ = {
 			isa = PBXGroup;
 			children = (
@@ -382,6 +439,9 @@
 				22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */,
 				22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */,
 				22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */,
+				22B7D80A20E48233005C4214 /* AchiveViewerViewController.h */,
+				22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */,
+				22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -415,14 +475,14 @@
 		22CEF1B120C77E3300C08582 /* Secctions */ = {
 			isa = PBXGroup;
 			children = (
+				22B7D80F20E4B5C7005C4214 /* Inspection */,
+				22B7D7F920E31032005C4214 /* GlobalPosition */,
 				221A746820E0BC7F00D7A010 /* Confirm */,
 				22C79FB320D01720004EF7CF /* Modal */,
 				22CEF1BE20C7A32700C08582 /* Auditorias */,
 				22CEF1BA20C7A26B00C08582 /* Items */,
 				22CEF1B620C7803200C08582 /* InitialViewcontroller */,
 				22CEF1B520C7802200C08582 /* Register */,
-				2220351020CC100700B42153 /* InspectionViewController.h */,
-				2220351120CC100700B42153 /* InspectionViewController.m */,
 			);
 			path = Secctions;
 			sourceTree = "<group>";
@@ -498,9 +558,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		2281D99E20C6E6A300830683 /* QRApp */ = {
+		2281D99E20C6E6A300830683 /* FederalMogulM */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2281D9CE20C6E6A300830683 /* Build configuration list for PBXNativeTarget "QRApp" */;
+			buildConfigurationList = 2281D9CE20C6E6A300830683 /* Build configuration list for PBXNativeTarget "FederalMogulM" */;
 			buildPhases = (
 				DDD116DA44C21FDFEEA7FAA2 /* [CP] Check Pods Manifest.lock */,
 				2281D99B20C6E6A300830683 /* Sources */,
@@ -513,9 +573,9 @@
 			);
 			dependencies = (
 			);
-			name = QRApp;
+			name = FederalMogulM;
 			productName = QRApp;
-			productReference = 2281D99F20C6E6A300830683 /* QRApp.app */;
+			productReference = 2281D99F20C6E6A300830683 /* FederalMogulM.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2281D9B920C6E6A300830683 /* QRAppTests */ = {
@@ -598,7 +658,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				2281D99E20C6E6A300830683 /* QRApp */,
+				2281D99E20C6E6A300830683 /* FederalMogulM */,
 				2281D9B920C6E6A300830683 /* QRAppTests */,
 				2281D9C420C6E6A300830683 /* QRAppUITests */,
 			);
@@ -610,11 +670,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22B7D80E20E48233005C4214 /* AchiveViewerViewController.xib in Resources */,
 				22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */,
 				2281D9B220C6E6A300830683 /* LaunchScreen.storyboard in Resources */,
 				22C79FC820D01C40004EF7CF /* GetInfoViewController.xib in Resources */,
 				22C79FAC20CEE650004EF7CF /* TableViewCell.xib in Resources */,
 				2281D9AF20C6E6A300830683 /* Assets.xcassets in Resources */,
+				22B7D81420E4B5F6005C4214 /* LoteTableViewCell.xib in Resources */,
 				2281D9AA20C6E6A300830683 /* Main.storyboard in Resources */,
 				221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */,
 			);
@@ -790,10 +852,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22B7D81320E4B5F6005C4214 /* LoteTableViewCell.m in Sources */,
 				22CEF1B920C7804D00C08582 /* InitialViewController.m in Sources */,
-				22D8029F20DEC2F0000785D2 /* UserModel.m in Sources */,
 				222034F520CAFEF200B42153 /* AuditorModel.m in Sources */,
 				222034FA20CBA5C500B42153 /* Barcode.m in Sources */,
+				22B7D80920E40757005C4214 /* LiberationPaper.m in Sources */,
 				2220350B20CBA71900B42153 /* SettingsViewController.m in Sources */,
 				221A746620E0718800D7A010 /* SpecificProductModel.m in Sources */,
 				22CEF1A720C7065400C08582 /* QRCodeGenerator.m in Sources */,
@@ -803,11 +866,16 @@
 				22C79FAB20CEE650004EF7CF /* TableViewCell.m in Sources */,
 				2220352420CCCB4900B42153 /* ProductModel.m in Sources */,
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
+				22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */,
+				22B7D80D20E48233005C4214 /* AchiveViewerViewController.m in Sources */,
+				22B7D80320E313B2005C4214 /* UserModel.m in Sources */,
 				22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */,
 				22C79FC520D01C3F004EF7CF /* GetInfoViewController.m in Sources */,
 				2281D9A720C6E6A300830683 /* ViewController.m in Sources */,
 				2220351F20CCC99900B42153 /* InspectionModel.m in Sources */,
 				22CEF1AD20C7065400C08582 /* CIColor+QRCode.m in Sources */,
+				22B7D81D20E56780005C4214 /* InspectionHeaderTableViewCell.m in Sources */,
+				22B7D80020E31340005C4214 /* CustomNavigationControllerViewController.m in Sources */,
 				2281D9B520C6E6A300830683 /* main.m in Sources */,
 				22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */,
 				2220351A20CCC84E00B42153 /* CoreDataManager.m in Sources */,
@@ -870,12 +938,12 @@
 /* Begin PBXTargetDependency section */
 		2281D9BC20C6E6A300830683 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2281D99E20C6E6A300830683 /* QRApp */;
+			target = 2281D99E20C6E6A300830683 /* FederalMogulM */;
 			targetProxy = 2281D9BB20C6E6A300830683 /* PBXContainerItemProxy */;
 		};
 		2281D9C720C6E6A300830683 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2281D99E20C6E6A300830683 /* QRApp */;
+			target = 2281D99E20C6E6A300830683 /* FederalMogulM */;
 			targetProxy = 2281D9C620C6E6A300830683 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1130,7 +1198,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2281D9CE20C6E6A300830683 /* Build configuration list for PBXNativeTarget "QRApp" */ = {
+		2281D9CE20C6E6A300830683 /* Build configuration list for PBXNativeTarget "FederalMogulM" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2281D9CF20C6E6A300830683 /* Debug */,

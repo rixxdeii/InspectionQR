@@ -14,9 +14,9 @@
 
 @property (nonatomic, strong) NSString * nivelRevision;
 
-@property (nonatomic, strong) NSArray * especificaciones;
+@property (nonatomic, strong) NSDictionary * especificaciones;
 @property (nonatomic, strong) NSString * muestra;
-@property (nonatomic, strong) NSString * caracterisiticaCritica;
+
 @property (nonatomic, strong) NSString * almacenaje;
 
 @property (nonatomic, strong) NSArray * urlsDocumentos;

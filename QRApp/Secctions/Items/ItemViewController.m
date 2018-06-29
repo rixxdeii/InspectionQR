@@ -19,8 +19,9 @@
     
 }
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
     self.title =@"";
 }

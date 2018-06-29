@@ -10,6 +10,8 @@
 #import "SpecificProductModel.h"
 #import "GenericProductModel.h"
 
+
+
 @import Firebase;
 @protocol FirebaseManagerDelegate
 -(void)GPStatusChanged:(GenericProductModel *)newModel;
@@ -25,7 +27,7 @@
 +(void)saveGProduct:(GenericProductModel *)model;
 +(void)saveSProduct:(SpecificProductModel *)model;
 
-+(void)getGProduct:(NSString *)model delegate:(id)delegate ;
-+(void)getSProduct:(NSString *)model lote:(NSString *)lote delegate:(id)delegate;
+-(void)getGProduct:(NSString *)model completion:(void(^)(BOOL isOK, GenericProductModel *newModel))completion;
+-(void)getSProduct:(NSString *)model lote:(NSString *)lote completion:(void(^)(BOOL isOK, SpecificProductModel *newModel))completion;
 
 @end

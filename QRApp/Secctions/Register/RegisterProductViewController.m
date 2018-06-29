@@ -10,6 +10,7 @@
 #import "CoreDataManager.h"
 #import "GenericProductModel.h"
 #import "ConfirmViewController.h"
+#import "AchiveViewerViewController.h"
 
 typedef enum : NSUInteger {
     KQimico,
@@ -20,8 +21,10 @@ typedef enum : NSUInteger {
 @interface RegisterProductViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
     BOOL isFrio;
+    BOOL isCritica;
     TipoProducto producto;
 }
+@property (weak, nonatomic) IBOutlet UITextField *tipoIstrumentoTXT;
 
 @property (weak, nonatomic) IBOutlet UITextField *noParteText;
 @property (weak, nonatomic) IBOutlet UITextField *descripText;
@@ -51,12 +54,13 @@ typedef enum : NSUInteger {
     _arr_measures = [[NSMutableArray alloc]init];
     isFrio = YES;
     producto = KQimico;
+    isCritica = YES;
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO];
-    self.title =@"Registro de producto";
+    self.title =@"";
 }
 
 - (IBAction)didUserContinueTap:(id)sender
@@ -130,7 +134,6 @@ typedef enum : NSUInteger {
     GP.descript  =_descripText.text;
     GP.nivelRevision  =_nRevisionText.text;
     GP.especificaciones  =_arr_measures;
-    GP.caracterisiticaCritica  =@"";
     GP.muestra  =tamanodemuestra;
     GP.almacenaje  =almacenaje;
     GP.tipoproducto = tipo ;
@@ -150,15 +153,19 @@ typedef enum : NSUInteger {
 - (IBAction)addMeasure:(id)sender
 {
     if (_tipoMeasure.isOn) {
+        
         [_arr_measures addObject:@{@"MeasureName":_meausteTXT.text,
                                    @"LS":@"",
                                    @"LM":@"",
-                                   @"LI":@""
+                                   @"LI":@"",
+                                   @"isCritica":isCritica?@"YES":@"NO",
+                                   @"tipoIstrumento":@"visual"
                                    }];
         _LSTXT.text = @"";
         _MTXT.text = @"";
         _LITXT.text= @"";
         _meausteTXT.text =@"";
+        _tipoIstrumentoTXT.text = @"";
         
      [_tb reloadData];
         return;
@@ -168,12 +175,15 @@ typedef enum : NSUInteger {
     if (![_LSTXT.text isEqualToString:@""]
         &&![_LITXT.text isEqualToString:@""]
         &&![_MTXT.text isEqualToString:@""]
-        &&![_meausteTXT.text isEqualToString:@""]) {
+        &&![_meausteTXT.text isEqualToString:@""]
+        &&![_tipoIstrumentoTXT.text isEqualToString:@""]) {
     
         [_arr_measures addObject:@{@"MeasureName":_meausteTXT.text,
                          @"LS":_LSTXT.text,
                          @"LM":_MTXT.text,
-                         @"LI":_LITXT.text
+                         @"LI":_LITXT.text,
+                         @"isCritica":isCritica?@"YES":@"NO",
+                         @"tipoIstrumento":_tipoIstrumentoTXT.text
                          }];
         
         [_tb reloadData];
@@ -181,6 +191,7 @@ typedef enum : NSUInteger {
         _MTXT.text = @"";
         _LITXT.text= @"";
         _meausteTXT.text =@"";
+        
         
         
     }else
@@ -207,14 +218,22 @@ typedef enum : NSUInteger {
     NSString * ls = [measure objectForKey:@"LS"];
     NSString * m = [measure objectForKey:@"LM"];
     NSString * li = [measure objectForKey:@"LI"];
+    NSString * tipoInstrumento = [measure objectForKey:@"tipoIstrumento"];
+//    @"isCritica":isCritica?@"YES":@"NO",
+//    @"tipoIstrumento":@"visual"
     
-    cell.textLabel.text =[NSString stringWithFormat:@"%@:  Targ: %@   Tol: %@  UM: %@",name,li,ls,m];
+//    cell.textLabel.text =[NSString stringWithFormat:@"%@:  Targ: %@   Tol: %@  UM: %@  Instrumrnto: %@",name,li,ls,m,tipoInstrumento];
     
     if ([ls isEqualToString:@""]) {
-        cell.textLabel.text =[NSString stringWithFormat:@"%@    OK",name];
+        cell.textLabel.text =[NSString stringWithFormat:@"%@    OK  %@",name,tipoInstrumento];
     }else{
-         cell.textLabel.text =[NSString stringWithFormat:@"%@:  Targ: %@   Tol: %@  UM: %@",name,li,ls,m];
+         cell.textLabel.text =[NSString stringWithFormat:@"%@:  Targ: %@   Tol: %@  UM: %@  %@",name,li,ls,m,tipoInstrumento];
     }
+    
+    if (isCritica) {
+        [cell.textLabel setTextColor:[UIColor redColor]];
+    }
+    
     
     return cell;
     
@@ -224,6 +243,14 @@ typedef enum : NSUInteger {
     [self.view endEditing:YES];
 }
 - (IBAction)addArchive:(id)sender {
+    
+    if (![_noParteText.text isEqualToString:@""]) {
+        AchiveViewerViewController * archive = [[AchiveViewerViewController alloc]init];
+        archive.url = _noParteText.text;
+        self.definesPresentationContext = YES; //self is presenting view controller
+        archive.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        [self presentViewController:archive animated:YES completion:nil];
+    }
 }
 - (IBAction)userDidSelectTypeProdut:(UISegmentedControl *)sender
 {
@@ -288,6 +315,15 @@ typedef enum : NSUInteger {
     [_LSTXT setEnabled:!sender.isOn];
     [_LITXT setEnabled:!sender.isOn];
     [_MTXT setEnabled:!sender.isOn];
+    _tipoIstrumentoTXT.enabled = !sender.isOn;
+
+    
+    if (!sender.isOn)
+    {
+        _tipoIstrumentoTXT.text = @"";
+    }else{
+        _tipoIstrumentoTXT.text = @"Visual";
+    }
     
 }
 
@@ -297,6 +333,11 @@ typedef enum : NSUInteger {
         ConfirmViewController * VC =[segue destinationViewController];
         VC.product = sender;
     }
+    
+}
+- (IBAction)userDidTapMedidaCritica:(UISwitch *)sender {
+    
+    isCritica = [sender isOn];
     
 }
 

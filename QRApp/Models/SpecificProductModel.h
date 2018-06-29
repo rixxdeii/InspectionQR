@@ -11,6 +11,7 @@
 
 @interface SpecificProductModel : GenericProductModel
 
+@property (nonatomic, strong) NSString * fechaInspeccion;
 @property (nonatomic, strong) NSString * fechaLLegada;
 @property (nonatomic, strong) NSString * fechaManufactura;
 @property (nonatomic, strong) NSString * turno;

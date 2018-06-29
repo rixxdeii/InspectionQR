@@ -1,29 +1,22 @@
 //
-//  InspectionViewController.m
-//  QRApp
+//  GlobalpositionViewController.m
+//  FederalMogulM
 //
-//  Created by Ricardo Rojas on 09/06/18.
+//  Created by Ricardo Rojas on 26/06/18.
 //  Copyright © 2018 Ricardo Rojas. All rights reserved.
 //
 
-#import "InspectionViewController.h"
-#include "LMSideBarController.h"
-#import "UIViewController+LMSideBarController.h"
+#import "GlobalpositionViewController.h"
 
-@interface InspectionViewController ()
+@interface GlobalpositionViewController ()
 
 @end
 
-@implementation InspectionViewController
+@implementation GlobalpositionViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.infolabel setText:_textLable];
     // Do any additional setup after loading the view.
-    // Init side bar styles
-
-      [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -37,13 +37,38 @@
     [_data addObject:[NSString stringWithFormat:@"Tamaño de muestra: %@",_product.muestra]];
     [_data addObject:[NSString stringWithFormat:@"AlmecenarFrio: %@",_product.almacenaje]];
     [_data addObject:[NSString stringWithFormat:@"Tipo de producto: %@",_product.tipoproducto]];
-    
-    
+    [self getSpecifications:_product.especificaciones];
+
 }
+
+-(void)getSpecifications:(NSArray *)arr
+{
+    for (NSDictionary  * arrHelper in arr) {
+        
+                    NSString * name = [arrHelper objectForKey:@"MeasureName"];
+                    NSString * ls = [arrHelper objectForKey:@"LS"];
+                    NSString * m = [arrHelper objectForKey:@"LM"];
+                    NSString * li = [arrHelper objectForKey:@"LI"];
+                    NSString * tipoInstrumento = [arrHelper objectForKey:@"tipoIstrumento"];
+        
+        
+            if ([ls isEqualToString:@""]) {
+                
+                [_data addObject:[NSString stringWithFormat:@"%@    OK   %@",name,tipoInstrumento]];
+            }else{
+                [_data addObject:[NSString stringWithFormat:@"%@:  Targ: %@   Tol: %@  UM: %@  %@",name,li,ls,m,tipoInstrumento]];
+                
+            }
+        
+    }
+}
+
+
+
 -(void)viewDidAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:NO];
-    self.title =@"Confirmación";
+    self.title =@"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -53,6 +78,7 @@
 - (IBAction)userDidTapConfirm:(id)sender
 {
     [FireBaseManager saveGProduct:_product];
+    [self performSegueWithIdentifier:@"segue" sender:nil];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

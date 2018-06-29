@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2281D99E20C6E6A300830683"
-               BuildableName = "QRApp.app"
-               BlueprintName = "QRApp"
+               BuildableName = "FederalMogulM.app"
+               BlueprintName = "FederalMogulM"
                ReferencedContainer = "container:QRApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -54,8 +54,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2281D99E20C6E6A300830683"
-            BuildableName = "QRApp.app"
-            BlueprintName = "QRApp"
+            BuildableName = "FederalMogulM.app"
+            BlueprintName = "FederalMogulM"
             ReferencedContainer = "container:QRApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -78,8 +78,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2281D99E20C6E6A300830683"
-            BuildableName = "QRApp.app"
-            BlueprintName = "QRApp"
+            BuildableName = "FederalMogulM.app"
+            BlueprintName = "FederalMogulM"
             ReferencedContainer = "container:QRApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -103,8 +103,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2281D99E20C6E6A300830683"
-            BuildableName = "QRApp.app"
-            BlueprintName = "QRApp"
+            BuildableName = "FederalMogulM.app"
+            BlueprintName = "FederalMogulM"
             ReferencedContainer = "container:QRApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

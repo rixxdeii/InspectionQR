@@ -22,9 +22,8 @@
     NSDictionary * dicTosend = @{@"noParte":model.noParte,
                                     @"descript":model.descript,
                                  @"nivelRevision":model.nivelRevision,
-                                 @"especificaciones":[NSString stringWithFormat:@"%@",model.especificaciones],
+                                 @"especificaciones":model.especificaciones,
                                  @"muestra":model.muestra,
-                                 @"caracterisiticaCritica":model.caracterisiticaCritica,
                                  @"almacenajeFrio":model.almacenaje,
                                  @"tipoproducto":model.tipoproducto
                                  //@"urlsDocumentos":model.urlsDocumentos,
@@ -61,38 +60,50 @@
 
 
 
-+(void)getGProduct:(NSString *)model delegate:(id<FirebaseManagerDelegate> )delegate
+-(void)getGProduct:(NSString *)model completion:(void(^)(BOOL isOK, GenericProductModel *newModel))completion //valida:(blockGP)valida
 {
+    
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     [[[ref child:@"genericProduct"] child:model] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
 
         GenericProductModel * GP = [[GenericProductModel alloc]init];
         
+        if (snapshot.value[@"noParte"] == nil) {
+            completion(NO, nil);;
+        }
+        
         GP.noParte = snapshot.value[@"noParte"];
         GP.descript  =snapshot.value[@"descript"];
         GP.nivelRevision  =@"nivelRevision";
-        GP.especificaciones  =snapshot.value[@""];
-        GP.caracterisiticaCritica  =snapshot.value[@"caracterisiticaCritica"];
+        GP.especificaciones  =snapshot.value[@"especificaciones"];
         GP.muestra  =snapshot.value[@"muestra"];
         GP.almacenaje  =snapshot.value[@"almacenajeFrio"];
         GP.tipoproducto = snapshot.value[@"tipoproducto"];
-    
-        [delegate GPStatusChanged:GP];
+        
+        
+        completion(YES, GP);
+       
         
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
-        [delegate GPStatusChanged:nil];
+        //[delegate GPStatusChanged:nil];
+        completion(NO,nil);
+        
     }];
-    
-    
-    
+
 }
-+(void)getSProduct:(NSString *)model lote:(NSString *)lote delegate:(id<FirebaseManagerDelegate> )delegate
+
+-(void)getSProduct:(NSString *)model lote:(NSString *)lote completion:(void(^)(BOOL isOK, SpecificProductModel *newModel))completion
 {
     
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     [[[ref child:@"specificProduct"] child:[NSString stringWithFormat:@"%@-%@",model,lote]] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         // Get user value
+    
+        if (snapshot.value[@"noParte"] == nil) {
+            completion(NO, nil);
+        }
+        
         SpecificProductModel * SP = [[SpecificProductModel alloc]init];
         
         SP.noParte = snapshot.value[@"noParte"];
@@ -105,13 +116,14 @@
         SP.inspector = snapshot.value[@"inspector"];
         SP.descript = snapshot.value[@"descript"];
 
-        [delegate GPStatusChanged:SP];
+        completion(YES, SP);
+        
         // ...
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
-        [delegate GPStatusChanged:nil];
+       
+        completion(NO, nil);
     }];
-    
     
 }
 

@@ -303,7 +303,7 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
                 
             }else
             {
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No esta registrado en la compania." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:@"", nil];
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No esta registrado en la compania." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                 [alert show];
                 [self startRunning];
                 
