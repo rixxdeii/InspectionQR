@@ -12,31 +12,29 @@
 @implementation CoreDataManager
 
 
-+(void)saveIspection:(InspectionModel *)inspection
++(void)loteStatusPendiente:(LoteModel *)lote;
 {
     
     NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     
-    NSManagedObject *inspectionData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
+    NSManagedObject *loteData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
     
-    //    auditor
-    //    fecha
-    //    idinspection
-    //    qrcode
-    //    sizeMuestra
-    //    status
-    //email
+
+    [loteData setValue:[NSKeyedArchiver archivedDataWithRootObject:lote.muestreo] forKey:@"muestreo"];
+    [loteData setValue:lote.noParte forKey:@"noParte"];
+    [loteData setValue:lote.noLote forKey:@"noLote"];
+    [loteData setValue:lote.estatusLiberacion forKey:@"estatusLiberacion"];
+    [loteData setValue:lote.fechaCaducidad forKey:@"fechaCaducidad"];
+    [loteData setValue:lote.fechaManufactura forKey:@"fechaManufactura"];
+    [loteData setValue:lote.proveedor forKey:@"proveedor"];
+    [loteData setValue:lote.cantidadTotalporLote forKey:@"cantidadTotalporLote"];
+    [loteData setValue:lote.unidadMedida forKey:@"unidadMedida"];
     
-    NSData *imageData = UIImagePNGRepresentation(inspection.QRCode);
+    [loteData setValue:lote.ubicacion forKey:@"ubicacion"];
+    [loteData setValue:lote.noPalet forKey:@"noPalet"];
     
-    [inspectionData setValue:inspection.auditor forKey:@"auditor"];
-    [inspectionData setValue:[NSDate date] forKey:@"fecha"];
-    [inspectionData setValue:inspection.idIspection forKey:@"idinspection"];
-    [inspectionData setValue:imageData forKey:@"qrcode"];
-    [inspectionData setValue:inspection.sizeLot forKey:@"sizeMuestra"];
-    [inspectionData setValue:inspection.status forKey:@"status"];
-    [inspectionData setValue:inspection.email forKey:@"email"];
-    [inspection setValue:[NSKeyedArchiver archivedDataWithRootObject:inspection.auditoriaResult] forKey:@"result"] ;
+    [loteData setValue:lote.noPaquetesPorPalet forKey:@"noPaquetesPorPalet"];
+    [loteData setValue:lote.totalPalets forKey:@"totalPalets"];
     
     NSError *error = nil;
     // Save the object to persistent store
@@ -47,136 +45,179 @@
     
 }
 
-+(void)saveProduct:(ProductModel *)product
-{
-    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
-    NSManagedObject *productData = [NSEntityDescription insertNewObjectForEntityForName:@"Product" inManagedObjectContext:context];
-    
-    //    descrip
-    //    idproduct
-    //    measures
-    [productData setValue:product.descrip forKey:@"descrip"];
-    [productData setValue:product.idProduct forKey:@"idproduct"];
-    [productData setValue:[NSKeyedArchiver archivedDataWithRootObject:product.measures] forKey:@"measures"];
-    NSError *error = nil;
-    // Save the object to persistent store
-    if (![context save:&error]) {
-        NSLog(@"Can't Save! %@ %@", error, [error localizedDescription]);
-    }
-    
-}
-
-
-+(NSArray *)getProductModel
-
-{
-    
++(NSArray *)getLotesPedinetes{
     NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     
+//    NSManagedObject *loteData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
+    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
     
-    
-    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Product"];
     NSError *error = nil;
     
     NSArray *results = [context executeFetchRequest:request error:&error];
     
     if (error != nil) {
         //Deal with failure
-    }
-    else {
+    }else{
         NSMutableArray * arr = [[NSMutableArray alloc]init];
         
         for (NSManagedObject * modele in results) {
-            
+            LoteModel * LOT = [[LoteModel alloc]init];
             NSDictionary * dic = [self dataStructureFromManagedObject:modele];
+
             
-            NSLog(@"get product :%@",dic);
+            NSData *data = [dic objectForKey:@"muestreo"];
             
-            ProductModel * p = [[ProductModel alloc]init];
+            NSDictionary *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
             
-            NSData *data = [dic objectForKey:@"measures"];
+            LOT.muestreo = [array mutableCopy];
+            LOT.noParte = [dic objectForKey:@"noParte"];
+            LOT.noLote = [dic objectForKey:@"noLote"];
+            LOT.estatusLiberacion = [dic objectForKey:@"estatusLiberacion"];
+            LOT.fechaCaducidad = [dic objectForKey:@"fechaCaducidad"];
+            LOT.fechaManufactura = [dic objectForKey:@"fechaManufactura"];
+            LOT.proveedor = [dic objectForKey:@"proveedor"];
+            LOT.cantidadTotalporLote = [dic objectForKey:@"cantidadTotalporLote"];
+            LOT.unidadMedida = [dic objectForKey:@"unidadMedida"];
+            LOT.ubicacion = [dic objectForKey:@"ubicacion"];
+            LOT.noPalet = [dic objectForKey:@"noPalet"];
+            LOT.noPaquetesPorPalet = [dic objectForKey:@"noPaquetesPorPalet"];
+            LOT.totalPalets = [dic objectForKey:@"totalPalets"];
             
-            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+            [arr addObject:LOT];
             
-            p.idProduct  = [dic objectForKey:@"idproduct"];
-            p.measures  = array;
-            p.descrip  = [dic objectForKey:@"descrip"];
-            
-            [arr addObject:p];
         }
-        
-        return arr;
+         return arr;
         
     }
     
     return @[];
+
 }
 
-+(NSArray *)getIspectionModel
-{
-    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
++(void)deleteLote:(int)indexselected{
     
+    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
+   
     NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
     NSError *error = nil;
-    
     NSArray *results = [context executeFetchRequest:request error:&error];
     
-    if (error != nil) {
-        //Deal with failure
-    }
-    else {
-        NSMutableArray * arr = [[NSMutableArray alloc]init];
-        
-        for (NSManagedObject * modele in results) {
-            
-            NSDictionary * dic = [self dataStructureFromManagedObject:modele];
-            
-            
-            NSLog(@"get Inspection  :%@",dic);
-            
-            InspectionModel * i = [[InspectionModel alloc]init];
-            
-            NSData *data = [dic objectForKey:@"qrcode"];
-            UIImage *image = [UIImage imageWithData:data];
-            
-            NSData *_data = [dic objectForKey:@"result"];
-            
-            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:_data];
-              //[inspection setValue:inspection.auditoriaResult forKey:@"result"];
-            
-            
-            //    sizeMuestra
-            //    status
-            //    email
-            
-            i.auditor  = [dic objectForKey:@"auditos"];
-            i.QRCode  = image;
-            i.idIspection  = [dic objectForKey:@"idinspection"];
-            i.date = [dic objectForKey:@"fecha"];
-            i.sizeLot = [dic objectForKey:@"sizeMuestra"];
-            i.status = [dic objectForKey:@"status"];
-            i.email = [dic objectForKey:@"email"];
-            i.auditoriaResult = array;
-            
-            
-            
-            [arr addObject:i];
-        }
-        
-        return arr;
-        
-    }
     
-    return @[];
+    [context deleteObject:[results objectAtIndex:indexselected]];
+    
 }
 
 
+//+(NSArray *)getProductModel
+//
+//{
+//    
+//    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
+//    
+//    
+//    
+//    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Product"];
+//    NSError *error = nil;
+//    
+//    NSArray *results = [context executeFetchRequest:request error:&error];
+//    
+//    if (error != nil) {
+//        //Deal with failure
+//    }
+//    else {
+//        NSMutableArray * arr = [[NSMutableArray alloc]init];
+//        
+//        for (NSManagedObject * modele in results) {
+//            
+//            NSDictionary * dic = [self dataStructureFromManagedObject:modele];
+//            
+//            NSLog(@"get product :%@",dic);
+//            
+//            ProductModel * p = [[ProductModel alloc]init];
+//            
+//            NSData *data = [dic objectForKey:@"measures"];
+//            
+//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+//            
+//            p.idProduct  = [dic objectForKey:@"idproduct"];
+//            p.measures  = array;
+//            p.descrip  = [dic objectForKey:@"descrip"];
+//            
+//            [arr addObject:p];
+//        }
+//        
+//        return arr;
+//        
+//    }
+//    
+//    return @[];
+//}
+//
+//+(NSArray *)getIspectionModel
+//{
+//    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
+//    
+//    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
+//    NSError *error = nil;
+//    
+//    NSArray *results = [context executeFetchRequest:request error:&error];
+//    
+//    if (error != nil) {
+//        //Deal with failure
+//    }
+//    else {
+//        NSMutableArray * arr = [[NSMutableArray alloc]init];
+//        
+//        for (NSManagedObject * modele in results) {
+//            
+//            NSDictionary * dic = [self dataStructureFromManagedObject:modele];
+//            
+//            
+//            NSLog(@"get Inspection  :%@",dic);
+//            
+//            InspectionModel * i = [[InspectionModel alloc]init];
+//            
+//            NSData *data = [dic objectForKey:@"qrcode"];
+//            UIImage *image = [UIImage imageWithData:data];
+//            
+//            NSData *_data = [dic objectForKey:@"result"];
+//            
+//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:_data];
+//              //[inspection setValue:inspection.auditoriaResult forKey:@"result"];
+//            
+//            
+//            //    sizeMuestra
+//            //    status
+//            //    email
+//            
+//            i.auditor  = [dic objectForKey:@"auditos"];
+//            i.QRCode  = image;
+//            i.idIspection  = [dic objectForKey:@"idinspection"];
+//            i.date = [dic objectForKey:@"fecha"];
+//            i.sizeLot = [dic objectForKey:@"sizeMuestra"];
+//            i.status = [dic objectForKey:@"status"];
+//            i.email = [dic objectForKey:@"email"];
+//            i.auditoriaResult = array;
+//            
+//            
+//            
+//            [arr addObject:i];
+//        }
+//        
+//        return arr;
+//        
+//    }
+//    
+//    return @[];
+//}
+//
+//
 + (NSDictionary*)dataStructureFromManagedObject:(NSManagedObject*)managedObject
 {
     NSDictionary *attributesByName        = [[managedObject entity] attributesByName];
     NSDictionary *relationshipsByName     = [[managedObject entity] relationshipsByName];
     NSMutableDictionary *valuesDictionary = [[managedObject dictionaryWithValuesForKeys:[attributesByName allKeys]] mutableCopy];
-    [valuesDictionary setObject:[[managedObject entity] name] forKey:@"Product"];
+    [valuesDictionary setObject:[[managedObject entity] name] forKey:@"Inspection"];
     
     for (NSString *relationshipName in [relationshipsByName allKeys]) {
         

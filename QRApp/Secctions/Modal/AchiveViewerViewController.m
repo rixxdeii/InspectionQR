@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSString *urlText = [NSString stringWithFormat:@"http://192.168.1.69:8888/%@.pdf" ,self.url];
+    NSString *urlText = [NSString stringWithFormat:@"http://192.168.1.67:8888/%@.pdf" ,self.url];
     [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
     
 }

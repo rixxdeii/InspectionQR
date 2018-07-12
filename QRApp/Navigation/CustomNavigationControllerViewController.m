@@ -10,6 +10,7 @@
 #import "UserModel.h"
 
 
+
 @interface CustomNavigationControllerViewController ()
 @property (strong, nonatomic) UILabel * greating;
 @property (strong, nonatomic) UIImageView * userImage;
@@ -29,7 +30,11 @@
     [super viewDidLoad];
     _isOpen =NO;
     UIImageView * LogoImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"itemNB.png"]];
+    
+    [LogoImage setFrame:CGRectMake(0, 0, 150, 100)];
+    
     LogoImage.center =self.navigationBar.center;
+    
     [self.navigationBar addSubview:LogoImage];
     
 //    _greating = [[UILabel alloc]initWithFrame:CGRectMake(700, 10, 300, 50)];
@@ -38,15 +43,15 @@
     
     _userImage =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"default-userNB.png"]];
     
-    _userImage.frame = CGRectMake(775, -10, 50, 50);
+    _userImage.frame = CGRectMake(740, -0, 40, 40);
     _userImage.layer.backgroundColor=[[UIColor clearColor] CGColor];
-    _userImage.layer.cornerRadius=25;
+    _userImage.layer.cornerRadius=20;
     _userImage.layer.borderWidth=0.5;
     _userImage.layer.masksToBounds = YES;
     _userImage.layer.borderColor=[[UIColor redColor] CGColor];
     [self.navigationBar addSubview:_userImage];;
     
-    _loginButton =[[UIButton alloc]initWithFrame:CGRectMake(775, -10, 50, 50)];
+    _loginButton =[[UIButton alloc]initWithFrame:CGRectMake(100, -10, 50, 50)];
     [_loginButton addTarget:self action:@selector(userDidPressLoginButon:) forControlEvents:UIControlEventTouchUpInside];
     
     [_loginButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
@@ -97,9 +102,9 @@
     
 }
 
--(void)setImageView:(NSString *)imageName
+-(void)setImageView:(UIImage *)imageName
 {
-    [_userImage setImage:[UIImage imageNamed:imageName]];
+    [_userImage setImage:imageName];
 }
 
 

@@ -7,8 +7,14 @@
 //
 
 #import "RegisterUserModalViewController.h"
+#import "FireBaseManager.h"
+#import "ERProgressHud.h"
 
-@interface RegisterUserModalViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+@interface RegisterUserModalViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,FirebaseManagerDelegate>{
+    UIImage *imagenSaved;
+    
+}
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @end
 
@@ -18,11 +24,61 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setRoundedView:self.image.imageView toDiameter:self.image.frame.size.width];
+    UserModel * user =[UserModel sharedManager] ;
+    user.roll =@"calidad";
 }
 
+- (IBAction)cancel:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil] ;
+}
 
 - (IBAction)didUserRegisterUser:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil] ;
+    
+    
+    if ([_nombre.text isEqualToString:@""]
+        ||[_IDEmpleado.text isEqualToString:@""]
+        ||[_contrasenaa.text isEqualToString:@""]
+        ||[_email.text isEqualToString:@""]
+        ) {
+        
+        UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Faltan campos por llenar" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+        
+    }else{
+        
+        
+        UserModel * user =[UserModel sharedManager];
+        user.userName = _nombre.text;
+        user.userCode =_IDEmpleado.text;
+        user.userPassWord = _contrasenaa.text;
+        user.userEmail = _email.text;
+        
+        [self savePicture:imagenSaved];
+        [[ERProgressHud sharedInstance]show];
+        FireBaseManager * fbm = [[FireBaseManager alloc]init];
+        fbm.delegate=self;
+        
+        [fbm registerUser:user completion:^(BOOL isOK) {
+            
+            if (isOK) {
+                
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [_delegate finishUserRegistration];
+                }] ;
+            }else{
+                UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Error" message:@"No se pudo conectar con el servidor " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            
+        }];
+        
+        
+        
+    }
+    
+    
 }
 
 -(void)setRoundedView:(UIImageView *)roundedView toDiameter:(float)newSize;
@@ -35,6 +91,14 @@
     
 }
 - (IBAction)selectTypeUser:(UISegmentedControl *)sender {
+    
+    UserModel * user =[UserModel sharedManager] ;
+    
+    if (sender.selectedSegmentIndex ==0) {
+        user.roll =@"calidad";
+    }else{
+        user.roll =@"almacen";
+    }
     
     
     
@@ -85,6 +149,7 @@
     [picker dismissViewControllerAnimated:YES completion:^{
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.image setImage:chosenImage forState:UIControlStateNormal];
+            imagenSaved = chosenImage ;
         });
         
     }];
@@ -99,33 +164,12 @@
 }
 
 #pragma mark TextFiel delegates
-#pragma mark - keyboard movements
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect f = self.view.frame;
-        f.origin.y = -keyboardSize.height+200;
-        self.view.frame = f;
-    }];
-}
 
--(void)keyboardWillHide:(NSNotification *)notification
-{
-    [UIView animateWithDuration:0.3 animations:^{
-        CGRect f = self.view.frame;
-        f.origin.y = 0.0f;
-        self.view.frame = f;
-    }];
-}
 
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -134,14 +178,62 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)savePicture:(UIImage *)image{
+    NSData *imageData = UIImageJPEGRepresentation(image, 1);
+    
+    // Get image path in user's folder and store file with name image_CurrentTimestamp.jpg (see documentsPathForFileName below)
+    NSString *imagePath = [self documentsPathForFileName:[NSString stringWithFormat:@"image_%@.jpg",_IDEmpleado.text ]];
+    
+    // Write image data to user's folder
+    [imageData writeToFile:imagePath atomically:YES];
+    
+    // Store path in NSUserDefaults
+    [[NSUserDefaults standardUserDefaults] setObject:imagePath forKey:[NSString stringWithFormat:@"image_%@.jpg",_IDEmpleado.text ]];
+    
+    // Sync user defaults
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
-*/
+
+- (NSString *)documentsPathForFileName:(NSString *)name {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    return [documentsPath stringByAppendingPathComponent:name];
+}
+
+//KeyBoard Manager
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.scrollView];
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    
+    contentOffset.y = (pointInTable.y -200 );
+    
+    NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
+    [self.scrollView setContentOffset:contentOffset  animated:YES];
+    return YES;
+}
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    
+    [self.scrollView setContentOffset:CGPointZero  animated:YES];
+    
+    
+    return YES;
+}
+- (IBAction)gestureR:(id)sender {
+    [self.view endEditing:YES];
+}
+
+-(void)userLostConectionFireBase{
+    [[ERProgressHud sharedInstance]hide];
+    
+    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Error" message:@"No se pudo conctar con servidor" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+    
+}
 
 @end

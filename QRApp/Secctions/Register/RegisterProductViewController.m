@@ -11,20 +11,21 @@
 #import "GenericProductModel.h"
 #import "ConfirmViewController.h"
 #import "AchiveViewerViewController.h"
-
+#import "PickerContainerViewController.h"
 typedef enum : NSUInteger {
     KQimico,
     KPlaca,
     KShim,
 } TipoProducto;
 
-@interface RegisterProductViewController ()<UITableViewDelegate,UITableViewDataSource>{
+@interface RegisterProductViewController ()<UITableViewDelegate,UITableViewDataSource,PickerContainerDelegate,UITextFieldDelegate>{
     
     BOOL isFrio;
     BOOL isCritica;
     TipoProducto producto;
 }
 @property (weak, nonatomic) IBOutlet UITextField *tipoIstrumentoTXT;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UITextField *noParteText;
 @property (weak, nonatomic) IBOutlet UITextField *descripText;
@@ -55,6 +56,9 @@ typedef enum : NSUInteger {
     isFrio = YES;
     producto = KQimico;
     isCritica = YES;
+    
+    _scrollView.center =self.view.center;   _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*2) ;
+    self.title = @"";
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -128,12 +132,20 @@ typedef enum : NSUInteger {
 
     }
     
+//    @property (nonatomic, strong) NSString * noParte;
+//    @property (nonatomic, strong) NSString * descript;
+//    @property (nonatomic, strong) NSString * nivelRevision;
+//    @property (nonatomic, strong) NSString * almacenaje;
+//    @property (nonatomic, strong) NSDictionary * especificaciones;
+//    @property (nonatomic, strong) NSString * muestra;
+//    @property (nonatomic, strong) NSString * tipoproducto;
+    
     
     GenericProductModel * GP = [[GenericProductModel alloc]init];
     GP.noParte = _noParteText.text;
     GP.descript  =_descripText.text;
     GP.nivelRevision  =_nRevisionText.text;
-    GP.especificaciones  =_arr_measures;
+    GP.especificaciones  =@{@"especificaciones":_arr_measures};
     GP.muestra  =tamanodemuestra;
     GP.almacenaje  =almacenaje;
     GP.tipoproducto = tipo ;
@@ -141,6 +153,7 @@ typedef enum : NSUInteger {
     [self performSegueWithIdentifier:@"segueConfirm" sender:GP];
 
 }
+
 
 -(void)showAlert:(NSString *)title{
     if (title) {
@@ -153,42 +166,57 @@ typedef enum : NSUInteger {
 - (IBAction)addMeasure:(id)sender
 {
     if (_tipoMeasure.isOn) {
-        
+        if (![_meausteTXT.text isEqualToString:@""]) {
+            
         [_arr_measures addObject:@{@"MeasureName":_meausteTXT.text,
                                    @"LS":@"",
                                    @"LM":@"",
                                    @"LI":@"",
                                    @"isCritica":isCritica?@"YES":@"NO",
-                                   @"tipoIstrumento":@"visual"
+                                   @"tipoIstrumento":@"Visual"
                                    }];
-        _LSTXT.text = @"";
-        _MTXT.text = @"";
-        _LITXT.text= @"";
+        _LSTXT.text = @"0";
+        _UMButton.titleLabel.text = @"cm";
+        _LITXT.text= @"0";
         _meausteTXT.text =@"";
         _tipoIstrumentoTXT.text = @"";
         
      [_tb reloadData];
         return;
+            
+            
+        }
+        else
+        {
+            UIAlertView  * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Faltan medidas" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+            
+            [alert show];
+            
+            return;
+            
+        }
+        
+            
     }
     
     
     if (![_LSTXT.text isEqualToString:@""]
         &&![_LITXT.text isEqualToString:@""]
-        &&![_MTXT.text isEqualToString:@""]
+        &&![_UMButton.titleLabel.text isEqualToString:@""]
         &&![_meausteTXT.text isEqualToString:@""]
-        &&![_tipoIstrumentoTXT.text isEqualToString:@""]) {
+        &&![_InstrumentButton.titleLabel.text isEqualToString:@""]) {
     
         [_arr_measures addObject:@{@"MeasureName":_meausteTXT.text,
                          @"LS":_LSTXT.text,
-                         @"LM":_MTXT.text,
+                         @"LM":_UMButton.titleLabel.text,
                          @"LI":_LITXT.text,
                          @"isCritica":isCritica?@"YES":@"NO",
-                         @"tipoIstrumento":_tipoIstrumentoTXT.text
+                         @"tipoIstrumento":_InstrumentButton.titleLabel.text
                          }];
         
         [_tb reloadData];
         _LSTXT.text = @"";
-        _MTXT.text = @"";
+        _UMButton.titleLabel.text = @"cm";
         _LITXT.text= @"";
         _meausteTXT.text =@"";
         
@@ -314,15 +342,16 @@ typedef enum : NSUInteger {
     
     [_LSTXT setEnabled:!sender.isOn];
     [_LITXT setEnabled:!sender.isOn];
-    [_MTXT setEnabled:!sender.isOn];
-    _tipoIstrumentoTXT.enabled = !sender.isOn;
+    [_UMButton setEnabled:!sender.isOn];
+    _InstrumentButton.enabled = !sender.isOn;
 
     
     if (!sender.isOn)
     {
         _tipoIstrumentoTXT.text = @"";
     }else{
-        _tipoIstrumentoTXT.text = @"Visual";
+        
+        [_InstrumentButton setTitle:@"Visual" forState:UIControlStateNormal] ;
     }
     
 }
@@ -331,6 +360,7 @@ typedef enum : NSUInteger {
 {
     if ([segue.identifier isEqualToString:@"segueConfirm"]) {
         ConfirmViewController * VC =[segue destinationViewController];
+        VC.comeFrom = @"registroProducto";
         VC.product = sender;
     }
     
@@ -340,5 +370,59 @@ typedef enum : NSUInteger {
     isCritica = [sender isOn];
     
 }
+
+#pragma mark - UserSelectPickerObject
+-(void)didUserSelect:(NSString *)object index:(NSInteger)index buttotn:(UIButton *)fromButton
+{
+    if (fromButton == _UMButton) {
+        [_UMButton setTitle:object forState:UIControlStateNormal];
+    }else if (fromButton == _InstrumentButton){
+        [_InstrumentButton setTitle:object forState:UIControlStateNormal];
+    }
+    
+}
+- (IBAction)didUserTapSelectObjetFromPicker:(UIButton *)sender
+{
+    
+    PickerContainerViewController * modal = [[PickerContainerViewController alloc]init];
+    modal.delegate =self;
+    modal.fromButton = sender;
+    modal.data = (sender == _InstrumentButton)?ARR_INSTRUMENTS:ARR_UM;
+
+    self.definesPresentationContext = YES; //self is presenting view controller
+    modal.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:modal animated:YES completion:nil];
+
+}
+
+//KeyBoard Manager
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.scrollView];
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    
+    contentOffset.y = (pointInTable.y -400);
+    
+    NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
+    [self.scrollView setContentOffset:contentOffset  animated:YES];
+    return YES;
+}
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    NSArray * validCharacteres =@[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@".",@"-"];
+    if (textField == _LITXT || textField == _LSTXT){
+        for (NSString *object in validCharacteres) {
+            if ([object isEqualToString:string]) {
+            }
+            return YES;
+        }
+        return  NO;
+
+    }
+    return YES;
+
+}
+
+
+
 
 @end

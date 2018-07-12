@@ -10,12 +10,8 @@
 		19742AFCFE6CCF311F50C73F /* libPods-QRAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */; };
 		221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A745E20E06A9400D7A010 /* FireBaseManager.m */; };
 		221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221A746020E06AAA00D7A010 /* GoogleService-Info.plist */; };
-		221A746620E0718800D7A010 /* SpecificProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746320E0718700D7A010 /* SpecificProductModel.m */; };
 		221A746720E0718800D7A010 /* GenericProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746520E0718800D7A010 /* GenericProductModel.m */; };
 		221A746B20E0BCAB00D7A010 /* ConfirmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746A20E0BCAB00D7A010 /* ConfirmViewController.m */; };
-		222034F520CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
-		222034F620CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
-		222034F720CAFEF200B42153 /* AuditorModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F420CAFEF200B42153 /* AuditorModel.m */; };
 		222034FA20CBA5C500B42153 /* Barcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F820CBA5C400B42153 /* Barcode.m */; };
 		222034FB20CBA5C500B42153 /* Barcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F820CBA5C400B42153 /* Barcode.m */; };
 		222034FC20CBA5C500B42153 /* Barcode.m in Sources */ = {isa = PBXBuildFile; fileRef = 222034F820CBA5C400B42153 /* Barcode.m */; };
@@ -36,25 +32,22 @@
 		2220351A20CCC84E00B42153 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351920CCC84E00B42153 /* CoreDataManager.m */; };
 		2220351B20CCC84E00B42153 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351920CCC84E00B42153 /* CoreDataManager.m */; };
 		2220351C20CCC84E00B42153 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351920CCC84E00B42153 /* CoreDataManager.m */; };
-		2220351F20CCC99900B42153 /* InspectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351E20CCC99900B42153 /* InspectionModel.m */; };
-		2220352020CCC99900B42153 /* InspectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351E20CCC99900B42153 /* InspectionModel.m */; };
-		2220352120CCC99900B42153 /* InspectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351E20CCC99900B42153 /* InspectionModel.m */; };
-		2220352420CCCB4900B42153 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220352320CCCB4900B42153 /* ProductModel.m */; };
-		2220352520CCCB4900B42153 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220352320CCCB4900B42153 /* ProductModel.m */; };
-		2220352620CCCB4900B42153 /* ProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220352320CCCB4900B42153 /* ProductModel.m */; };
+		2235300820F6E46500A0B848 /* CodigoBarrasModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235300620F6E46500A0B848 /* CodigoBarrasModal.m */; };
+		2235300920F6E46500A0B848 /* CodigoBarrasModal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */; };
+		2235302C20F6F90700A0B848 /* IPhoneMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */; };
+		223D880E20E74DA700B9B5BD /* ExitoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D880D20E74DA700B9B5BD /* ExitoViewController.m */; };
+		227FDA0920EA98DA001E37BD /* PickerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227FDA0720EA98DA001E37BD /* PickerContainerViewController.m */; };
+		227FDA0A20EA98DA001E37BD /* PickerContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227FDA0820EA98DA001E37BD /* PickerContainerViewController.xib */; };
 		2281D9A420C6E6A300830683 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9A320C6E6A300830683 /* AppDelegate.m */; };
 		2281D9A720C6E6A300830683 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9A620C6E6A300830683 /* ViewController.m */; };
-		2281D9AA20C6E6A300830683 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2281D9A820C6E6A300830683 /* Main.storyboard */; };
 		2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9AB20C6E6A300830683 /* QRApp.xcdatamodeld */; };
 		2281D9AF20C6E6A300830683 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2281D9AE20C6E6A300830683 /* Assets.xcassets */; };
-		2281D9B220C6E6A300830683 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2281D9B020C6E6A300830683 /* LaunchScreen.storyboard */; };
 		2281D9B520C6E6A300830683 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9B420C6E6A300830683 /* main.m */; };
 		2281D9BF20C6E6A300830683 /* QRAppTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9BE20C6E6A300830683 /* QRAppTests.m */; };
 		2281D9CA20C6E6A300830683 /* QRAppUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2281D9C920C6E6A300830683 /* QRAppUITests.m */; };
+		2282B75B20EAA1B600ED3785 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2282B75A20EAA1B600ED3785 /* UserModel.m */; };
 		22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */; };
 		22B7D80020E31340005C4214 /* CustomNavigationControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D7FF20E31340005C4214 /* CustomNavigationControllerViewController.m */; };
-		22B7D80320E313B2005C4214 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80120E313B1005C4214 /* UserModel.m */; };
-		22B7D80920E40757005C4214 /* LiberationPaper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80820E40757005C4214 /* LiberationPaper.m */; };
 		22B7D80D20E48233005C4214 /* AchiveViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */; };
 		22B7D80E20E48233005C4214 /* AchiveViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */; };
 		22B7D81320E4B5F6005C4214 /* LoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B7D81120E4B5F6005C4214 /* LoteTableViewCell.m */; };
@@ -85,9 +78,13 @@
 		22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1BC20C7A2AC00C08582 /* ItemViewController.m */; };
 		22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */; };
 		22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CEF1C520C7A37500C08582 /* SuccessViewController.m */; };
+		22D5C8AB20EFE7BA00D993DB /* PendientesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8AA20EFE7BA00D993DB /* PendientesViewController.m */; };
+		22D5C8B120F149A500D993DB /* AlmacenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5C8B020F149A500D993DB /* AlmacenViewController.m */; };
 		22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D8029B20DDF77A000785D2 /* BarCodeModel.m */; };
 		22D802A320DEC466000785D2 /* RegisterUserModalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */; };
 		22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */; };
+		22EB601320EDC8410081D4E5 /* LoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EB601220EDC8410081D4E5 /* LoteModel.m */; };
+		22EB601C20EDCCB00081D4E5 /* EspecificacionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EB601B20EDCCB00081D4E5 /* EspecificacionModel.m */; };
 		31400BECEE91C03464A349D5 /* libPods-QRApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E4E1B430E42046D087B9965 /* libPods-QRApp.a */; };
 		43714DBD6B2607FD78637550 /* libPods-QRAppUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 24A530A524AA71A65FAC8B90 /* libPods-QRAppUITests.a */; };
 /* End PBXBuildFile section */
@@ -110,18 +107,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		22191C9420C8A4790042A917 /* ItemModel.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = ItemModel.geojson; sourceTree = "<group>"; };
 		221A745D20E06A9400D7A010 /* FireBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
 		221A745E20E06A9400D7A010 /* FireBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
 		221A746020E06AAA00D7A010 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		221A746220E0718700D7A010 /* GenericProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericProductModel.h; sourceTree = "<group>"; };
-		221A746320E0718700D7A010 /* SpecificProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecificProductModel.m; sourceTree = "<group>"; };
-		221A746420E0718800D7A010 /* SpecificProductModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecificProductModel.h; sourceTree = "<group>"; };
 		221A746520E0718800D7A010 /* GenericProductModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericProductModel.m; sourceTree = "<group>"; };
 		221A746920E0BCAB00D7A010 /* ConfirmViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfirmViewController.h; sourceTree = "<group>"; };
 		221A746A20E0BCAB00D7A010 /* ConfirmViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfirmViewController.m; sourceTree = "<group>"; };
-		222034F320CAFEF200B42153 /* AuditorModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuditorModel.h; sourceTree = "<group>"; };
-		222034F420CAFEF200B42153 /* AuditorModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditorModel.m; sourceTree = "<group>"; };
 		222034F820CBA5C400B42153 /* Barcode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Barcode.m; sourceTree = "<group>"; };
 		222034F920CBA5C500B42153 /* Barcode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Barcode.h; sourceTree = "<group>"; };
 		222034FD20CBA5FD00B42153 /* ScannerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScannerViewController.h; sourceTree = "<group>"; };
@@ -137,10 +129,14 @@
 		2220351520CCC7FB00B42153 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2220351820CCC84E00B42153 /* CoreDataManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		2220351920CCC84E00B42153 /* CoreDataManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
-		2220351D20CCC99900B42153 /* InspectionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InspectionModel.h; sourceTree = "<group>"; };
-		2220351E20CCC99900B42153 /* InspectionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InspectionModel.m; sourceTree = "<group>"; };
-		2220352220CCCB4900B42153 /* ProductModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProductModel.h; sourceTree = "<group>"; };
-		2220352320CCCB4900B42153 /* ProductModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProductModel.m; sourceTree = "<group>"; };
+		2235300520F6E46500A0B848 /* CodigoBarrasModal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodigoBarrasModal.h; sourceTree = "<group>"; };
+		2235300620F6E46500A0B848 /* CodigoBarrasModal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodigoBarrasModal.m; sourceTree = "<group>"; };
+		2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodigoBarrasModal.xib; sourceTree = "<group>"; };
+		223D880C20E74DA700B9B5BD /* ExitoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExitoViewController.h; sourceTree = "<group>"; };
+		223D880D20E74DA700B9B5BD /* ExitoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExitoViewController.m; sourceTree = "<group>"; };
+		227FDA0620EA98DA001E37BD /* PickerContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerContainerViewController.h; sourceTree = "<group>"; };
+		227FDA0720EA98DA001E37BD /* PickerContainerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PickerContainerViewController.m; sourceTree = "<group>"; };
+		227FDA0820EA98DA001E37BD /* PickerContainerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PickerContainerViewController.xib; sourceTree = "<group>"; };
 		2281D99F20C6E6A300830683 /* FederalMogulM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FederalMogulM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2281D9A220C6E6A300830683 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2281D9A320C6E6A300830683 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -158,14 +154,12 @@
 		2281D9C520C6E6A300830683 /* QRAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QRAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2281D9C920C6E6A300830683 /* QRAppUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRAppUITests.m; sourceTree = "<group>"; };
 		2281D9CB20C6E6A300830683 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2282B75920EAA1B500ED3785 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		2282B75A20EAA1B600ED3785 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		22B7D7FA20E3104F005C4214 /* GlobalpositionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlobalpositionViewController.h; sourceTree = "<group>"; };
 		22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlobalpositionViewController.m; sourceTree = "<group>"; };
 		22B7D7FE20E3133F005C4214 /* CustomNavigationControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationControllerViewController.h; sourceTree = "<group>"; };
 		22B7D7FF20E31340005C4214 /* CustomNavigationControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationControllerViewController.m; sourceTree = "<group>"; };
-		22B7D80120E313B1005C4214 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserModel.m; path = "../../../Federalmogul Proyect/FederalMogulMovil/FederalMogulMovil/Models/UserModel.m"; sourceTree = "<group>"; };
-		22B7D80220E313B2005C4214 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserModel.h; path = "../../../Federalmogul Proyect/FederalMogulMovil/FederalMogulMovil/Models/UserModel.h"; sourceTree = "<group>"; };
-		22B7D80720E40757005C4214 /* LiberationPaper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LiberationPaper.h; sourceTree = "<group>"; };
-		22B7D80820E40757005C4214 /* LiberationPaper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LiberationPaper.m; sourceTree = "<group>"; };
 		22B7D80A20E48233005C4214 /* AchiveViewerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AchiveViewerViewController.h; sourceTree = "<group>"; };
 		22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AchiveViewerViewController.m; sourceTree = "<group>"; };
 		22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AchiveViewerViewController.xib; sourceTree = "<group>"; };
@@ -198,11 +192,20 @@
 		22CEF1C220C7A36500C08582 /* AuditoriaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AuditoriaViewController.m; sourceTree = "<group>"; };
 		22CEF1C420C7A37500C08582 /* SuccessViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SuccessViewController.h; sourceTree = "<group>"; };
 		22CEF1C520C7A37500C08582 /* SuccessViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SuccessViewController.m; sourceTree = "<group>"; };
+		22D5C8A920EFE7BA00D993DB /* PendientesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PendientesViewController.h; sourceTree = "<group>"; };
+		22D5C8AA20EFE7BA00D993DB /* PendientesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PendientesViewController.m; sourceTree = "<group>"; };
+		22D5C8AF20F149A500D993DB /* AlmacenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlmacenViewController.h; sourceTree = "<group>"; };
+		22D5C8B020F149A500D993DB /* AlmacenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AlmacenViewController.m; sourceTree = "<group>"; };
 		22D8029A20DDF77A000785D2 /* BarCodeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarCodeModel.h; sourceTree = "<group>"; };
 		22D8029B20DDF77A000785D2 /* BarCodeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarCodeModel.m; sourceTree = "<group>"; };
 		22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterUserModalViewController.h; sourceTree = "<group>"; };
 		22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterUserModalViewController.m; sourceTree = "<group>"; };
 		22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterUserModalViewController.xib; sourceTree = "<group>"; };
+		22DB703C20EC4C06004143E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/IPhoneMain.storyboard; sourceTree = "<group>"; };
+		22EB601120EDC8410081D4E5 /* LoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoteModel.h; sourceTree = "<group>"; };
+		22EB601220EDC8410081D4E5 /* LoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoteModel.m; sourceTree = "<group>"; };
+		22EB601A20EDCCB00081D4E5 /* EspecificacionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EspecificacionModel.h; sourceTree = "<group>"; };
+		22EB601B20EDCCB00081D4E5 /* EspecificacionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EspecificacionModel.m; sourceTree = "<group>"; };
 		23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QRAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24A530A524AA71A65FAC8B90 /* libPods-QRAppUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-QRAppUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		255B6DE389BDAA927A80DA10 /* Pods-QRAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-QRAppTests/Pods-QRAppTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -250,23 +253,16 @@
 		22191C9320C8A44A0042A917 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				22B7D80220E313B2005C4214 /* UserModel.h */,
-				22B7D80120E313B1005C4214 /* UserModel.m */,
+				2282B75920EAA1B500ED3785 /* UserModel.h */,
+				2282B75A20EAA1B600ED3785 /* UserModel.m */,
 				221A746220E0718700D7A010 /* GenericProductModel.h */,
 				221A746520E0718800D7A010 /* GenericProductModel.m */,
-				221A746420E0718800D7A010 /* SpecificProductModel.h */,
-				221A746320E0718700D7A010 /* SpecificProductModel.m */,
-				22191C9420C8A4790042A917 /* ItemModel.geojson */,
-				222034F320CAFEF200B42153 /* AuditorModel.h */,
-				222034F420CAFEF200B42153 /* AuditorModel.m */,
-				2220351D20CCC99900B42153 /* InspectionModel.h */,
-				2220351E20CCC99900B42153 /* InspectionModel.m */,
-				2220352220CCCB4900B42153 /* ProductModel.h */,
-				2220352320CCCB4900B42153 /* ProductModel.m */,
 				22D8029A20DDF77A000785D2 /* BarCodeModel.h */,
 				22D8029B20DDF77A000785D2 /* BarCodeModel.m */,
-				22B7D80720E40757005C4214 /* LiberationPaper.h */,
-				22B7D80820E40757005C4214 /* LiberationPaper.m */,
+				22EB601120EDC8410081D4E5 /* LoteModel.h */,
+				22EB601220EDC8410081D4E5 /* LoteModel.m */,
+				22EB601A20EDCCB00081D4E5 /* EspecificacionModel.h */,
+				22EB601B20EDCCB00081D4E5 /* EspecificacionModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +310,15 @@
 			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
+		223D880B20E74D8900B9B5BD /* Exito */ = {
+			isa = PBXGroup;
+			children = (
+				223D880C20E74DA700B9B5BD /* ExitoViewController.h */,
+				223D880D20E74DA700B9B5BD /* ExitoViewController.m */,
+			);
+			path = Exito;
+			sourceTree = "<group>";
+		};
 		2281D99620C6E6A300830683 = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +344,7 @@
 		2281D9A120C6E6A300830683 /* QRApp */ = {
 			isa = PBXGroup;
 			children = (
+				22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */,
 				22B7D7FD20E312DB005C4214 /* Navigation */,
 				221A745C20E06A5A00D7A010 /* FireBaseManager */,
 				22C79FAD20CF74A5004EF7CF /* LoadingView */,
@@ -382,8 +388,8 @@
 		22B7D7F920E31032005C4214 /* GlobalPosition */ = {
 			isa = PBXGroup;
 			children = (
-				22B7D7FA20E3104F005C4214 /* GlobalpositionViewController.h */,
-				22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */,
+				22D5C8AE20F1498000D993DB /* almacen */,
+				22D5C8AD20F1497300D993DB /* inspecction */,
 			);
 			path = GlobalPosition;
 			sourceTree = "<group>";
@@ -442,6 +448,12 @@
 				22B7D80A20E48233005C4214 /* AchiveViewerViewController.h */,
 				22B7D80B20E48233005C4214 /* AchiveViewerViewController.m */,
 				22B7D80C20E48233005C4214 /* AchiveViewerViewController.xib */,
+				227FDA0620EA98DA001E37BD /* PickerContainerViewController.h */,
+				227FDA0720EA98DA001E37BD /* PickerContainerViewController.m */,
+				227FDA0820EA98DA001E37BD /* PickerContainerViewController.xib */,
+				2235300520F6E46500A0B848 /* CodigoBarrasModal.h */,
+				2235300620F6E46500A0B848 /* CodigoBarrasModal.m */,
+				2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -475,6 +487,8 @@
 		22CEF1B120C77E3300C08582 /* Secctions */ = {
 			isa = PBXGroup;
 			children = (
+				22D5C8A820EFE79700D993DB /* Pedinetes */,
+				223D880B20E74D8900B9B5BD /* Exito */,
 				22B7D80F20E4B5C7005C4214 /* Inspection */,
 				22B7D7F920E31032005C4214 /* GlobalPosition */,
 				221A746820E0BC7F00D7A010 /* Confirm */,
@@ -540,6 +554,33 @@
 				22CEF1C520C7A37500C08582 /* SuccessViewController.m */,
 			);
 			path = Success;
+			sourceTree = "<group>";
+		};
+		22D5C8A820EFE79700D993DB /* Pedinetes */ = {
+			isa = PBXGroup;
+			children = (
+				22D5C8A920EFE7BA00D993DB /* PendientesViewController.h */,
+				22D5C8AA20EFE7BA00D993DB /* PendientesViewController.m */,
+			);
+			path = Pedinetes;
+			sourceTree = "<group>";
+		};
+		22D5C8AD20F1497300D993DB /* inspecction */ = {
+			isa = PBXGroup;
+			children = (
+				22B7D7FA20E3104F005C4214 /* GlobalpositionViewController.h */,
+				22B7D7FB20E3104F005C4214 /* GlobalpositionViewController.m */,
+			);
+			path = inspecction;
+			sourceTree = "<group>";
+		};
+		22D5C8AE20F1498000D993DB /* almacen */ = {
+			isa = PBXGroup;
+			children = (
+				22D5C8AF20F149A500D993DB /* AlmacenViewController.h */,
+				22D5C8B020F149A500D993DB /* AlmacenViewController.m */,
+			);
+			path = almacen;
 			sourceTree = "<group>";
 		};
 		8AF4AFEAE9940FE1589E73BF /* Pods */ = {
@@ -670,14 +711,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2235302C20F6F90700A0B848 /* IPhoneMain.storyboard in Resources */,
 				22B7D80E20E48233005C4214 /* AchiveViewerViewController.xib in Resources */,
 				22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */,
-				2281D9B220C6E6A300830683 /* LaunchScreen.storyboard in Resources */,
 				22C79FC820D01C40004EF7CF /* GetInfoViewController.xib in Resources */,
+				227FDA0A20EA98DA001E37BD /* PickerContainerViewController.xib in Resources */,
+				2235300920F6E46500A0B848 /* CodigoBarrasModal.xib in Resources */,
 				22C79FAC20CEE650004EF7CF /* TableViewCell.xib in Resources */,
 				2281D9AF20C6E6A300830683 /* Assets.xcassets in Resources */,
 				22B7D81420E4B5F6005C4214 /* LoteTableViewCell.xib in Resources */,
-				2281D9AA20C6E6A300830683 /* Main.storyboard in Resources */,
 				221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -854,39 +896,41 @@
 			files = (
 				22B7D81320E4B5F6005C4214 /* LoteTableViewCell.m in Sources */,
 				22CEF1B920C7804D00C08582 /* InitialViewController.m in Sources */,
-				222034F520CAFEF200B42153 /* AuditorModel.m in Sources */,
+				223D880E20E74DA700B9B5BD /* ExitoViewController.m in Sources */,
 				222034FA20CBA5C500B42153 /* Barcode.m in Sources */,
-				22B7D80920E40757005C4214 /* LiberationPaper.m in Sources */,
 				2220350B20CBA71900B42153 /* SettingsViewController.m in Sources */,
-				221A746620E0718800D7A010 /* SpecificProductModel.m in Sources */,
 				22CEF1A720C7065400C08582 /* QRCodeGenerator.m in Sources */,
 				222034FF20CBA5FD00B42153 /* ScannerViewController.m in Sources */,
 				22CEF1AA20C7065400C08582 /* NSString+Utils.m in Sources */,
 				22D802A320DEC466000785D2 /* RegisterUserModalViewController.m in Sources */,
 				22C79FAB20CEE650004EF7CF /* TableViewCell.m in Sources */,
-				2220352420CCCB4900B42153 /* ProductModel.m in Sources */,
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
+				22D5C8AB20EFE7BA00D993DB /* PendientesViewController.m in Sources */,
 				22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */,
+				2282B75B20EAA1B600ED3785 /* UserModel.m in Sources */,
+				227FDA0920EA98DA001E37BD /* PickerContainerViewController.m in Sources */,
 				22B7D80D20E48233005C4214 /* AchiveViewerViewController.m in Sources */,
-				22B7D80320E313B2005C4214 /* UserModel.m in Sources */,
 				22D8029C20DDF77A000785D2 /* BarCodeModel.m in Sources */,
 				22C79FC520D01C3F004EF7CF /* GetInfoViewController.m in Sources */,
 				2281D9A720C6E6A300830683 /* ViewController.m in Sources */,
-				2220351F20CCC99900B42153 /* InspectionModel.m in Sources */,
 				22CEF1AD20C7065400C08582 /* CIColor+QRCode.m in Sources */,
 				22B7D81D20E56780005C4214 /* InspectionHeaderTableViewCell.m in Sources */,
 				22B7D80020E31340005C4214 /* CustomNavigationControllerViewController.m in Sources */,
 				2281D9B520C6E6A300830683 /* main.m in Sources */,
 				22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */,
+				22D5C8B120F149A500D993DB /* AlmacenViewController.m in Sources */,
 				2220351A20CCC84E00B42153 /* CoreDataManager.m in Sources */,
 				221A746B20E0BCAB00D7A010 /* ConfirmViewController.m in Sources */,
+				2235300820F6E46500A0B848 /* CodigoBarrasModal.m in Sources */,
 				2281D9A420C6E6A300830683 /* AppDelegate.m in Sources */,
 				221A746720E0718800D7A010 /* GenericProductModel.m in Sources */,
 				22CEF1C320C7A36500C08582 /* AuditoriaViewController.m in Sources */,
+				22EB601320EDC8410081D4E5 /* LoteModel.m in Sources */,
 				221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */,
 				22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */,
 				22CEF1B420C7801900C08582 /* RegisterProductViewController.m in Sources */,
 				2220351220CC100700B42153 /* InspectionViewController.m in Sources */,
+				22EB601C20EDCCB00081D4E5 /* EspecificacionModel.m in Sources */,
 				22C79FB020CF750A004EF7CF /* ERProgressHud.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -896,7 +940,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C79FB120CF750A004EF7CF /* ERProgressHud.m in Sources */,
-				2220352020CCC99900B42153 /* InspectionModel.m in Sources */,
 				2281D9BF20C6E6A300830683 /* QRAppTests.m in Sources */,
 				22CEF1AB20C7065400C08582 /* NSString+Utils.m in Sources */,
 				2220351B20CCC84E00B42153 /* CoreDataManager.m in Sources */,
@@ -904,11 +947,9 @@
 				2220350C20CBA71900B42153 /* SettingsViewController.m in Sources */,
 				22C79FC620D01C40004EF7CF /* GetInfoViewController.m in Sources */,
 				22CEF1A820C7065400C08582 /* QRCodeGenerator.m in Sources */,
-				2220352520CCCB4900B42153 /* ProductModel.m in Sources */,
 				22CEF1AE20C7065400C08582 /* CIColor+QRCode.m in Sources */,
 				222034FB20CBA5C500B42153 /* Barcode.m in Sources */,
 				2220351320CC100700B42153 /* InspectionViewController.m in Sources */,
-				222034F620CAFEF200B42153 /* AuditorModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,7 +958,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				22C79FB220CF750A004EF7CF /* ERProgressHud.m in Sources */,
-				2220352120CCC99900B42153 /* InspectionModel.m in Sources */,
 				2281D9CA20C6E6A300830683 /* QRAppUITests.m in Sources */,
 				22CEF1AC20C7065400C08582 /* NSString+Utils.m in Sources */,
 				2220351C20CCC84E00B42153 /* CoreDataManager.m in Sources */,
@@ -925,11 +965,9 @@
 				2220350D20CBA71900B42153 /* SettingsViewController.m in Sources */,
 				22C79FC720D01C40004EF7CF /* GetInfoViewController.m in Sources */,
 				22CEF1A920C7065400C08582 /* QRCodeGenerator.m in Sources */,
-				2220352620CCCB4900B42153 /* ProductModel.m in Sources */,
 				22CEF1AF20C7065400C08582 /* CIColor+QRCode.m in Sources */,
 				222034FC20CBA5C500B42153 /* Barcode.m in Sources */,
 				2220351420CC100700B42153 /* InspectionViewController.m in Sources */,
-				222034F720CAFEF200B42153 /* AuditorModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -963,6 +1001,14 @@
 				2281D9B120C6E6A300830683 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22DB703C20EC4C06004143E7 /* Base */,
+			);
+			name = IPhoneMain.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1088,7 +1134,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = propio.QRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1108,7 +1154,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = propio.QRApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

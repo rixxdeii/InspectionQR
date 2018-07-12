@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ItemViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *inspectorLabel;
 
 @end

@@ -14,10 +14,14 @@
 #import "InspectionHeaderTableViewCell.h"
 #import "AchiveViewerViewController.h"
 #import <MessageUI/MessageUI.h>
+#import "ConfirmViewController.h"
+#import "UserModel.h"
+#import "CoreDataManager.h"
 
 @interface InspectionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate>{
     int muestra;
     int auditoriaIndex;
+    int IDlote;
 }
 @property (weak, nonatomic) IBOutlet UILabel *noParte;
 @property (weak, nonatomic) IBOutlet UILabel *noLote;
@@ -25,7 +29,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *inspector;
 @property (strong , nonatomic) NSDictionary * especificaciones;
 @property (strong , nonatomic) NSMutableArray  * arrayData;
-
+@property (strong , nonatomic) NSMutableArray  * arrLotes;
+@property (strong , nonatomic) NSMutableDictionary * recolecorMuestras;
 
 @end
 
@@ -34,15 +39,53 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _arrayData =[[NSMutableArray alloc]init];
-
-    self.noParte.text = _liberationPaper.noParte;
-    self.noLote.text = _liberationPaper.lote;
-    self.descrip.text = _liberationPaper.descript;
-    self.especificaciones = _liberationPaper.especificaciones;
-    muestra = [_liberationPaper.muestra intValue];
-    auditoriaIndex = 1;
     
-    _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_liberationPaper.muestra]];
+    if (_comefromPendiente) {
+        
+        self.noParte.text = _product.noParte;
+        self.noLote.text = _barcode.noLote;
+        self.descrip.text = _product.descript;
+        self.especificaciones = _product.especificaciones;
+        self.inspectorTxt.text =[[UserModel sharedManager] userName];
+        self.lote.proveedor =_lote.proveedor;
+        auditoriaIndex = 1;
+        _recolecorMuestras =[[NSMutableDictionary alloc]init];
+        muestra = [_product.muestra intValue];
+        
+        
+        
+        if ([_product.tipoproducto isEqualToString:@"Químico"]) {
+            muestra = 1;
+        }
+        
+        NSString * PC = [NSString stringWithFormat:@"Palet:%@",_lote.noPalet];
+        [self.paletText setText:PC];
+        
+        
+    }else{
+        
+        self.noParte.text = _barcode.noParte;
+        self.noLote.text = _barcode.noLote;
+        self.descrip.text = _product.descript;
+        self.especificaciones = _product.especificaciones;
+        self.inspectorTxt.text =[[UserModel sharedManager] userName];
+        self.lote.proveedor =_barcode.proveedor;
+        auditoriaIndex = 1;
+        _lote =[[LoteModel alloc]init];
+        _lote.muestreo = [[NSMutableDictionary alloc]init];
+        _recolecorMuestras =[[NSMutableDictionary alloc]init];
+        _lote.noParte = _barcode.noParte;
+        
+        NSString * PC = [NSString stringWithFormat:@"Palet:%@",_barcode.palet];
+        [self.paletText setText:PC];
+        
+    }
+    
+    
+    
+    
+    
+    _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_product.muestra]];
     
     
     [_arrayData addObject:@{@"LI":@"Toelrancia",
@@ -50,49 +93,29 @@
                             @"tipoIstrumento":@"Insrumento",
                             @"LM":@"UM"
                             }];
+    
     if (_especificaciones.count > 0) {
         for (NSDictionary * dic  in self.especificaciones) {
             [_arrayData addObject:dic];
         }
     }
-
-    _especificaciones = [[NSMutableDictionary alloc]init];
-   
-
-    [self.LoteTableView registerNib:[UINib nibWithNibName:@"LoteTableViewCell" bundle:nil]
-         forCellReuseIdentifier:@"loteCell"];
-    [self.inspectionTableView registerNib:[UINib nibWithNibName:@"InspectionHeaderTableViewCell" bundle:nil]
-             forCellReuseIdentifier:@"inspCell"];
     
+    [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
     
-
-      [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
+    self.title = @"";
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    if (tableView == _LoteTableView) {
-        return 1;
-    }
     return _arrayData.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
-    
-    if (tableView == _LoteTableView)
-    {
-        LoteTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"loteCell" forIndexPath:indexPath];
-        
-        [cell.lote setText:_liberationPaper.lote];
-        
-        return cell;
-    }
     
     InspectionHeaderTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"inspCell" forIndexPath:indexPath];
-
+    
     
     NSDictionary * param =[_arrayData objectAtIndex:indexPath.row];
     
@@ -105,14 +128,55 @@
         
         [cell.sw setHidden:YES];
         [cell.textFielReal setHidden:YES];
-         [cell.labelReal setHidden:NO];
+        [cell.labelReal setHidden:NO];
         cell.backgroundColor =[UIColor colorWithRed:249.0f/255.0f
                                               green:200.0f/255.0f
                                                blue:74.0f/255.0f
                                               alpha:1.0f];
     }else{
-    
+        
+        cell.backgroundColor =[UIColor whiteColor];
+        
         if ([[param objectForKey:@"LS"]isEqualToString:@""]) {//tipoChek
+            
+            if (_comefromPendiente) {
+                NSArray * keys =[_lote.muestreo allKeys];
+                
+                [cell.labelReal setHidden:YES];
+                [cell.sw setHidden:NO];
+                cell.sw.tag = indexPath.row;
+                //                [cell.sw setOn:NO];
+                //                [cell.sw addTarget:self action:@selector(onSwitchClick:) forControlEvents:UIControlEventValueChanged];
+                //                [self onSwitchClick:cell.sw];
+                [cell.textFielReal setHidden:YES];
+                
+                cell.especificacion.text = [param objectForKey:@"MeasureName"];
+                cell.Toleracias.text = [param objectForKey:@"LI"];
+                cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
+                cell.UM.text = [param objectForKey:@"LM"];
+                [cell.sw setEnabled:NO];
+                for (NSString * key in keys) {
+                    NSArray * subKeys = [[_lote.muestreo objectForKey:key] allKeys];
+                    
+                    if ([[[_lote.muestreo objectForKey:key] objectForKey:subKeys] isKindOfClass:[NSDictionary class]]||[[[_lote.muestreo objectForKey:key] objectForKey:subKeys] isKindOfClass:[NSMutableDictionary class]]) {
+                        
+                        for (NSString *object in subKeys) {
+                            NSString * prueba =[[[_lote.muestreo objectForKey:key] objectForKey:object] objectForKey:@"MeasureName"];
+                            if ([prueba isEqualToString:[param objectForKey:@"MeasureName"]]) {
+                                [cell.sw setOn:![[[[_lote.muestreo objectForKey:key] objectForKey:object] objectForKey:@"medidaReal"]isEqualToString:@"false"]];
+                                
+                                
+                                
+                            }
+                            
+                        }
+                    }
+                }
+                [_recolecorMuestras setObject:@"elementoInspeccionado" forKey:[NSString stringWithFormat: @"object%ld",(long)indexPath.row]];
+                
+                return cell;
+            }
+            
             [cell.labelReal setHidden:YES];
             [cell.sw setHidden:NO];
             cell.sw.tag = indexPath.row;
@@ -126,9 +190,87 @@
             cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
             cell.UM.text = [param objectForKey:@"LM"];
             
+            
+            
+            
         }else
         {
             
+            
+            if ([[param objectForKey:@"tipoIstrumento"]isEqualToString:@"Laboratorio"])
+            {
+                if (_comefromPendiente) {
+                    [cell.textFielReal setText:@"0"];
+                    [cell.labelReal setHidden:YES];
+                    [cell.sw setHidden:YES];
+                    [cell.textFielReal setHidden:NO];
+                    cell.textFielReal.tag =indexPath.row;
+                    cell.textFielReal.delegate = self;
+                    
+                    cell.especificacion.text = [param objectForKey:@"MeasureName"];
+                    cell.Toleracias.text =[NSString stringWithFormat:@"tar:%@  tol:%@",[param objectForKey:@"LI"],[param objectForKey:@"LS"]];
+                    cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
+                    cell.UM.text = [param objectForKey:@"LM"];
+                    
+                    
+                }else{
+                    [cell.textFielReal setHidden:YES];
+                    [cell.labelReal setHidden:NO];
+                    [cell.labelReal setText:@"Pendiente"];
+                    
+                    [cell.sw setHidden:YES];
+                    
+                    cell.especificacion.text = [param objectForKey:@"MeasureName"];
+                    cell.Toleracias.text =[NSString stringWithFormat:@"tar:%@  tol:%@",[param objectForKey:@"LI"],[param objectForKey:@"LS"]];
+                    cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
+                    cell.UM.text = [param objectForKey:@"LM"];
+                    [_recolecorMuestras setObject:@"elementoInspeccionado" forKey:[NSString stringWithFormat: @"object%ld",(long)indexPath.row]];
+                    
+                }
+                
+                
+                return cell;
+            }
+            
+            if (_comefromPendiente) {
+                
+                [cell.textFielReal setHidden:YES];
+                [cell.labelReal setHidden:NO];
+                [cell.sw setHidden:YES];
+                
+                NSArray * keys =[_lote.muestreo allKeys];
+                
+                for (NSString * key in keys) {
+                    NSArray * subKeys = [[_lote.muestreo objectForKey:key] allKeys];
+                    
+                    for (NSString *object in subKeys) {
+                        
+                        if ([[[_lote.muestreo objectForKey:key] objectForKey:object] isKindOfClass:[NSDictionary class]]||[[[_lote.muestreo objectForKey:key] objectForKey:object] isKindOfClass:[NSMutableDictionary class]]) {
+                            NSString * prueba =[[[_lote.muestreo objectForKey:key] objectForKey:object] objectForKey:@"MeasureName"];
+                            if ([prueba isEqualToString:[param objectForKey:@"MeasureName"]]) {
+                                
+                                [cell.labelReal setText:[[[_lote.muestreo objectForKey:key] objectForKey:object] objectForKey:@"medidaReal"]];
+                                
+                                
+                            }
+                        }
+                        
+                    }
+                    
+                }
+                
+                
+                cell.especificacion.text = [param objectForKey:@"MeasureName"];
+                cell.Toleracias.text =[NSString stringWithFormat:@"tar:%@  tol:%@",[param objectForKey:@"LI"],[param objectForKey:@"LS"]];
+                cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
+                cell.UM.text = [param objectForKey:@"LM"];
+                [_recolecorMuestras setObject:@"elementoInspeccionado" forKey:[NSString stringWithFormat: @"object%ld",(long)indexPath.row]];
+                
+                return cell;
+            }
+            
+            
+            [cell.textFielReal setText:@"0"];
             [cell.labelReal setHidden:YES];
             [cell.sw setHidden:YES];
             [cell.textFielReal setHidden:NO];
@@ -136,9 +278,10 @@
             cell.textFielReal.delegate = self;
             
             cell.especificacion.text = [param objectForKey:@"MeasureName"];
-            cell.Toleracias.text =[NSString stringWithFormat:@"tar:%@  tol:%@",[param objectForKey:@"LS"],[param objectForKey:@"LI"]];
+            cell.Toleracias.text =[NSString stringWithFormat:@"tar:%@  tol:%@",[param objectForKey:@"LI"],[param objectForKey:@"LS"]];
             cell.tipoInsturmento.text = [param objectForKey:@"tipoIstrumento"];
             cell.UM.text = [param objectForKey:@"LM"];
+            
             
         }
     }
@@ -147,28 +290,26 @@
 
 -(void)onSwitchClick:(UISwitch *)sw{
     
-
+    
     int index = 0;
-
+    
     for (NSMutableDictionary  * dic in _arrayData) {
         
         if (sw.tag == index) {
             
-            [dic setObject:[sw isOn]?@"true":@"false" forKey:@"medidaReal"];
-            if (![sw isOn]){
-                [dic setObject:@"rechazado" forKey:@"status"];
-            }else{
-                [dic setObject:@"aceptado" forKey:@"status"];
-            }
-            [_arrayData replaceObjectAtIndex:index withObject:dic];
+            NSString * muestraname = [NSString stringWithFormat:@"%d",index];
+            
+            NSDictionary * data = @{@"MeasureName":[[_arrayData objectAtIndex:index] objectForKey:@"MeasureName"],
+                                    @"medidaReal":[sw isOn]?@"true":@"false",
+                                    @"estatus":[sw isOn]?@"Liberado":@"Rechazado"
+                                    };
+            
+            [_recolecorMuestras setObject:data forKey:muestraname];
             
         }
         index++;
         
     }
-    
-   
-
     
 }
 
@@ -176,18 +317,27 @@
 {
     
     
+    
     NSString * finalText = [NSString stringWithFormat:@"%@%@",textField.text,string];
     
     NSString * LS = [[_arrayData objectAtIndex:textField.tag] objectForKey:@"LS"];
     NSString * LI = [[_arrayData objectAtIndex:textField.tag] objectForKey:@"LI"];
     textField.textColor = [self chageColorOfTextLS:LS M:finalText LI:LI];
+    NSArray * validCharacteres =@[@"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",@"9",@".",@"-"];
     
-    return  YES;
+    
+    
+    for (NSString *object in validCharacteres) {
+        if ([object isEqualToString:string]) {
+        }
+        return YES;
+    }
+    return  NO;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-
+    
     int index = 0;
     
     if ([textField.text isEqualToString:@""]) {
@@ -199,25 +349,26 @@
         
         if (textField.tag == index) {
             
-             [dic setObject:textField.text forKey:@"medidaReal"];
-            if ([textField.textColor isEqual:[UIColor redColor]]){
-                [dic setObject:@"rechazado" forKey:@"status"];
-            }else{
-                [dic setObject:@"aceptado" forKey:@"status"];
-            }
+            NSString * muestraname = [NSString stringWithFormat:@"%d",index];
             
-              [_arrayData replaceObjectAtIndex:index withObject:dic];
-            break;
+            NSDictionary * data = @{@"MeasureName":[[_arrayData objectAtIndex:index] objectForKey:@"MeasureName"],
+                                    @"medidaReal":textField.text,
+                                    @"estatus":(textField.textColor ==[UIColor greenColor])?@"Liberado":@"Rechazado"
+                                    };
+            
+            [_recolecorMuestras setObject:data forKey:muestraname];
+            
         }
-       
+        
         index++;
         
         
         
     }
-  
-
+    
+    
 }
+
 
 -(UIColor *)chageColorOfTextLS:(NSString *)LS
                              M:(NSString *)M
@@ -240,36 +391,38 @@
     
 }
 - (IBAction)showArchive:(id)sender {
-    if (![_liberationPaper.noParte isEqualToString:@""]) {
-        AchiveViewerViewController * archive = [[AchiveViewerViewController alloc]init];
-        archive.url = _liberationPaper.noParte;
-        self.definesPresentationContext = YES; //self is presenting view controller
-        archive.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        [self presentViewController:archive animated:YES completion:nil];
-    }
+    //    if (![_liberationPaper.noParte isEqualToString:@""]) {
+    AchiveViewerViewController * archive = [[AchiveViewerViewController alloc]init];
+    archive.url = _lote.noParte;
+    self.definesPresentationContext = YES; //self is presenting view controller
+    archive.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:archive animated:YES completion:nil];
+    
 }
 - (IBAction)continueButton:(id)sender
 {
+    //Muestras completas
     
-    for (NSDictionary *object in _arrayData) {
-        if (![[object objectForKey:@"LI"]isEqualToString:@"Toelrancia"]) {
-            
-            if ([[object objectForKey:@"medidaReal"] isEqual:@""]
-                ||[[object objectForKey:@"medidaReal"] isEqual:@"0"]
-                ||[object objectForKey:@"medidaReal"] ==nil
-                //||[[object objectForKey:@"medidaReal"] intValue]<=0
-                ) {
-                
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Te faltra llenar campos" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                [alert show];
-                alert.tag = 2;
-                return;
-            }
-        }
+    if (_recolecorMuestras.count != _arrayData.count-1)
+    {
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Te faltra llenar campos" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        alert.tag = 2;
+        return;
     }
-    [_especificaciones setValue:_arrayData forKey:[NSString stringWithFormat:@"muestra %d", auditoriaIndex]];
+    
+    
+    if (_comefromPendiente) {
+        
+        [_lote.muestreo setObject:_recolecorMuestras forKey:[NSString stringWithFormat:@"muestraLaboratorio%d", auditoriaIndex]];
+    }else{
+        [_lote.muestreo setObject:_recolecorMuestras forKey:[NSString stringWithFormat:@"muestra%d", auditoriaIndex]];
+    }
+    
+    _recolecorMuestras =[[NSMutableDictionary alloc]init];
+    
     if (auditoriaIndex <muestra) {
-       
+        
         auditoriaIndex++;
         
         if (muestra == auditoriaIndex) {
@@ -277,119 +430,106 @@
         }
         
         NSString * muestraa = [NSString stringWithFormat:@"%i",muestra];
-       
+        
         
         _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",muestraa]];
         [_inspectionTableView reloadData];
         
     }else
     {
-
-//        [result setObject:resultHelper forKey:[NSString stringWithFormat:@"measure %d",auditoriaIndex]];
-//        _inspection.auditoriaResult =[[NSMutableArray alloc]init];
-//        [_inspection.auditoriaResult addObject:result];
-//        UIImage * image = [[[QRCodeGenerator alloc] initWithString:_inspection.idIspection] getImage];
-//        _inspection.QRCode = image;
-        
-        [_especificaciones setValue:_arrayData forKey:[NSString stringWithFormat:@"muestra %d", auditoriaIndex]];
-        for (NSDictionary *object in _arrayData) {
-            if (![object isEqual:[_arrayData firstObject]]) {
-                
-                if ([[object objectForKey:@"status"] isEqualToString:@"rechazado"]){
-                    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Rechazado" message:@"Deseas enviar una notificación? " delegate:self cancelButtonTitle:@"Continuar" otherButtonTitles:@"Notificar", nil];
+        if (!_comefromPendiente) {
+            _lote.noLote = _barcode.noLote;
+            _lote.fechaCaducidad = _barcode.fechaCad;
+            _lote.proveedor = _barcode.proveedor;
+            _lote.cantidadTotalporLote = _barcode.cantidad;
+            _lote.unidadMedida = _barcode.UM;
+            _lote.noPalet =_barcode.palet;
+            _lote.noPaquetesPorPalet =_barcode.paquetesPorLote;
+            _lote.totalPalets = _barcode.totalPalest;
+            _lote.ubicacion =@"Calidad";
+            for (NSDictionary  *object in _arrayData) {
+                if ([[object objectForKey:@"tipoIstrumento"]isEqualToString:@"Laboratorio"]) {
+                    
+                    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"El producto quedara pendiente de liberación." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Aceptar", nil];
+                    alert.tag =100;
                     [alert show];
+                    _lote.estatusLiberacion = @"Pendiente";
+                    _lote.ubicacion =@"Calidad";
                     return;
                 }
+                
             }
-            
         }
         
+        NSArray * keys =[_lote.muestreo allKeys];
         
-        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Liberado" message:@"El producto cumple con los estandares de calidad" delegate:self cancelButtonTitle:@"Continuar" otherButtonTitles:nil, nil];
-        [alert show];
         
-        NSLog(@"inspection Final: %@",_arrayData);
-        return;
-    
+        for (NSString *key in keys) {
+            NSDictionary * dic = [_lote.muestreo objectForKey:key];
+            NSArray * subkeys =[dic allKeys];
+            for (NSString *subKey in subkeys) {
+                
+                if ([[dic objectForKey:subKey] isKindOfClass:[NSDictionary class]]||[[dic objectForKey:subKey] isKindOfClass:[NSMutableDictionary class]]) {
+                    if ([[[dic objectForKey:subKey]objectForKey:@"estatus"]isEqualToString:@"Rechazado"]) {
+                        _lote.estatusLiberacion = @"Rechazado";
+                        [self performSegueWithIdentifier:@"segueConfirm" sender:nil];
+                        return;
+                    }
+                }
+        
+            }
+        }
+        _lote.estatusLiberacion = @"Liberado";
+        [self performSegueWithIdentifier:@"segueConfirm" sender:nil];
         
     }
-    
     
 }
 -(NSString *)constructInfoLabel:(NSString *)one two:(NSString *)two
 {
+    if ([_product.tipoproducto isEqualToString: @"Químico"]) {
+        return [NSString stringWithFormat:@"Muestra: %@",two];
+    }
+    
     return [NSString stringWithFormat:@"Muestra: %@/%@",one,two];
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    
-    if (buttonIndex == 1)
-    {
-
-        NSString *emailTitle = [NSString stringWithFormat:@"Rechazo Inspección Recibo no. parte %@",self.noParte.text];
-        // Email Content
-        NSString *messageBody = [NSString stringWithFormat:@"Se notifica que el producto : %@ del lote: %@ ha sido rechazado. ",self.descrip.text,_liberationPaper.lote ];
-        // To address
-        NSArray *toRecipents = @[@"delarosa-21@hotmail.com",@"ricardodeveloper.21@hotmail.com"];//[NSArray arrayWithObject:@"support@appcoda.com"];
+    if (alertView.tag == 100) {
         
-        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-        mc.mailComposeDelegate = self;
-        [mc setSubject:emailTitle];
-        [mc setMessageBody:messageBody isHTML:NO];
-        [mc setToRecipients:toRecipents];
-        
-        // Present mail view controller on screen
-        [self presentViewController:mc animated:YES completion:NULL];
-    }else{
-        if (alertView.tag == 2) {
-            return;
+        if (buttonIndex ==1) {
+            _lote.noParte = _barcode.noParte;
+            [CoreDataManager loteStatusPendiente:_lote];
+            [self.navigationController popToViewController:[[self.navigationController viewControllers]objectAtIndex:1] animated:YES];
         }
         
-        [self performSegueWithIdentifier:@"segue" sender:nil];
-    }
-
-}
-
-- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
-{
-    switch (result)
-    {
-        case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
-            break;
-        case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
-            break;
-        case MFMailComposeResultSent:
-            NSLog(@"Mail sent");
-            break;
-        case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
-            break;
-        default:
-            break;
     }
     
-    // Close the Mail Interface
-    [self dismissViewControllerAnimated:YES completion:^{
-        [self performSegueWithIdentifier:@"segue" sender:nil];
-    }];
 }
 
-//-(void)
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(LoteModel *)sender{
+    if ([segue.identifier isEqualToString:@"segueConfirm"]) {
+        ConfirmViewController * VC =[segue destinationViewController];
+        VC.comeFrom =@"registroLiberacion";
+        VC.lote = _lote;
+        VC.product = _product;
+        VC.barcode = _barcode;
+        VC.comeFromPendientes = _comefromPendiente;
+        VC.pendenteInexx = _pendenteInexx;
+        
+        
+        //        VC.isComeFromLiberationPapoerVC = YES;
+        //        VC.liberationPaper = _liberationPaper;
+    }
+}
+- (IBAction)gesture:(id)sender
+{
+    [self.view endEditing:YES];
+    
+}
 
-//-(NSDictionary *)stringToJson:(NSString *)string{
-//
-//
-//    NSError *err = nil;
-//    NSArray *array = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&err];
-//    NSDictionary *dictionary = [array objectAtIndex:0];
-//    NSString *test = [dictionary objectForKey:@"ID"];
-//    NSLog(@"Test is %@",test);
-//    return dictionary;
-//}
 
 
 @end

@@ -12,5 +12,7 @@
 
 @interface CustomNavigationControllerViewController : UINavigationController
 
+-(void)setImageView:(UIImage *)imageName;
+
 
 @end

@@ -8,6 +8,7 @@
 
 #import "FireBaseManager.h"
 
+
 @implementation FireBaseManager
 
 +(FIRDatabaseReference *)getReference{
@@ -15,116 +16,212 @@
 }
 
 
-+(void)saveGProduct:(GenericProductModel *)model
+-(void)saveGProduct:(GenericProductModel *)model completion:(void(^)(BOOL isOK))completion
 {
-
-
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
+    
     NSDictionary * dicTosend = @{@"noParte":model.noParte,
-                                    @"descript":model.descript,
+                                 @"descript":model.descript,
                                  @"nivelRevision":model.nivelRevision,
-                                 @"especificaciones":model.especificaciones,
-                                 @"muestra":model.muestra,
                                  @"almacenajeFrio":model.almacenaje,
+                                 @"especificaciones":[model.especificaciones objectForKey:@"especificaciones"],
+                                 @"muestra":model.muestra,
                                  @"tipoproducto":model.tipoproducto
-                                 //@"urlsDocumentos":model.urlsDocumentos,
                                  };
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     
-    [[[ref child:@"genericProduct"] child:model.noParte]
-     setValue:dicTosend];
+    [[[ref child:@"genericProduct"] child:model.noParte] setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        
+        [timer invalidate];
+        if (!error) {
+            completion(YES);;
+        }else{
+            completion(NO);;
+        }
+    
+    }];
+    
+
 
 }
-+(void)saveSProduct:(SpecificProductModel *)model
+-(void)saveLiberation:(LoteModel *)model completion:(void(^)(BOOL isOK))completion
 {
-    NSDictionary * dicTosend = @{@"descript":model.descript,
-//                                 @"nivelRevision":model.nivelRevision,
-//                                 @"especificaciones":[NSString stringWithFormat:@"%@",model.especificaciones],
-//                                 @"muestra":model.muestra,
-//                                 @"caracterisiticaCritica":model.caracterisiticaCritica,
-//                                 @"almacenaje":model.almacenaje,
-                                 //@"urlsDocumentos":model.urlsDocumentos,
-                                 @"fechaLLegada":model.fechaLLegada,
-                                 @"fechaManufactura":model.fechaManufactura,
-                                 @"turno":model.turno,
-                                 @"loteDirecto":model.loteDirecto,
-                                 @"loteIndirecto":model.loteIndirecto,
-                                 @"cantidad":model.cantidad,
-                                 @"inspector":model.inspector
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
+    
+    
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
+    NSLog(@"%@",[dateFormatter stringFromDate:[NSDate date]]);
+
+    NSDictionary * dicTosend = @{@"noLote":model.noLote,
+                                 @"proveedor":model.proveedor,
+                                 @"cantidadTotalporLote":model.cantidadTotalporLote,
+                                 @"unidadMedida":model.unidadMedida,
+                                 @"noPalet":model.noPalet,
+                                 @"fechaCaducidad":model.fechaCaducidad,
+                                 @"totalPalets":model.totalPalets,
+                                 @"muestreo":model.muestreo,
+                                 @"estatusLiberacion":model.estatusLiberacion,
+                                 @"noPaquetesPorPalet":model.noPaquetesPorPalet,
+                                 @"FechaLlegada":[dateFormatter stringFromDate:[NSDate date]]
                                  };
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     
-    [[[ref child:@"specificProduct"] child:[NSString stringWithFormat:@"%@-%@",model.noParte,model.loteDirecto ]]
-     setValue:dicTosend];
-    
+    [[[[ref child:@"genericProduct"] child:model.noParte] child:model.noLote]setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+        
+        [timer invalidate];
+        if (!error) {
+            completion(YES);;
+        }else{
+            completion(NO);;
+        }
+        
+    }];
+
 }
 
 
 
--(void)getGProduct:(NSString *)model completion:(void(^)(BOOL isOK, GenericProductModel *newModel))completion //valida:(blockGP)valida
+-(void)getGProduct:(NSString *)model completion:(void(^)(BOOL isOK,BOOL Exist, GenericProductModel *newModel))completion //valida:(blockGP)valida
 {
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
     
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     [[[ref child:@"genericProduct"] child:model] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-
+        [timer invalidate];
+        
         GenericProductModel * GP = [[GenericProductModel alloc]init];
         
-        if (snapshot.value[@"noParte"] == nil) {
-            completion(NO, nil);;
+        if (snapshot.exists) {
+            
+            GP.noParte = snapshot.value[@"noParte"];
+            GP.descript  =snapshot.value[@"descript"];
+            GP.nivelRevision  =@"nivelRevision";
+            GP.especificaciones  =snapshot.value[@"especificaciones"];
+            GP.muestra  =snapshot.value[@"muestra"];
+            GP.almacenaje  =snapshot.value[@"almacenajeFrio"];
+            GP.tipoproducto = snapshot.value[@"tipoproducto"];
+            
         }
-        
-        GP.noParte = snapshot.value[@"noParte"];
-        GP.descript  =snapshot.value[@"descript"];
-        GP.nivelRevision  =@"nivelRevision";
-        GP.especificaciones  =snapshot.value[@"especificaciones"];
-        GP.muestra  =snapshot.value[@"muestra"];
-        GP.almacenaje  =snapshot.value[@"almacenajeFrio"];
-        GP.tipoproducto = snapshot.value[@"tipoproducto"];
-        
-        
-        completion(YES, GP);
+    
+        completion(YES,snapshot.exists, GP);
        
         
     } withCancelBlock:^(NSError * _Nonnull error) {
+        [timer invalidate];
         NSLog(@"%@", error.localizedDescription);
         //[delegate GPStatusChanged:nil];
-        completion(NO,nil);
+        completion(NO,NO,nil);
         
     }];
 
 }
 
--(void)getSProduct:(NSString *)model lote:(NSString *)lote completion:(void(^)(BOOL isOK, SpecificProductModel *newModel))completion
+-(void)getNumberOfPaletsFromModel:(NSString *)model lote:(NSString *)lote completion:(void(^)(BOOL isOK,BOOL Exist, LoteModel*  newModel))completion
 {
-    
+     timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
-    [[[ref child:@"specificProduct"] child:[NSString stringWithFormat:@"%@-%@",model,lote]] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+    [[[[ref child:@"genericProduct"] child:[NSString stringWithFormat:@"%@",model] ]child:[NSString stringWithFormat:@"%@",lote]] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         // Get user value
+        [timer invalidate];
+          if (snapshot.exists) {
+        LoteModel * _lote = [[LoteModel alloc]init];
+        
+//        @property (nonatomic, strong) NSString * noParte;
+//        @property (nonatomic, strong) NSString * noLote;
+//        @property (nonatomic, strong) NSString * estatusLiberacion;
+//        @property (nonatomic, strong) NSMutableDictionary * muestreo;
+//        @property (nonatomic, strong) NSString * fechaCaducidad;
+//        @property (nonatomic, strong) NSString *fechaManufactura;
+//        @property (nonatomic, strong) NSString *proveedor;
+//        @property (nonatomic, strong) NSString *cantidadTotalporLote;
+//        @property (nonatomic, strong) NSString *unidadMedida;
+//        @property (nonatomic, strong) NSString * ubicacion;
+//
+//        @property  NSString * noPalet;
+//        @property NSString * noPaquetesPorPalet;
+//        @property NSString * totalPalets;
     
-        if (snapshot.value[@"noParte"] == nil) {
-            completion(NO, nil);
-        }
+        _lote.fechaCaducidad = snapshot.value[@"fechaCaducidad"];
+        _lote.proveedor = snapshot.value[@"noLote"];
+        _lote.cantidadTotalporLote = snapshot.value[@"proveedor"];
+        _lote.unidadMedida = snapshot.value[@"unidadMedida"];
+        _lote.noPalet =snapshot.value[@"noPalet"];
+        //_lote.noPaquetesPorPalet =snapshot.value[@"noLote"];
+        //_lote.totalPalets = snapshot.value[@"noLote"];
+        _lote.ubicacion =snapshot.value[@"noLote"];
+        completion(YES,snapshot.exists, _lote);
+          }
         
-        SpecificProductModel * SP = [[SpecificProductModel alloc]init];
-        
-        SP.noParte = snapshot.value[@"noParte"];
-        SP.loteDirecto = snapshot.value[@"loteDirecto"];
-        SP.fechaLLegada =snapshot.value[@"fechaLLegada"];
-        SP.fechaManufactura = snapshot.value[@"fechaManufactura"];
-        SP.turno = snapshot.value[@"turno"];
-        SP.loteIndirecto = snapshot.value[@"loteIndirecto"];
-        SP.cantidad = snapshot.value[@"cantidad"];
-        SP.inspector = snapshot.value[@"inspector"];
-        SP.descript = snapshot.value[@"descript"];
-
-        completion(YES, SP);
-        
+         completion(YES,snapshot.exists, nil);
         // ...
     } withCancelBlock:^(NSError * _Nonnull error) {
+        [timer invalidate];
         NSLog(@"%@", error.localizedDescription);
        
-        completion(NO, nil);
+        completion(NO, NO,0);
     }];
     
+}
+
+-(void)registerUser:(UserModel *)user completion:(void(^)(BOOL isOK))completion
+{
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
+    FIRDatabaseReference * ref = [[FIRDatabase database] reference];
+    
+    NSDictionary * dic =@{@"userName":user.userName,
+                          @"userCode":user.userCode,
+                          @"userEmail":user.userEmail,
+                          @"userRoll":user.roll,
+                          };
+    [[[ref child:@"user"] child:[NSString stringWithFormat:@"%@-%@",user.userCode,user.userPassWord ]]
+     setValue:dic withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+         [timer invalidate];
+         if (!error) {
+             completion(YES);;
+         }else{
+             completion(NO);;
+         }
+     }];
+    
+}
+
+-(void)login:(NSString *)userCode pass:(NSString *)pass completion:(void(^)(BOOL isOK, BOOL userExist, UserModel *newModel))completion
+{
+ 
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
+    
+    FIRDatabaseReference * ref = [[FIRDatabase database] reference];
+    [[[ref child:@"user"] child:[NSString stringWithFormat:@"%@-%@",userCode,pass]] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        [timer invalidate];
+        UserModel * user =[UserModel sharedManager];
+        if (snapshot.exists) {
+            
+            
+            user.userName =snapshot.value[@"userName"];
+            user.userCode =snapshot.value[@"userCode"];
+            user.userEmail =snapshot.value[@"userEmail"];
+            user.roll =snapshot.value[@"userRoll"];
+            
+        }
+        
+        completion(YES, snapshot.exists,user);
+    
+    } withCancelBlock:^(NSError * _Nonnull error) {
+        [timer invalidate];
+        NSLog(@"%@", error.localizedDescription);
+        
+        completion(NO, NO,nil);
+    }];
+    
+    
+}
+
+-(void)sinInternet
+{
+    [_delegate userLostConectionFireBase];
 }
 
 

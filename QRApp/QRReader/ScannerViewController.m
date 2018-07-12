@@ -14,7 +14,7 @@
 #include "LMSideBarController.h"
 #import "FireBaseManager.h"
 #import "GetInfoViewController.h"
-#import "LiberationPaper.h"
+#import "ERProgressHud.h"
 @import AVFoundation;   // iOS7 only import style
 
 @interface ScannerViewController ()<GetInfoDelegate,FirebaseManagerDelegate>
@@ -88,6 +88,8 @@
     [self.allowedBarcodeTypes addObject:@"org.iso.Code128"];
 
     // Setup side bar controller
+    
+    self.title =@"";
 
 
     
@@ -136,11 +138,11 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
-    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
-        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
-    }else{
-        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
-    }
+//    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+//        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+//    }else{
+//        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+//    }
     
     // capture and process the metadata
     _metadataOutput = [[AVCaptureMetadataOutput alloc] init];
@@ -178,19 +180,23 @@
 - (IBAction)settingsButtonPressed:(id)sender {
     [self performSegueWithIdentifier:@"toSettings" sender:self];
 }
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"toSettings"]) {
-//        self.settingsVC = (SettingsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"SettingsViewController"];
-//        self.settingsVC = segue.destinationViewController;
-//        self.settingsVC.delegate = self;
-//    }else if ([[segue identifier] isEqualToString:@"inspectionSegue"])
-//    {
-//         self.insVC = (InspectionViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"InspectionViewController"];
-//        self.insVC  = segue.destinationViewController;
-//
-//    }
-//}
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray *)sender
+{
+    if ([[segue identifier] isEqualToString:@"toSettings"]) {
+        self.settingsVC = (SettingsViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"SettingsViewController"];
+        self.settingsVC = segue.destinationViewController;
+        self.settingsVC.delegate = self;
+    }else if ([[segue identifier] isEqualToString:@"inspectionSegue"])
+    {
+         self.insVC = (InspectionViewController *)[self.storyboard instantiateViewControllerWithIdentifier: @"InspectionViewController"];
+        self.insVC  = segue.destinationViewController;
+        
+        self.insVC.barcode =[sender firstObject];
+        self.insVC.product =[sender lastObject];
+        self.insVC.comefromPendiente =NO;
+    
+    }
+}
 
 
 #pragma mark - Delegate functions
@@ -243,93 +249,64 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
             
             NSArray * data = [self.code componentsSeparatedByString:@"-"];
             
-            if ([[data firstObject] isEqualToString:@"P"]||[[data firstObject] isEqualToString:@"L"]||[[data firstObject] isEqualToString:@"N"]) {
+            
+            if ([[data firstObject]isEqualToString:@"FM"]) {//ControlFederal Mogul
                 
+                BarCodeModel * model = [[BarCodeModel alloc]init];
                 
-                if ([[data firstObject] isEqualToString:@"P"]) {//iniciar inspeccion
-                    
-                    
-                    
-                    FireBaseManager  * fbm = [[FireBaseManager alloc]init];
-                    
-                    
-                    
-                    [fbm getGProduct:[data objectAtIndex:1] completion:^(BOOL isOK, GenericProductModel *newModel) {
-                        
-                        if (isOK) {//success
-                            
-                            
-                            LiberationPaper * lpM =[[LiberationPaper alloc]init];
-                            
-                            lpM.noParte = newModel.noParte;
-                            lpM.descript = newModel.descript;
-                            lpM.nivelRevision = newModel.nivelRevision;
-                            lpM.especificaciones = newModel.especificaciones;
-                            lpM.muestra = newModel.muestra;
-                            lpM.almacenaje =newModel.almacenaje;
-                            lpM.tipoproducto = newModel.tipoproducto;
-                            lpM.fechaLLegada  =[data objectAtIndex:6];
-                            lpM.cantidad = [data objectAtIndex:2];
-                            lpM.unidadMedida = [data objectAtIndex:3];
-                            lpM.proveedor =[data objectAtIndex:5];
-                            lpM.lote =[data objectAtIndex:4];
-                            
-                            NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
-                            [dateFormatter setDateFormat:@"dd-MM-yyyy"];
-                            
-                            lpM.fechaInspeccion = [dateFormatter stringFromDate:[NSDate date]];
-                            
-                            [self performSegueWithIdentifier:@"inspectionSegue" sender:lpM];
-                            
-                            
-                        }else{//error
-                            
-                            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No se logoró recuperar informacion de Servidor." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-                            [alert show];
-                            
-                        }
-                    }];
-                    
-                    
-                }else{
-                    GetInfoViewController * GIVC = [[GetInfoViewController alloc]init];
-                    GIVC.delegate =self;
-                    GIVC.datos = data;
-                    
-                    
-                    self.definesPresentationContext = YES; //self is presenting view controller
-                    GIVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                    [self presentViewController:GIVC animated:YES completion:nil];
-                    
-                }
-                
+                model.noParte =[data objectAtIndex:1];
+                model.noLote =[data objectAtIndex:2];
+                model.palet =[data objectAtIndex:3];
+                model.paquete =[data objectAtIndex:4];
+                model.totalPalest =[data objectAtIndex:5];
+                model.paquetesPorLote =[data objectAtIndex:6];
+                model.cantidad =[data objectAtIndex:7];
+                model.UM =[data objectAtIndex:8];
+                model.proveedor =[data objectAtIndex:9];
+                model.fechaRecibo =[data objectAtIndex:10];
+                model.fechaCad =[data objectAtIndex:11];
+                FireBaseManager * fbm =[[FireBaseManager alloc]init];
+                fbm.delegate =self;
+                [[ERProgressHud sharedInstance ] show];
                 
                 
 
+                [fbm getGProduct:model.noParte completion:^(BOOL isOK, BOOL Exist, GenericProductModel *newModel)
+                 {
+                     [[ERProgressHud sharedInstance ] hide];
+                     
+                     if (isOK) {
+                         
+                         if (Exist){
+                             
+                             [self performSegueWithIdentifier:@"inspectionSegue" sender:@[model,newModel]];
+                             
+                         }else{
+                             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                             [alert show];
+                             
+                         }
+                         
+                     }else{
+                         [self userLostConectionFireBase];
+                     }
+                 }];
                 
-                
-            }else
-            {
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No esta registrado en la compania." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:@"", nil];
+            }else{
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                 [alert show];
-                [self startRunning];
+                
                 
             }
             
-            
-            
-            
-            NSLog(@"que pàsa aqui");
-            
-            
         });
     });
-            
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 0){
         //Code for Done button
         // TODO: Create a finished view
+        [self startRunning];
     }
     if(buttonIndex == 1){
         //Code for Scan more button
@@ -346,19 +323,30 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     }
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(LiberationPaper *)sender{
-    if ([segue.identifier isEqualToString:@"inspectionSegue"]) {
-        InspectionViewController * VC = [segue destinationViewController];
-        VC.liberationPaper =sender;
-        
-    }
-}
+//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray *)sender{
+//    if ([segue.identifier isEqualToString:@"inspectionSegue"]) {
+//        InspectionViewController * VC = [segue destinationViewController];
+//        VC.barcode = [sender firstObject];
+//        VC.product = [sender lastObject];
+//    }
+//}
 
 
 -(void)GPStatusChanged:(GenericProductModel *)newModel
 {
 
 }
+
+-(void)userLostConectionFireBase
+{
+    [[ERProgressHud sharedInstance]hide];
+    
+    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Error" message:@"No se pudo conctar con servidor" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+}
+
+
 
 @end
 

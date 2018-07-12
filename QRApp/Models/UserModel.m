@@ -1,17 +1,16 @@
 //
-//  AuditorModel.m
+//  UserModel.m
 //  QRApp
 //
-//  Created by Ricardo Rojas on 08/06/18.
+//  Created by Ricardo Rojas on 23/06/18.
 //  Copyright © 2018 Ricardo Rojas. All rights reserved.
 //
 
-#import "AuditorModel.h"
+#import "UserModel.h"
 
-@implementation AuditorModel
-
+@implementation UserModel
 + (id)sharedManager {
-    static AuditorModel *sharedMyManager = nil;
+    static UserModel *sharedMyManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedMyManager = [[self alloc] init];
@@ -24,6 +23,5 @@
     }
     return self;
 }
-
 
 @end

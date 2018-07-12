@@ -7,7 +7,7 @@
 //
 
 #import "GetInfoViewController.h"
-#import "AuditorModel.h"
+
 
 @interface GetInfoViewController ()
 

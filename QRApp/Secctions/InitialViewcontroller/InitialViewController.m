@@ -7,18 +7,26 @@
 //
 
 #import "InitialViewController.h"
-#import "AuditorModel.h"
 #import "ERProgressHud.h"
 #import "Barcode.h"
 #import "SettingsViewController.h"
 #import "RegisterUserModalViewController.h"
+#import "FireBaseManager.h"
+#import "CustomNavigationControllerViewController.h"
+#import "ERProgressHud.h"
+#import "ConfirmViewController.h"
 
+#import "BarCodeModel.h"
 //#import "CoreDataManager.h"
 
-@interface InitialViewController ()
+@interface InitialViewController ()<FirebaseManagerDelegate,UITextFieldDelegate,UIAlertViewDelegate,registerUserDlegate>{
+    BOOL isRememberme;
+    BOOL existLote;
+    LoteModel * loteExistente;
+}
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *userlabel;
-@property (weak, nonatomic) IBOutlet UIButton *inBuuton;
+@property (weak, nonatomic)  UIButton *inBuuton;
 
 
 @property (strong, nonatomic) NSMutableArray * foundBarcodes;
@@ -28,7 +36,10 @@
 
 @property (strong, nonatomic) SettingsViewController * settingsVC;
 
+@property (weak, nonatomic) IBOutlet UISwitch *switchRememberme;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic)  NSString * noParteSave;
 
 @end
 
@@ -44,6 +55,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _scrollView.center =self.view.center;   _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height+100) ;
+    
+    self.title = @"";
     
     [self.userlabel setHidden:YES];
     [self.inBuuton setHidden:YES];
@@ -77,49 +92,62 @@
     [self.allowedBarcodeTypes addObject:@"com.intermec.Code93"];
     [self.allowedBarcodeTypes addObject:@"org.iso.Code128"];
     
+    NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
     
+    NSString * statusSW =[userDef objectForKey:@"swStatus"];
+    
+    [_switchRememberme setOn: [statusSW isEqualToString:@"YES"]];
+    
+    
+    
+    if ([_switchRememberme isOn]) {
+        
+        _userTxT.text = [userDef objectForKey:@"userDefcode"];
+        _userPaSSTxT.text = [userDef objectForKey:@"userDefPass"];
+        
+        
+    }
+    
+    [self.userTxT setDelegate:self];
+    [self.userPaSSTxT setDelegate:self];
     
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self startRunning];
+    
 }
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    
+    
     [self stopRunning];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController setNavigationBarHidden:YES];
+    
 }
-
-
-//- (void)loginButton:(FBSDKLoginButton *)loginButton
-//didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result
-//              error:(NSError *)error
-//{
-//
-//    NSLog(@"result : %@",result);
-//
-//    [[ERProgressHud sharedInstance] showWithBlurView];
-//
-//}
-
-
-
-
-//- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
-//    NSLog(@"logOut");
-//    [self.userlabel setHidden:YES];
-//    [self.inBuuton setHidden:YES];
-//    [self.userlabel setText:@""];
-//    [[AuditorModel sharedManager] setNombre:@""];
-//    [[AuditorModel sharedManager] setIdAuditor: @""];
-//    
-//}
-
+- (IBAction)rememberme:(UISwitch *)sender {
+    
+    isRememberme =[sender isOn];
+    
+    if (!isRememberme) {
+        [self.userTxT setText:@""];
+        [self.userPaSSTxT setText:@""];
+        NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
+        
+        [userDef setObject:nil forKey:@"userDefcode"];
+        [userDef setObject:nil forKey:@"userDefPass"];
+        
+        [userDef setObject:@"NO" forKey:@"swStatus"];
+        
+    }
+    
+}
 
 
 
@@ -168,8 +196,76 @@
 
 - (IBAction)enter:(id)sender
 {
+    [self stopRunning];
     
-    [self performSegueWithIdentifier:@"itemSegue" sender:nil];
+    if ([_userTxT.text isEqualToString:@""]
+        ||[_userPaSSTxT.text isEqualToString:@""])
+    {
+        
+        
+        UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Falta llenar campos" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+        
+        return;
+    }else{
+        
+        [[ERProgressHud sharedInstance ] show];
+        
+        FireBaseManager * firebase = [[FireBaseManager alloc]init];
+        firebase.delegate = self;
+        [firebase login:_userTxT.text pass:_userPaSSTxT.text completion:^(BOOL isOK, BOOL userExist, UserModel *newModel)
+         {
+             NSString * text =nil;
+             
+             [[ERProgressHud sharedInstance ] hide];
+             
+             if (isOK) {
+                 
+                 if (userExist) {
+                     
+                     UIImage * image=[self getImageUser:newModel.userCode];
+                     
+                     CustomNavigationControllerViewController * cnc = (CustomNavigationControllerViewController *)self.navigationController;
+                     [cnc setImageView:image];
+                     
+                     if (isRememberme) {
+                         NSUserDefaults * userDef =[NSUserDefaults standardUserDefaults];
+                         
+                         [userDef setObject: _userTxT.text forKey:@"userDefcode"];
+                         [userDef setObject: _userPaSSTxT.text forKey:@"userDefPass"];
+                         [userDef setObject: isRememberme?@"YES":@"NO" forKey:@"swStatus"];
+                         
+                         
+                     }
+                     
+                     
+                     [self performSegueWithIdentifier:newModel.roll sender:nil];
+                     
+                     
+                 }else{
+                     
+                     text = @"El usuario o la contraseña no existen.";
+                 }
+                 
+                 
+             }else{
+                 
+                 text = @"Error conexion servidor";
+             }
+             
+             if (text)
+             {
+                 UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:text delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                 [alert show];
+                 
+             }
+             
+             
+         }];
+    }
+    
+    
+    
     
 }
 
@@ -199,11 +295,11 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
-    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
-        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
-    }else{
-        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
-    }
+//        if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+//            [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+//        }else{
+//            [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+//        }
     
     
     // capture and process the metadata
@@ -287,41 +383,97 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
             // [self performSegueWithIdentifier:@"inspectionSegue" sender:nil];
             
             
-            NSArray * data = [self.code componentsSeparatedByString:@" "];
+            NSArray * data = [self.code componentsSeparatedByString:@"-"];
             
-            if ([[data firstObject] isEqualToString:@"P"]||[[data firstObject] isEqualToString:@"L"]||[[data firstObject] isEqualToString:@"N"]) {
-                
-                GetInfoViewController * GIVC = [[GetInfoViewController alloc]init];
-                GIVC.delegate =self;
-                GIVC.datos = data;
-
-                
-                self.definesPresentationContext = YES; //self is presenting view controller
-                GIVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-                [self presentViewController:GIVC animated:YES completion:nil];
-                
-                
-            }else
-            {
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No esta registrado en la compania." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+            if (data.count != 12) {
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                 [alert show];
-                [self startRunning];
-                
+                return ;
             }
             
             
-            
-            
-            NSLog(@"que pàsa aqui");
+            if ([[data firstObject]isEqualToString:@"FM"]) {//ControlFederal Mogul
+                
+                BarCodeModel * model = [[BarCodeModel alloc]init];
+                
+                model.noParte =[data objectAtIndex:1];
+                model.noLote =[data objectAtIndex:2];
+                model.palet =[data objectAtIndex:3];
+                model.paquete =[data objectAtIndex:4];
+                model.totalPalest =[data objectAtIndex:5];
+                model.paquetesPorLote =[data objectAtIndex:6];
+                model.cantidad =[data objectAtIndex:7];
+                model.UM =[data objectAtIndex:8];
+                model.proveedor =[data objectAtIndex:9];
+                model.fechaRecibo =[data objectAtIndex:10];
+                model.fechaCad =[data objectAtIndex:11];
+                
+                _noParteSave =model.noParte;
+                FireBaseManager * fbm =[[FireBaseManager alloc]init];
+                fbm.delegate =self;
+                [[ERProgressHud sharedInstance ] show];
+                
+                [fbm getNumberOfPaletsFromModel: model.noParte lote:model.noLote completion:^(BOOL isOK,BOOL Exist ,LoteModel * newModel) {
+                    
+                    existLote = Exist;
+                    if (isOK){
+                        if (Exist) {
+                            NSLog(@"Exist");
+                            loteExistente = newModel;
+                        }else{
+                            NSLog(@"esxist == NO");
+                        }
+                        
+                        [fbm getGProduct:_noParteSave completion:^(BOOL isOK, BOOL Exist, GenericProductModel *newModel)
+                         {
+                             [[ERProgressHud sharedInstance ] hide];
+                             
+                             if (isOK) {
+                                 
+                                 if (Exist){
+                                     
+                                     if (existLote) {
+                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel,loteExistente]];
+                                     }else{
+                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel]];
+                                     }
+                                     
+                                     
+                                     
+                                 }else{
+                                     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                                     [alert show];
+                                     
+                                 }
+                                 
+                             }else{
+                                 [self userLostConectionFireBase];
+                             }
+                         }];
+                        
+                        
+                    }else{
+                        [self userLostConectionFireBase];
+                        
+                    }
+                }];
+            }else{
+                
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                [alert show];
+                
+            }
             
             
         });
     });
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if(buttonIndex == 0){
         //Code for Done button
         // TODO: Create a finished view
+        [self startRunning];
     }
     if(buttonIndex == 1){
         //Code for Scan more button
@@ -345,17 +497,70 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 - (IBAction)registeruser:(id)sender
 {
     RegisterUserModalViewController * GIVC = [[RegisterUserModalViewController alloc]init];
-//    GIVC.delegate =self;
-//    GIVC.datos = data;
-    
-    
+    [self stopRunning];
+    GIVC.delegate =self;
     self.definesPresentationContext = YES; //self is presenting view controller
     GIVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:GIVC animated:YES completion:nil];
     
 }
 
+-(UIImage *)getImageUser:(NSString *)path
+{
+    NSString * imagePath = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:@"image_%@.jpg",path]];
+    if (imagePath) {
+        return  [UIImage imageWithData:[NSData dataWithContentsOfFile:imagePath]];
+    }
+    return [UIImage imageNamed:@"default-userNB"];
+}
+
+-(void)userLostConectionFireBase
+{
+    [[ERProgressHud sharedInstance]hide];
+    
+    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Error" message:@"No se pudo conctar con servidor" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
+    
+}
+
+- (IBAction)gesture:(id)sender {
+    [_userTxT endEditing:YES];
+    [_userPaSSTxT endEditing:YES];
+}
 
 
+//KeyBoard Manager
+-(BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.scrollView];
+    CGPoint contentOffset = self.scrollView.contentOffset;
+    
+    contentOffset.y = (pointInTable.y -350);
+    
+    NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
+    [self.scrollView setContentOffset:contentOffset  animated:YES];
+    return YES;
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray *)sender{
+    
+    if ([segue.identifier isEqualToString:@"productSegue"])
+    {
+        ConfirmViewController * c = [segue destinationViewController];
+        c.barcode = [sender firstObject];
+        if (!existLote) {
+            c.product = [sender lastObject];
+        }else{
+            c.lote = [sender lastObject];
+            c.product = [sender objectAtIndex:1];
+        }
+        
+        c.existLote =existLote;
+    }
+    
+}
+-(void)finishUserRegistration{
+    [[ERProgressHud sharedInstance]hide];
+    [self startRunning];
+}
 
 @end

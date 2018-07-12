@@ -7,16 +7,28 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "LiberationPaper.h"
+#import "BarCodeModel.h"
+#import "GenericProductModel.h"
+#import "LoteModel.h"
+
 
 @interface InspectionViewController : UIViewController
+
+@property (nonatomic, strong) BarCodeModel * barcode;
+@property (nonatomic, strong) GenericProductModel * product;
+@property (nonatomic, strong) LoteModel * lote;
 
 @property (nonatomic,weak) IBOutlet UILabel * infolabel;
 @property (weak, nonatomic) IBOutlet UITableView *inspectionTableView;
 @property (weak, nonatomic) IBOutlet UITableView *LoteTableView;
 
-@property (nonatomic, strong)LiberationPaper * liberationPaper;
 @property (weak, nonatomic) IBOutlet UIButton *btnContinue;
 @property (weak, nonatomic) IBOutlet UILabel *pageIndicatorTXT;
+@property (weak, nonatomic) IBOutlet UILabel *paletText;
+@property (weak, nonatomic) IBOutlet UILabel *inspectorTxt;
+@property BOOL comefromPendiente;
+@property int pendenteInexx;
+
+
 
 @end

@@ -10,5 +10,7 @@
 #import "SettingsViewController.h"
 #import "GetInfoViewController.h"
 @interface InitialViewController : UIViewController<UIAlertViewDelegate, SettingsDelegate,GetInfoDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *userTxT;
+@property (weak, nonatomic) IBOutlet UITextField *userPaSSTxT;
 @property (strong, nonatomic) NSMutableArray * allowedBarcodeTypes;
 @end
