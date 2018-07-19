@@ -59,6 +59,8 @@ typedef enum : NSUInteger {
     
     _scrollView.center =self.view.center;   _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height*2) ;
     self.title = @"";
+    self.tb.allowsMultipleSelectionDuringEditing = NO;
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -131,15 +133,6 @@ typedef enum : NSUInteger {
             break;
 
     }
-    
-//    @property (nonatomic, strong) NSString * noParte;
-//    @property (nonatomic, strong) NSString * descript;
-//    @property (nonatomic, strong) NSString * nivelRevision;
-//    @property (nonatomic, strong) NSString * almacenaje;
-//    @property (nonatomic, strong) NSDictionary * especificaciones;
-//    @property (nonatomic, strong) NSString * muestra;
-//    @property (nonatomic, strong) NSString * tipoproducto;
-    
     
     GenericProductModel * GP = [[GenericProductModel alloc]init];
     GP.noParte = _noParteText.text;
@@ -262,9 +255,23 @@ typedef enum : NSUInteger {
         [cell.textLabel setTextColor:[UIColor redColor]];
     }
     
-    
+    cell.backgroundColor = [UIColor clearColor];
     return cell;
     
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Return YES if you want the specified item to be editable.
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        [self.arr_measures removeObjectAtIndex:indexPath.row];
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        //[self saveList];
+    }
 }
 - (IBAction)recognizerGesture:(id)sender
 {

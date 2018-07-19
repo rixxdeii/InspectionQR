@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		19742AFCFE6CCF311F50C73F /* libPods-QRAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23C621D7DCE9B0022D657806 /* libPods-QRAppTests.a */; };
+		220E181920FC706800445798 /* ConfrimAlmacenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E181820FC706800445798 /* ConfrimAlmacenViewController.m */; };
+		220E181C20FCDE2800445798 /* PrintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E181B20FCDE2800445798 /* PrintViewController.m */; };
+		220E182020FCE08200445798 /* PusNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E181F20FCE08200445798 /* PusNotificationManager.m */; };
+		220E182520FD8D8300445798 /* QRCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E182320FD8D8300445798 /* QRCollectionViewCell.m */; };
+		220E182620FD8D8300445798 /* QRCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220E182420FD8D8300445798 /* QRCollectionViewCell.xib */; };
+		220E182A20FDA07300445798 /* HeaderCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E182820FDA07300445798 /* HeaderCollectionReusableView.m */; };
+		220E182F20FFA54C00445798 /* HistorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E182E20FFA54C00445798 /* HistorialViewController.m */; };
+		220E183321003FD300445798 /* ConfiguratinCalidadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E183121003FD300445798 /* ConfiguratinCalidadViewController.m */; };
+		220E183421003FD300445798 /* ConfiguratinCalidadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220E183221003FD300445798 /* ConfiguratinCalidadViewController.xib */; };
 		221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A745E20E06A9400D7A010 /* FireBaseManager.m */; };
 		221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221A746020E06AAA00D7A010 /* GoogleService-Info.plist */; };
 		221A746720E0718800D7A010 /* GenericProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746520E0718800D7A010 /* GenericProductModel.m */; };
@@ -34,7 +43,13 @@
 		2220351C20CCC84E00B42153 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2220351920CCC84E00B42153 /* CoreDataManager.m */; };
 		2235300820F6E46500A0B848 /* CodigoBarrasModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235300620F6E46500A0B848 /* CodigoBarrasModal.m */; };
 		2235300920F6E46500A0B848 /* CodigoBarrasModal.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */; };
-		2235302C20F6F90700A0B848 /* IPhoneMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */; };
+		2235302D20F6FD3200A0B848 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2281D9A820C6E6A300830683 /* Main.storyboard */; };
+		2235302E20F7078700A0B848 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2281D9B020C6E6A300830683 /* LaunchScreen.storyboard */; };
+		2235303220FBC01400A0B848 /* InitalAlmacemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235303120FBC01400A0B848 /* InitalAlmacemViewController.m */; };
+		2235303720FBC23300A0B848 /* RecepcionProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235303620FBC23300A0B848 /* RecepcionProductViewController.m */; };
+		2235303B20FBD8F400A0B848 /* RecepcionLoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235303920FBD8F400A0B848 /* RecepcionLoteTableViewCell.m */; };
+		2235303C20FBD8F400A0B848 /* RecepcionLoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2235303A20FBD8F400A0B848 /* RecepcionLoteTableViewCell.xib */; };
+		2235303F20FC0B6100A0B848 /* RecepcionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2235303E20FC0B6100A0B848 /* RecepcionModel.m */; };
 		223D880E20E74DA700B9B5BD /* ExitoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223D880D20E74DA700B9B5BD /* ExitoViewController.m */; };
 		227FDA0920EA98DA001E37BD /* PickerContainerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227FDA0720EA98DA001E37BD /* PickerContainerViewController.m */; };
 		227FDA0A20EA98DA001E37BD /* PickerContainerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 227FDA0820EA98DA001E37BD /* PickerContainerViewController.xib */; };
@@ -107,6 +122,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		220E181720FC706800445798 /* ConfrimAlmacenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfrimAlmacenViewController.h; sourceTree = "<group>"; };
+		220E181820FC706800445798 /* ConfrimAlmacenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfrimAlmacenViewController.m; sourceTree = "<group>"; };
+		220E181A20FCDE2800445798 /* PrintViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrintViewController.h; sourceTree = "<group>"; };
+		220E181B20FCDE2800445798 /* PrintViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrintViewController.m; sourceTree = "<group>"; };
+		220E181E20FCE08200445798 /* PusNotificationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PusNotificationManager.h; sourceTree = "<group>"; };
+		220E181F20FCE08200445798 /* PusNotificationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PusNotificationManager.m; sourceTree = "<group>"; };
+		220E182220FD8D8300445798 /* QRCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCollectionViewCell.h; sourceTree = "<group>"; };
+		220E182320FD8D8300445798 /* QRCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QRCollectionViewCell.m; sourceTree = "<group>"; };
+		220E182420FD8D8300445798 /* QRCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QRCollectionViewCell.xib; sourceTree = "<group>"; };
+		220E182720FDA07300445798 /* HeaderCollectionReusableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HeaderCollectionReusableView.h; sourceTree = "<group>"; };
+		220E182820FDA07300445798 /* HeaderCollectionReusableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HeaderCollectionReusableView.m; sourceTree = "<group>"; };
+		220E182D20FFA54C00445798 /* HistorialViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorialViewController.h; sourceTree = "<group>"; };
+		220E182E20FFA54C00445798 /* HistorialViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorialViewController.m; sourceTree = "<group>"; };
+		220E183021003FD300445798 /* ConfiguratinCalidadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfiguratinCalidadViewController.h; sourceTree = "<group>"; };
+		220E183121003FD300445798 /* ConfiguratinCalidadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfiguratinCalidadViewController.m; sourceTree = "<group>"; };
+		220E183221003FD300445798 /* ConfiguratinCalidadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfiguratinCalidadViewController.xib; sourceTree = "<group>"; };
 		221A745D20E06A9400D7A010 /* FireBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
 		221A745E20E06A9400D7A010 /* FireBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
 		221A746020E06AAA00D7A010 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -132,6 +163,15 @@
 		2235300520F6E46500A0B848 /* CodigoBarrasModal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CodigoBarrasModal.h; sourceTree = "<group>"; };
 		2235300620F6E46500A0B848 /* CodigoBarrasModal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CodigoBarrasModal.m; sourceTree = "<group>"; };
 		2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CodigoBarrasModal.xib; sourceTree = "<group>"; };
+		2235303020FBC01400A0B848 /* InitalAlmacemViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InitalAlmacemViewController.h; sourceTree = "<group>"; };
+		2235303120FBC01400A0B848 /* InitalAlmacemViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InitalAlmacemViewController.m; sourceTree = "<group>"; };
+		2235303520FBC23300A0B848 /* RecepcionProductViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecepcionProductViewController.h; sourceTree = "<group>"; };
+		2235303620FBC23300A0B848 /* RecepcionProductViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecepcionProductViewController.m; sourceTree = "<group>"; };
+		2235303820FBD8F400A0B848 /* RecepcionLoteTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecepcionLoteTableViewCell.h; sourceTree = "<group>"; };
+		2235303920FBD8F400A0B848 /* RecepcionLoteTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecepcionLoteTableViewCell.m; sourceTree = "<group>"; };
+		2235303A20FBD8F400A0B848 /* RecepcionLoteTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecepcionLoteTableViewCell.xib; sourceTree = "<group>"; };
+		2235303D20FC0B6100A0B848 /* RecepcionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecepcionModel.h; sourceTree = "<group>"; };
+		2235303E20FC0B6100A0B848 /* RecepcionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecepcionModel.m; sourceTree = "<group>"; };
 		223D880C20E74DA700B9B5BD /* ExitoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExitoViewController.h; sourceTree = "<group>"; };
 		223D880D20E74DA700B9B5BD /* ExitoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExitoViewController.m; sourceTree = "<group>"; };
 		227FDA0620EA98DA001E37BD /* PickerContainerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PickerContainerViewController.h; sourceTree = "<group>"; };
@@ -201,7 +241,6 @@
 		22D802A020DEC466000785D2 /* RegisterUserModalViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RegisterUserModalViewController.h; sourceTree = "<group>"; };
 		22D802A120DEC466000785D2 /* RegisterUserModalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RegisterUserModalViewController.m; sourceTree = "<group>"; };
 		22D802A220DEC466000785D2 /* RegisterUserModalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterUserModalViewController.xib; sourceTree = "<group>"; };
-		22DB703C20EC4C06004143E7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/IPhoneMain.storyboard; sourceTree = "<group>"; };
 		22EB601120EDC8410081D4E5 /* LoteModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoteModel.h; sourceTree = "<group>"; };
 		22EB601220EDC8410081D4E5 /* LoteModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LoteModel.m; sourceTree = "<group>"; };
 		22EB601A20EDCCB00081D4E5 /* EspecificacionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EspecificacionModel.h; sourceTree = "<group>"; };
@@ -250,6 +289,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		220E181620FC702D00445798 /* ConfrimAlmacen */ = {
+			isa = PBXGroup;
+			children = (
+				220E181720FC706800445798 /* ConfrimAlmacenViewController.h */,
+				220E181820FC706800445798 /* ConfrimAlmacenViewController.m */,
+			);
+			path = ConfrimAlmacen;
+			sourceTree = "<group>";
+		};
+		220E181D20FCE06300445798 /* PushNotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				220E181E20FCE08200445798 /* PusNotificationManager.h */,
+				220E181F20FCE08200445798 /* PusNotificationManager.m */,
+			);
+			path = PushNotificationManager;
+			sourceTree = "<group>";
+		};
+		220E182120FD8D4200445798 /* PrintViewController */ = {
+			isa = PBXGroup;
+			children = (
+				220E181A20FCDE2800445798 /* PrintViewController.h */,
+				220E181B20FCDE2800445798 /* PrintViewController.m */,
+				220E182220FD8D8300445798 /* QRCollectionViewCell.h */,
+				220E182320FD8D8300445798 /* QRCollectionViewCell.m */,
+				220E182420FD8D8300445798 /* QRCollectionViewCell.xib */,
+				220E182720FDA07300445798 /* HeaderCollectionReusableView.h */,
+				220E182820FDA07300445798 /* HeaderCollectionReusableView.m */,
+			);
+			path = PrintViewController;
+			sourceTree = "<group>";
+		};
+		220E182C20FFA52C00445798 /* Historial */ = {
+			isa = PBXGroup;
+			children = (
+				220E182D20FFA54C00445798 /* HistorialViewController.h */,
+				220E182E20FFA54C00445798 /* HistorialViewController.m */,
+			);
+			path = Historial;
+			sourceTree = "<group>";
+		};
 		22191C9320C8A44A0042A917 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,6 +343,8 @@
 				22EB601220EDC8410081D4E5 /* LoteModel.m */,
 				22EB601A20EDCCB00081D4E5 /* EspecificacionModel.h */,
 				22EB601B20EDCCB00081D4E5 /* EspecificacionModel.m */,
+				2235303D20FC0B6100A0B848 /* RecepcionModel.h */,
+				2235303E20FC0B6100A0B848 /* RecepcionModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -310,6 +392,38 @@
 			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
+		2235302F20FBBFF800A0B848 /* Almacen */ = {
+			isa = PBXGroup;
+			children = (
+				220E182120FD8D4200445798 /* PrintViewController */,
+				220E181620FC702D00445798 /* ConfrimAlmacen */,
+				2235303420FBC21300A0B848 /* RecepcionProduct */,
+				2235303320FBC1F200A0B848 /* Inital */,
+			);
+			path = Almacen;
+			sourceTree = "<group>";
+		};
+		2235303320FBC1F200A0B848 /* Inital */ = {
+			isa = PBXGroup;
+			children = (
+				2235303120FBC01400A0B848 /* InitalAlmacemViewController.m */,
+				2235303020FBC01400A0B848 /* InitalAlmacemViewController.h */,
+			);
+			path = Inital;
+			sourceTree = "<group>";
+		};
+		2235303420FBC21300A0B848 /* RecepcionProduct */ = {
+			isa = PBXGroup;
+			children = (
+				2235303520FBC23300A0B848 /* RecepcionProductViewController.h */,
+				2235303620FBC23300A0B848 /* RecepcionProductViewController.m */,
+				2235303820FBD8F400A0B848 /* RecepcionLoteTableViewCell.h */,
+				2235303920FBD8F400A0B848 /* RecepcionLoteTableViewCell.m */,
+				2235303A20FBD8F400A0B848 /* RecepcionLoteTableViewCell.xib */,
+			);
+			path = RecepcionProduct;
+			sourceTree = "<group>";
+		};
 		223D880B20E74D8900B9B5BD /* Exito */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +458,7 @@
 		2281D9A120C6E6A300830683 /* QRApp */ = {
 			isa = PBXGroup;
 			children = (
-				22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */,
+				220E181D20FCE06300445798 /* PushNotificationManager */,
 				22B7D7FD20E312DB005C4214 /* Navigation */,
 				221A745C20E06A5A00D7A010 /* FireBaseManager */,
 				22C79FAD20CF74A5004EF7CF /* LoadingView */,
@@ -454,6 +568,9 @@
 				2235300520F6E46500A0B848 /* CodigoBarrasModal.h */,
 				2235300620F6E46500A0B848 /* CodigoBarrasModal.m */,
 				2235300720F6E46500A0B848 /* CodigoBarrasModal.xib */,
+				220E183021003FD300445798 /* ConfiguratinCalidadViewController.h */,
+				220E183121003FD300445798 /* ConfiguratinCalidadViewController.m */,
+				220E183221003FD300445798 /* ConfiguratinCalidadViewController.xib */,
 			);
 			path = Modal;
 			sourceTree = "<group>";
@@ -487,6 +604,8 @@
 		22CEF1B120C77E3300C08582 /* Secctions */ = {
 			isa = PBXGroup;
 			children = (
+				220E182C20FFA52C00445798 /* Historial */,
+				2235302F20FBBFF800A0B848 /* Almacen */,
 				22D5C8A820EFE79700D993DB /* Pedinetes */,
 				223D880B20E74D8900B9B5BD /* Exito */,
 				22B7D80F20E4B5C7005C4214 /* Inspection */,
@@ -711,15 +830,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2235302C20F6F90700A0B848 /* IPhoneMain.storyboard in Resources */,
+				2235302E20F7078700A0B848 /* LaunchScreen.storyboard in Resources */,
+				2235302D20F6FD3200A0B848 /* Main.storyboard in Resources */,
 				22B7D80E20E48233005C4214 /* AchiveViewerViewController.xib in Resources */,
 				22D802A420DEC466000785D2 /* RegisterUserModalViewController.xib in Resources */,
 				22C79FC820D01C40004EF7CF /* GetInfoViewController.xib in Resources */,
+				220E182620FD8D8300445798 /* QRCollectionViewCell.xib in Resources */,
 				227FDA0A20EA98DA001E37BD /* PickerContainerViewController.xib in Resources */,
 				2235300920F6E46500A0B848 /* CodigoBarrasModal.xib in Resources */,
 				22C79FAC20CEE650004EF7CF /* TableViewCell.xib in Resources */,
 				2281D9AF20C6E6A300830683 /* Assets.xcassets in Resources */,
+				220E183421003FD300445798 /* ConfiguratinCalidadViewController.xib in Resources */,
 				22B7D81420E4B5F6005C4214 /* LoteTableViewCell.xib in Resources */,
+				2235303C20FBD8F400A0B848 /* RecepcionLoteTableViewCell.xib in Resources */,
 				221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -898,6 +1021,8 @@
 				22CEF1B920C7804D00C08582 /* InitialViewController.m in Sources */,
 				223D880E20E74DA700B9B5BD /* ExitoViewController.m in Sources */,
 				222034FA20CBA5C500B42153 /* Barcode.m in Sources */,
+				220E181C20FCDE2800445798 /* PrintViewController.m in Sources */,
+				220E182020FCE08200445798 /* PusNotificationManager.m in Sources */,
 				2220350B20CBA71900B42153 /* SettingsViewController.m in Sources */,
 				22CEF1A720C7065400C08582 /* QRCodeGenerator.m in Sources */,
 				222034FF20CBA5FD00B42153 /* ScannerViewController.m in Sources */,
@@ -907,6 +1032,7 @@
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
 				22D5C8AB20EFE7BA00D993DB /* PendientesViewController.m in Sources */,
 				22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */,
+				220E181920FC706800445798 /* ConfrimAlmacenViewController.m in Sources */,
 				2282B75B20EAA1B600ED3785 /* UserModel.m in Sources */,
 				227FDA0920EA98DA001E37BD /* PickerContainerViewController.m in Sources */,
 				22B7D80D20E48233005C4214 /* AchiveViewerViewController.m in Sources */,
@@ -914,12 +1040,18 @@
 				22C79FC520D01C3F004EF7CF /* GetInfoViewController.m in Sources */,
 				2281D9A720C6E6A300830683 /* ViewController.m in Sources */,
 				22CEF1AD20C7065400C08582 /* CIColor+QRCode.m in Sources */,
+				220E182520FD8D8300445798 /* QRCollectionViewCell.m in Sources */,
 				22B7D81D20E56780005C4214 /* InspectionHeaderTableViewCell.m in Sources */,
 				22B7D80020E31340005C4214 /* CustomNavigationControllerViewController.m in Sources */,
+				2235303720FBC23300A0B848 /* RecepcionProductViewController.m in Sources */,
+				2235303B20FBD8F400A0B848 /* RecepcionLoteTableViewCell.m in Sources */,
 				2281D9B520C6E6A300830683 /* main.m in Sources */,
 				22CEF1BD20C7A2AC00C08582 /* ItemViewController.m in Sources */,
 				22D5C8B120F149A500D993DB /* AlmacenViewController.m in Sources */,
 				2220351A20CCC84E00B42153 /* CoreDataManager.m in Sources */,
+				2235303220FBC01400A0B848 /* InitalAlmacemViewController.m in Sources */,
+				220E182A20FDA07300445798 /* HeaderCollectionReusableView.m in Sources */,
+				220E182F20FFA54C00445798 /* HistorialViewController.m in Sources */,
 				221A746B20E0BCAB00D7A010 /* ConfirmViewController.m in Sources */,
 				2235300820F6E46500A0B848 /* CodigoBarrasModal.m in Sources */,
 				2281D9A420C6E6A300830683 /* AppDelegate.m in Sources */,
@@ -929,9 +1061,11 @@
 				221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */,
 				22CEF1C620C7A37500C08582 /* SuccessViewController.m in Sources */,
 				22CEF1B420C7801900C08582 /* RegisterProductViewController.m in Sources */,
+				2235303F20FC0B6100A0B848 /* RecepcionModel.m in Sources */,
 				2220351220CC100700B42153 /* InspectionViewController.m in Sources */,
 				22EB601C20EDCCB00081D4E5 /* EspecificacionModel.m in Sources */,
 				22C79FB020CF750A004EF7CF /* ERProgressHud.m in Sources */,
+				220E183321003FD300445798 /* ConfiguratinCalidadViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1001,14 +1135,6 @@
 				2281D9B120C6E6A300830683 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		22DB703B20EC4C06004143E7 /* IPhoneMain.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22DB703C20EC4C06004143E7 /* Base */,
-			);
-			name = IPhoneMain.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

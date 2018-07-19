@@ -207,7 +207,7 @@
     CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.scrollView];
     CGPoint contentOffset = self.scrollView.contentOffset;
     
-    contentOffset.y = (pointInTable.y -200 );
+    contentOffset.y = (pointInTable.y -80 );
     
     NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
     [self.scrollView setContentOffset:contentOffset  animated:YES];

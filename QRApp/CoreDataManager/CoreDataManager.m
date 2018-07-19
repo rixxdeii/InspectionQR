@@ -14,12 +14,36 @@
 
 +(void)loteStatusPendiente:(LoteModel *)lote;
 {
+    NSLog(@"ios Version :  %@",[[UIDevice currentDevice] systemVersion]) ;
+    
+    NSArray * iOSVersionsDescompost = [[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."];
+    
+    NSString * iOSVersion = [iOSVersionsDescompost firstObject];
+    uint iOSVersionNumber =[iOSVersion intValue];
+    
+    if (iOSVersionNumber <10)
+    {
+        NSMutableArray * arr = [[NSMutableArray alloc]init];
+        
+        [arr addObject:[self saveLotemodel:lote]];
+        
+        NSArray * arrPendientes = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"standarPendientes"]];
+        
+        for (NSDictionary *object in arrPendientes) {
+            [arr addObject:object];
+        }
+        
+        
+        [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:arr] forKey:@"standarPendientes"];
+        
+        return;
+    }
     
     NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     
     NSManagedObject *loteData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
     
-
+    
     [loteData setValue:[NSKeyedArchiver archivedDataWithRootObject:lote.muestreo] forKey:@"muestreo"];
     [loteData setValue:lote.noParte forKey:@"noParte"];
     [loteData setValue:lote.noLote forKey:@"noLote"];
@@ -45,10 +69,56 @@
     
 }
 
++(NSDictionary *)saveLotemodel:(LoteModel *)lote{
+    NSMutableDictionary * loteData = [[NSMutableDictionary alloc]init];
+    [loteData setValue:[NSKeyedArchiver archivedDataWithRootObject:lote.muestreo] forKey:@"muestreo"];
+    [loteData setValue:lote.noParte forKey:@"noParte"];
+    [loteData setValue:lote.noLote forKey:@"noLote"];
+    [loteData setValue:lote.estatusLiberacion forKey:@"estatusLiberacion"];
+    [loteData setValue:lote.fechaCaducidad forKey:@"fechaCaducidad"];
+    [loteData setValue:lote.fechaManufactura forKey:@"fechaManufactura"];
+    [loteData setValue:lote.proveedor forKey:@"proveedor"];
+    [loteData setValue:lote.cantidadTotalporLote forKey:@"cantidadTotalporLote"];
+    [loteData setValue:lote.unidadMedida forKey:@"unidadMedida"];
+    
+    [loteData setValue:lote.ubicacion forKey:@"ubicacion"];
+    [loteData setValue:lote.noPalet forKey:@"noPalet"];
+    
+    [loteData setValue:lote.noPaquetesPorPalet forKey:@"noPaquetesPorPalet"];
+    [loteData setValue:lote.totalPalets forKey:@"totalPalets"];
+    
+    return loteData;
+    
+}
+
 +(NSArray *)getLotesPedinetes{
+    
+    NSLog(@"ios Version :  %@",[[UIDevice currentDevice] systemVersion]) ;
+    
+    NSArray * iOSVersionsDescompost = [[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."];
+    
+    NSString * iOSVersion = [iOSVersionsDescompost firstObject];
+    uint iOSVersionNumber =[iOSVersion intValue];
+    
+    if (iOSVersionNumber <10)
+    {
+        NSMutableArray * arrHelper =[[NSMutableArray alloc]init];
+        NSArray * arr = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"standarPendientes"]];
+        
+        for (NSDictionary *object in arr) {
+            
+            [arrHelper addObject:[self getLoteStructure:object]];
+        }
+        
+        
+        return arrHelper;
+        
+    }
+    
+    
     NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
     
-//    NSManagedObject *loteData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
+    //    NSManagedObject *loteData = [NSEntityDescription insertNewObjectForEntityForName:@"Inspection" inManagedObjectContext:context];
     NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
     
     NSError *error = nil;
@@ -63,7 +133,7 @@
         for (NSManagedObject * modele in results) {
             LoteModel * LOT = [[LoteModel alloc]init];
             NSDictionary * dic = [self dataStructureFromManagedObject:modele];
-
+            
             
             NSData *data = [dic objectForKey:@"muestreo"];
             
@@ -86,18 +156,67 @@
             [arr addObject:LOT];
             
         }
-         return arr;
+        return arr;
         
     }
     
     return @[];
+    
+}
 
++(LoteModel *)getLoteStructure:(NSDictionary *)dic{
+    LoteModel * LOT = [[LoteModel alloc]init];
+    NSData *data = [dic objectForKey:@"muestreo"];
+    
+    NSDictionary *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    
+    LOT.muestreo = [array mutableCopy];
+    LOT.noParte = [dic objectForKey:@"noParte"];
+    LOT.noLote = [dic objectForKey:@"noLote"];
+    LOT.estatusLiberacion = [dic objectForKey:@"estatusLiberacion"];
+    LOT.fechaCaducidad = [dic objectForKey:@"fechaCaducidad"];
+    LOT.fechaManufactura = [dic objectForKey:@"fechaManufactura"];
+    LOT.proveedor = [dic objectForKey:@"proveedor"];
+    LOT.cantidadTotalporLote = [dic objectForKey:@"cantidadTotalporLote"];
+    LOT.unidadMedida = [dic objectForKey:@"unidadMedida"];
+    LOT.ubicacion = [dic objectForKey:@"ubicacion"];
+    LOT.noPalet = [dic objectForKey:@"noPalet"];
+    LOT.noPaquetesPorPalet = [dic objectForKey:@"noPaquetesPorPalet"];
+    LOT.totalPalets = [dic objectForKey:@"totalPalets"];
+    
+    return LOT;
 }
 
 +(void)deleteLote:(int)indexselected{
     
+    NSLog(@"ios Version :  %@",[[UIDevice currentDevice] systemVersion]) ;
+    
+    NSArray * iOSVersionsDescompost = [[[UIDevice currentDevice] systemVersion] componentsSeparatedByString:@"."];
+    
+    NSString * iOSVersion = [iOSVersionsDescompost firstObject];
+    uint iOSVersionNumber =[iOSVersion intValue];
+    
+    if (iOSVersionNumber <10)
+    {
+        NSMutableArray * arrHelper =[[NSMutableArray alloc]init];
+        NSArray * arr = [NSKeyedUnarchiver unarchiveObjectWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"standarPendientes"]];
+        
+        for (NSDictionary *object in arr) {
+            
+            [arrHelper addObject:[self getLoteStructure:object]];
+        }
+        
+        
+        [arrHelper removeObjectAtIndex:indexselected];
+
+        [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:arrHelper] forKey:@"standarPendientes"];
+        return;
+        
+    }
+    
+    
     NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
-   
+    
     NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
     NSError *error = nil;
     NSArray *results = [context executeFetchRequest:request error:&error];
@@ -107,111 +226,6 @@
     
 }
 
-
-//+(NSArray *)getProductModel
-//
-//{
-//    
-//    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
-//    
-//    
-//    
-//    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Product"];
-//    NSError *error = nil;
-//    
-//    NSArray *results = [context executeFetchRequest:request error:&error];
-//    
-//    if (error != nil) {
-//        //Deal with failure
-//    }
-//    else {
-//        NSMutableArray * arr = [[NSMutableArray alloc]init];
-//        
-//        for (NSManagedObject * modele in results) {
-//            
-//            NSDictionary * dic = [self dataStructureFromManagedObject:modele];
-//            
-//            NSLog(@"get product :%@",dic);
-//            
-//            ProductModel * p = [[ProductModel alloc]init];
-//            
-//            NSData *data = [dic objectForKey:@"measures"];
-//            
-//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//            
-//            p.idProduct  = [dic objectForKey:@"idproduct"];
-//            p.measures  = array;
-//            p.descrip  = [dic objectForKey:@"descrip"];
-//            
-//            [arr addObject:p];
-//        }
-//        
-//        return arr;
-//        
-//    }
-//    
-//    return @[];
-//}
-//
-//+(NSArray *)getIspectionModel
-//{
-//    NSManagedObjectContext *context = ((AppDelegate*)[[UIApplication sharedApplication] delegate]).persistentContainer.viewContext;
-//    
-//    NSFetchRequest *request = [[NSFetchRequest alloc]initWithEntityName:@"Inspection"];
-//    NSError *error = nil;
-//    
-//    NSArray *results = [context executeFetchRequest:request error:&error];
-//    
-//    if (error != nil) {
-//        //Deal with failure
-//    }
-//    else {
-//        NSMutableArray * arr = [[NSMutableArray alloc]init];
-//        
-//        for (NSManagedObject * modele in results) {
-//            
-//            NSDictionary * dic = [self dataStructureFromManagedObject:modele];
-//            
-//            
-//            NSLog(@"get Inspection  :%@",dic);
-//            
-//            InspectionModel * i = [[InspectionModel alloc]init];
-//            
-//            NSData *data = [dic objectForKey:@"qrcode"];
-//            UIImage *image = [UIImage imageWithData:data];
-//            
-//            NSData *_data = [dic objectForKey:@"result"];
-//            
-//            NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithData:_data];
-//              //[inspection setValue:inspection.auditoriaResult forKey:@"result"];
-//            
-//            
-//            //    sizeMuestra
-//            //    status
-//            //    email
-//            
-//            i.auditor  = [dic objectForKey:@"auditos"];
-//            i.QRCode  = image;
-//            i.idIspection  = [dic objectForKey:@"idinspection"];
-//            i.date = [dic objectForKey:@"fecha"];
-//            i.sizeLot = [dic objectForKey:@"sizeMuestra"];
-//            i.status = [dic objectForKey:@"status"];
-//            i.email = [dic objectForKey:@"email"];
-//            i.auditoriaResult = array;
-//            
-//            
-//            
-//            [arr addObject:i];
-//        }
-//        
-//        return arr;
-//        
-//    }
-//    
-//    return @[];
-//}
-//
-//
 + (NSDictionary*)dataStructureFromManagedObject:(NSManagedObject*)managedObject
 {
     NSDictionary *attributesByName        = [[managedObject entity] attributesByName];

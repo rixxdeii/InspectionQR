@@ -138,11 +138,11 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
-//    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
-//        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
-//    }else{
-//        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
-//    }
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+    }else{
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+    }
     
     // capture and process the metadata
     _metadataOutput = [[AVCaptureMetadataOutput alloc] init];
@@ -246,6 +246,15 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
 
         dispatch_async(dispatch_get_main_queue(), ^{
             
+            if (_simpleScanner) {
+                
+                [_delegate returnStringFromBarcode:self.code];
+                
+                [self dismissViewControllerAnimated:YES completion:nil];
+                
+                return ;
+            }
+            
             
             NSArray * data = [self.code componentsSeparatedByString:@"-"];
             
@@ -253,24 +262,32 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
             if ([[data firstObject]isEqualToString:@"FM"]) {//ControlFederal Mogul
                 
                 BarCodeModel * model = [[BarCodeModel alloc]init];
-                
+                                
                 model.noParte =[data objectAtIndex:1];
                 model.noLote =[data objectAtIndex:2];
                 model.palet =[data objectAtIndex:3];
                 model.paquete =[data objectAtIndex:4];
-                model.totalPalest =[data objectAtIndex:5];
-                model.paquetesPorLote =[data objectAtIndex:6];
-                model.cantidad =[data objectAtIndex:7];
-                model.UM =[data objectAtIndex:8];
-                model.proveedor =[data objectAtIndex:9];
-                model.fechaRecibo =[data objectAtIndex:10];
-                model.fechaCad =[data objectAtIndex:11];
+                model.paletsPorLote = [_loteRepresentation objectForKey:@"totalPalets"];
+                model.paquetesPorPalets = [_loteRepresentation objectForKey:@"noPaquetesPorPalet"];
+                model.UM = [_loteRepresentation objectForKey:@"unidadMedida"];
+                model.fechaRecibo = [_loteRepresentation objectForKey:@"fechaLlegada"];
+                model.noFactura = [_loteRepresentation objectForKey:@"noFactura"];
+                model.proveedor = [_loteRepresentation objectForKey:@"proveedor"];
+                model.cantidad = [_loteRepresentation objectForKey:@"cantidadTotalporLote"];
+                
+                
+                
+                if (![model.noParte isEqualToString:[_loteRepresentation objectForKey:@"noParte"]]&&![model.noLote isEqualToString:[_loteRepresentation objectForKey:@"noLote"]]) {
+                    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No coincide el código" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                    [alert show];
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+            
                 FireBaseManager * fbm =[[FireBaseManager alloc]init];
                 fbm.delegate =self;
                 [[ERProgressHud sharedInstance ] show];
                 
-                
-
                 [fbm getGProduct:model.noParte completion:^(BOOL isOK, BOOL Exist, GenericProductModel *newModel)
                  {
                      [[ERProgressHud sharedInstance ] hide];
@@ -282,7 +299,7 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
                              [self performSegueWithIdentifier:@"inspectionSegue" sender:@[model,newModel]];
                              
                          }else{
-                             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Este producto no está registrado." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                              [alert show];
                              
                          }
@@ -322,14 +339,6 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
         self.allowedBarcodeTypes = [NSMutableArray arrayWithArray:allowedTypes];
     }
 }
-
-//-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray *)sender{
-//    if ([segue.identifier isEqualToString:@"inspectionSegue"]) {
-//        InspectionViewController * VC = [segue destinationViewController];
-//        VC.barcode = [sender firstObject];
-//        VC.product = [sender lastObject];
-//    }
-//}
 
 
 -(void)GPStatusChanged:(GenericProductModel *)newModel

@@ -23,6 +23,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString * roll;
 @property (nonatomic, strong) NSString * userPassWord;
 @property (nonatomic, strong) UIImage * imagen;
+@property BOOL hardCore;
 
 
 @end

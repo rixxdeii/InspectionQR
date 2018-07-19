@@ -45,10 +45,10 @@
     
     _userImage.frame = CGRectMake(740, -0, 40, 40);
     _userImage.layer.backgroundColor=[[UIColor clearColor] CGColor];
-    _userImage.layer.cornerRadius=20;
-    _userImage.layer.borderWidth=0.5;
-    _userImage.layer.masksToBounds = YES;
-    _userImage.layer.borderColor=[[UIColor redColor] CGColor];
+//    _userImage.layer.cornerRadius=20;
+//    _userImage.layer.borderWidth=0.5;
+    //_userImage.layer.masksToBounds = YES;
+    //_userImage.layer.borderColor=[[UIColor redColor] CGColor];
     [self.navigationBar addSubview:_userImage];;
     
     _loginButton =[[UIButton alloc]initWithFrame:CGRectMake(100, -10, 50, 50)];

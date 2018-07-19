@@ -17,8 +17,8 @@
 #import "ConfirmViewController.h"
 #import "UserModel.h"
 #import "CoreDataManager.h"
-
-@interface InspectionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate>{
+#import "ScannerViewController.h"
+@interface InspectionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,ScannerDelegate>{
     int muestra;
     int auditoriaIndex;
     int IDlote;
@@ -31,6 +31,10 @@
 @property (strong , nonatomic) NSMutableArray  * arrayData;
 @property (strong , nonatomic) NSMutableArray  * arrLotes;
 @property (strong , nonatomic) NSMutableDictionary * recolecorMuestras;
+@property (weak, nonatomic) IBOutlet UIButton *scannerButton;
+@property (weak, nonatomic) IBOutlet UIButton *scannerTXT;
+@property (weak, nonatomic) IBOutlet UILabel *Scannerlabel;
+@property (weak, nonatomic) IBOutlet UILabel *paqueteLabel;
 
 @end
 
@@ -43,23 +47,20 @@
     if (_comefromPendiente) {
         
         self.noParte.text = _product.noParte;
-        self.noLote.text = _barcode.noLote;
+        self.noLote.text = _lote.noLote;
         self.descrip.text = _product.descript;
         self.especificaciones = _product.especificaciones;
-        self.inspectorTxt.text =[[UserModel sharedManager] userName];
+        self.inspector.text =[[UserModel sharedManager] userName];
         self.lote.proveedor =_lote.proveedor;
         auditoriaIndex = 1;
         _recolecorMuestras =[[NSMutableDictionary alloc]init];
         muestra = [_product.muestra intValue];
         
         
-        
-        if ([_product.tipoproducto isEqualToString:@"Químico"]) {
-            muestra = 1;
-        }
-        
         NSString * PC = [NSString stringWithFormat:@"Palet:%@",_lote.noPalet];
         [self.paletText setText:PC];
+        NSString * PP = [NSString stringWithFormat:@"Paquete:%@",_barcode.paquete];
+        [self.paqueteLabel setText:PP];
         
         
     }else{
@@ -68,8 +69,7 @@
         self.noLote.text = _barcode.noLote;
         self.descrip.text = _product.descript;
         self.especificaciones = _product.especificaciones;
-        self.inspectorTxt.text =[[UserModel sharedManager] userName];
-        self.lote.proveedor =_barcode.proveedor;
+        self.inspector.text =[[UserModel sharedManager] userName];
         auditoriaIndex = 1;
         _lote =[[LoteModel alloc]init];
         _lote.muestreo = [[NSMutableDictionary alloc]init];
@@ -78,14 +78,33 @@
         
         NSString * PC = [NSString stringWithFormat:@"Palet:%@",_barcode.palet];
         [self.paletText setText:PC];
+        NSString * PP = [NSString stringWithFormat:@"Paquete:%@",_barcode.paquete];
+        [self.paqueteLabel setText:PP];
+        muestra = [_product.muestra intValue];
+        
         
     }
     
+    if ([_product.tipoproducto isEqualToString:@"Químico"]) {
+        
+        [self.scannerButton setHidden:NO];
+        [self.scannerTXT setHidden:NO];
+        [self.Scannerlabel setHidden:NO];
+//
+//        NSInteger  paquetes = [_barcode.paquetesPorPalets integerValue];
+//        NSInteger  palets = [_barcode.paletsPorLote integerValue];
+        
+        muestra = 1;
+        _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%d",muestra]];
+    }else
+    {
+        
+        [self.scannerButton setHidden:YES];
+        [self.scannerTXT setHidden:YES];
+        [self.Scannerlabel setHidden:YES];
+            _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_product.muestra]];
+    }
     
-    
-    
-    
-    _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_product.muestra]];
     
     
     [_arrayData addObject:@{@"LI":@"Toelrancia",
@@ -99,6 +118,16 @@
             [_arrayData addObject:dic];
         }
     }
+    
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+    [formatter setDateStyle:NSDateFormatterShortStyle];
+    [formatter setTimeStyle:NSDateFormatterNoStyle];
+    NSString *result = [formatter stringFromDate:[NSDate date]];
+    
+    
+    [_scannerTXT setTitle:result forState:UIControlStateNormal];
     
     [self.sideBarController showMenuViewControllerInDirection:LMSideBarControllerDirectionRight];
     
@@ -135,7 +164,7 @@
                                               alpha:1.0f];
     }else{
         
-        cell.backgroundColor =[UIColor whiteColor];
+        cell.backgroundColor =[UIColor clearColor];
         
         if ([[param objectForKey:@"LS"]isEqualToString:@""]) {//tipoChek
             
@@ -337,7 +366,6 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    
     int index = 0;
     
     if ([textField.text isEqualToString:@""]) {
@@ -361,19 +389,13 @@
         }
         
         index++;
-        
-        
-        
     }
-    
-    
 }
 
 
 -(UIColor *)chageColorOfTextLS:(NSString *)LS
                              M:(NSString *)M
                             LI:(NSString *)LI
-// realMeasure:(NSString *)realM
 {
     NSUInteger  _LS = [LS integerValue];
     NSUInteger  _M = [M integerValue];
@@ -383,15 +405,12 @@
         return [UIColor redColor];
         
     }
-    
-    //    if (realM == M) {
-    //        return [UIColor greenColor]
-    //    }
     return [UIColor greenColor];
     
 }
+
+
 - (IBAction)showArchive:(id)sender {
-    //    if (![_liberationPaper.noParte isEqualToString:@""]) {
     AchiveViewerViewController * archive = [[AchiveViewerViewController alloc]init];
     archive.url = _lote.noParte;
     self.definesPresentationContext = YES; //self is presenting view controller
@@ -402,6 +421,14 @@
 - (IBAction)continueButton:(id)sender
 {
     //Muestras completas
+//        if ([_product.tipoproducto isEqualToString: @"Químico"]) {
+//            if ([self.scannerTXT.text isEqualToString:@""]) {
+//                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Te faltra agregar fechaCaducidad" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+//                [alert show];
+//                return;
+//            }
+//        }
+    
     
     if (_recolecorMuestras.count != _arrayData.count-1)
     {
@@ -437,20 +464,26 @@
         
     }else
     {
-        if (!_comefromPendiente) {
+        if (!_comefromPendiente){
             _lote.noLote = _barcode.noLote;
-            _lote.fechaCaducidad = _barcode.fechaCad;
+            _lote.fechaCaducidad = (NSString *)[_scannerTXT  titleLabel];
             _lote.proveedor = _barcode.proveedor;
             _lote.cantidadTotalporLote = _barcode.cantidad;
             _lote.unidadMedida = _barcode.UM;
             _lote.noPalet =_barcode.palet;
-            _lote.noPaquetesPorPalet =_barcode.paquetesPorLote;
-            _lote.totalPalets = _barcode.totalPalest;
+            _lote.noPaquetesPorPalet =_barcode.paquetesPorPalets;
+            _lote.totalPalets = _barcode.paletsPorLote;
             _lote.ubicacion =@"Calidad";
+            _lote.paquete = _barcode.paquete;
+            _lote.noFactura = _barcode.noFactura;
+            _lote.tipoPorducto = _product.tipoproducto;
+            _lote.fechaLlegada = _barcode.fechaRecibo;
+            
+        
             for (NSDictionary  *object in _arrayData) {
                 if ([[object objectForKey:@"tipoIstrumento"]isEqualToString:@"Laboratorio"]) {
                     
-                    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"El producto quedara pendiente de liberación." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Aceptar", nil];
+                    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"El producto quedará pendiente de liberación (Laboratorio)." delegate:self cancelButtonTitle:@"Cancelar" otherButtonTitles:@"Aceptar", nil];
                     alert.tag =100;
                     [alert show];
                     _lote.estatusLiberacion = @"Pendiente";
@@ -479,6 +512,11 @@
         
             }
         }
+        NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+        
+        NSLog(@"Fecha Liberación : %@",[dateFormatter stringFromDate:[NSDate date]]);
+        _lote.fechaLiberacion = [dateFormatter stringFromDate:[NSDate date]];
         _lote.estatusLiberacion = @"Liberado";
         [self performSegueWithIdentifier:@"segueConfirm" sender:nil];
         
@@ -487,10 +525,6 @@
 }
 -(NSString *)constructInfoLabel:(NSString *)one two:(NSString *)two
 {
-    if ([_product.tipoproducto isEqualToString: @"Químico"]) {
-        return [NSString stringWithFormat:@"Muestra: %@",two];
-    }
-    
     return [NSString stringWithFormat:@"Muestra: %@/%@",one,two];
 }
 
@@ -530,6 +564,54 @@
     
 }
 
+- (IBAction)userDidTapScannerButton:(id)sender
+{
+    
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    ScannerViewController *scannerView = [storyboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
+    
+    scannerView.delegate = self;
+    scannerView.simpleScanner = YES;
+    self.definesPresentationContext = YES; //self is presenting view controller
+    scannerView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:scannerView animated:YES completion:nil];
+    
+}
 
+-(void)returnStringFromBarcode:(NSString *)code
+{
+    [self.scannerTXT setTitle:code forState:UIControlStateNormal];
+}
+
+
+
+
+-(NSString *)fechaCaducidad:(NSString *)fecha
+{
+    NSDate *dateResult;
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd-MM-yyyy"];
+    
+    if ([fecha isEqualToString:@"Indefinido"])
+    {
+        NSDate *today = [[NSDate alloc] init];
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+        NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+        [offsetComponents setYear:1];
+        dateResult = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
+        
+       
+    }else{
+        dateResult = [dateFormatter dateFromString:fecha];
+    }
+    
+  
+    
+    NSLog(@"Fecha Liberación : %@",[dateFormatter stringFromDate:dateResult ]);
+    return [dateFormatter stringFromDate:dateResult];
+    
+}
 
 @end

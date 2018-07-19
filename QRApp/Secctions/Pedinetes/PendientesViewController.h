@@ -11,4 +11,7 @@
 
 @interface PendientesViewController : UIViewController
 @property (nonatomic,strong) NSArray * pendientes;
+@property (nonatomic,strong) NSDictionary * pendientesRecepcion;
+@property BOOL recepcion;
+
 @end

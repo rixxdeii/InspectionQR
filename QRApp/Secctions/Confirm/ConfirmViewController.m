@@ -47,13 +47,11 @@
         
         
         [_data addObject:[NSString stringWithFormat:@"Estado: %@",_lote.estatusLiberacion]];
-        [_data addObject:[NSString stringWithFormat:@"Cantida por lote: %@",_lote.cantidadTotalporLote]];
+        [_data addObject:[NSString stringWithFormat:@"Cantidad por lote: %@ %@",_lote.cantidadTotalporLote,_lote.unidadMedida]];
         [_data addObject:[NSString stringWithFormat:@"Auditor: %@",[[UserModel sharedManager]userName]]];
         [_data addObject:[NSString stringWithFormat:@"Auditor Codigo: %@",[[UserModel sharedManager]userCode]]];
-        // [_data addObject:[NSString stringWithFormat:@"Fecha de legada: %@",_lote]];
-        //[_data addObject:[NSString stringWithFormat:@"Turno: %@",_lote.estatusLiberacion]];
-        // [_data addObject:[NSString stringWithFormat:@"Fecha manufactura: %@",_lote.estatusLiberacion]];
-        // [_data addObject:[NSString stringWithFormat:@"Lote indirecto: %@",_lote.estatusLiberacion]];
+        
+
         
         [self printSpesificaciones:_lote.muestreo];
         
@@ -72,11 +70,11 @@
     }else{// ScanerInitial
         [_indicatorlabel setText:@""];
         [_continueBtn setTitle:@"Código de barras" forState: UIControlStateNormal ];
-//        _continueBtn.backgroundColor =[UIColor colorWithRed:22.0f/255.0f
-//                                                      green:176.0f/255.0f
-//                                                       blue:65.0f/255.0f
-//                                                      alpha:1.0f];
-//        _noParte.text = _barcode.noParte;
+        //        _continueBtn.backgroundColor =[UIColor colorWithRed:22.0f/255.0f
+        //                                                      green:176.0f/255.0f
+        //                                                       blue:65.0f/255.0f
+        //                                                      alpha:1.0f];
+        _noParte.text = _barcode.noParte;
         _descrip.text =_product.descript;
         [_QRImage setHighlighted:NO];
         [_QRLabel setHighlighted:NO];
@@ -94,14 +92,13 @@
             [_data addObject:[NSString stringWithFormat:@"Caducidad: %@",_product.tipoproducto]];
             [_data addObject:[NSString stringWithFormat:@"Fecha Liberacion: %@",_product.tipoproducto]];
         }else{
-        
-        [_data addObject:[NSString stringWithFormat:@"Estatus: %@",_lote.estatusLiberacion]];
-        [_data addObject:[NSString stringWithFormat:@"Inspector: %@",_product.nivelRevision]];
-        [_data addObject:[NSString stringWithFormat:@"No. Palet: %@",_barcode.palet]];
-        [_data addObject:[NSString stringWithFormat:@"Paquete: %@",_barcode.paquete]];
-        [_data addObject:[NSString stringWithFormat:@"Caducidad: %@",_product.tipoproducto]];
-        [_data addObject:[NSString stringWithFormat:@"Fecha Liberacion: %@",_product.tipoproducto]];
-        [_data addObject:[NSString stringWithFormat:@"Fecha Fecha Caducidad: %@",_barcode.fechaCad]];
+            
+            [_data addObject:@"Estatus: Sin inspección"];
+            // [_data addObject:[NSString stringWithFormat:@"Inspector: %@",_product.nivelRevision]];
+            [_data addObject:[NSString stringWithFormat:@"No. Palet: %@",_barcode.palet]];
+            [_data addObject:[NSString stringWithFormat:@"Paquete: %@",_barcode.paquete]];
+            
+            [_data addObject:[NSString stringWithFormat:@"Fecha Fecha Caducidad: %@",_lote.fechaCaducidad]];
         }
     }
     
@@ -192,8 +189,9 @@
 
 
 
--(void)viewDidAppear:(BOOL)animated
+-(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:YES];
     [self.navigationController setNavigationBarHidden:NO];
     self.title =@"";
 }
@@ -213,7 +211,7 @@
         self.definesPresentationContext = YES; //self is presenting view controller
         GIVC.modalPresentationStyle = UIModalPresentationOverCurrentContext;
         [self presentViewController:GIVC animated:YES completion:nil];
-    
+        
         
         return;
     }
@@ -236,8 +234,8 @@
         }];
         
     }else if([self.comeFrom isEqualToString:@"registroLiberacion"]){
-    
-                    [self finalizaInspeccion];
+        
+        [self finalizaInspeccion];
     }else{
         // mostrar Etiqueta Verde
         
@@ -255,6 +253,7 @@
     
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text =[_data objectAtIndex:indexPath.row];
+    cell.backgroundColor =[UIColor clearColor];
     
     return  cell;
 }
@@ -336,7 +335,6 @@
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
-    
     if (alertView.tag ==101) {
         FireBaseManager * fbm =[[FireBaseManager alloc]init];
         [fbm saveLiberation:_lote completion:^(BOOL isOK) {
@@ -344,7 +342,7 @@
                 if (_comeFromPendientes) {
                     [CoreDataManager deleteLote:_pendenteInexx];
                 }
-                    [self performSegueWithIdentifier:@"segue" sender:nil];
+                [self performSegueWithIdentifier:@"segue" sender:nil];
                 
                 // [self performSegueWithIdentifier:@"segue" sender:nil];
             }else{
@@ -358,7 +356,7 @@
     if (alertView.tag ==100) {
         if (buttonIndex == 2)
         {
-          
+            
             FireBaseManager * fbm =[[FireBaseManager alloc]init];
             [fbm saveLiberation:_lote completion:^(BOOL isOK) {
                 if (isOK) {
@@ -366,6 +364,7 @@
                         [CoreDataManager deleteLote:_pendenteInexx];
                         [self performSegueWithIdentifier:@"segue" sender:nil];
                     }
+                    
                     // [self performSegueWithIdentifier:@"segue" sender:nil];
                 }else{
                     [self userLostConectionFireBase];
@@ -386,7 +385,7 @@
             // Email Content
             NSString *messageBody = @"";//[NSString stringWithFormat:@"Se notifica que el producto : %@ del lote: %@ ha sido rechazado. ",self.descrip.text,_liberationPaper.lote ];
             //        // To address
-            NSArray *toRecipents = @[@"delarosa-21@hotmail.com",@"ricardodeveloper.21@hotmail.com"];//[NSArray arrayWithObject:@"support@appcoda.com"];
+            NSArray *toRecipents = @[@"delarosa-21@hotmail.com",@"ricardodeveloper.21@gmail.com"];//[NSArray arrayWithObject:@"support@appcoda.com"];
             
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
             mc.mailComposeDelegate = self;
@@ -396,7 +395,7 @@
             [self presentViewController:mc animated:YES completion:NULL];
         }
     }
-
+    
 }
 
 

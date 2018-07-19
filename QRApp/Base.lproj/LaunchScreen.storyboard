@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad9_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,19 +18,18 @@
                         <viewControllerLayoutGuide type="bottom" id="JtF-bD-bun"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash" translatesAutoresizingMaskIntoConstraints="NO" id="YNc-j6-PWq">
-                                <rect key="frame" x="14" y="289" width="347" height="89"/>
+                                <rect key="frame" x="162" y="294.5" width="700" height="179"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="YNc-j6-PWq" secondAttribute="height" multiplier="700:179" id="kRG-oF-e2A"/>
+                                    <constraint firstAttribute="width" secondItem="YNc-j6-PWq" secondAttribute="height" multiplier="700:179" id="PVR-Xq-iD3"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="YNc-j6-PWq" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="100:192" id="6Ny-Ly-EK7"/>
                             <constraint firstItem="YNc-j6-PWq" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="P6r-FV-KWC"/>
                             <constraint firstItem="YNc-j6-PWq" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="sa7-jT-DK0"/>
                         </constraints>

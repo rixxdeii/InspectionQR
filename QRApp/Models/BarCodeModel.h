@@ -9,19 +9,21 @@
 #import <Foundation/Foundation.h>
 
 @interface BarCodeModel : NSObject
-@property (weak, nonatomic)  NSString *noParte;
-@property (weak, nonatomic)  NSString *noLote;
-@property (weak, nonatomic)  NSString *palet;
-@property (weak, nonatomic)  NSString *paquete;
-@property (weak, nonatomic)  NSString *paquetesPorLote;
-@property (weak, nonatomic)  NSString *cantidad;
-@property (weak, nonatomic)  NSString *UM;
-@property (weak, nonatomic)  NSString *proveedor;
-@property (weak, nonatomic)  NSString *fechaRecibo;
-@property (weak, nonatomic)  NSString *fechaCad;
-@property (weak, nonatomic)  NSString *totalPalest;
+@property (strong, nonatomic)  NSString *noParte;
+@property (strong, nonatomic)  NSString *noLote;
+@property (strong, nonatomic)  NSString *palet;
+@property (strong, nonatomic)  NSString *paquete;
+@property (strong, nonatomic)  NSString *paletsPorLote;
+@property (strong, nonatomic)  NSString *paquetesPorPalets;
+@property (strong, nonatomic)  NSString *cantidad;
+@property (strong, nonatomic)  NSString *UM;
+@property (strong, nonatomic)  NSString *fechaRecibo;
+@property (strong, nonatomic)  NSString *noFactura;
 
-//FM-GXC1234-11223344-1-1-10-500-KG-LAPINOS-17/05/18-17/05/18
+@property (strong, nonatomic)  NSString *proveedor;
+
+
+//FM-noParte-lote-palet-paquete-nopalets-noPaquetes-cantidad-UM-fechallegada-nofactura-fechaCaducidad
 
 
 @end

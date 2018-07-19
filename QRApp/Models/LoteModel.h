@@ -21,8 +21,13 @@
 @property (nonatomic, strong) NSString *cantidadTotalporLote;
 @property (nonatomic, strong) NSString *unidadMedida;
 @property (nonatomic, strong) NSString * ubicacion;
+@property (nonatomic, strong) NSString * noFactura;
+@property (nonatomic, strong) NSString *fechaLlegada;
+@property (nonatomic, strong) NSString *tipoPorducto;
+@property (nonatomic, strong) NSString *fechaLiberacion;
 
 @property  NSString * noPalet;
+@property  NSString * paquete;
 @property NSString * noPaquetesPorPalet;
 @property NSString * totalPalets;
 

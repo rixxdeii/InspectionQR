@@ -8,7 +8,7 @@
 
 #import "AchiveViewerViewController.h"
 
-@interface AchiveViewerViewController ()
+@interface AchiveViewerViewController ()<UIAlertViewDelegate>
 
 @end
 
@@ -16,12 +16,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSString *urlText = [NSString stringWithFormat:@"http://192.168.1.67:8888/%@.pdf" ,self.url];
-    [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
-    
-}
 
+    [self createView];
+}
+-(void)createView{
+    NSString * ip =[[NSUserDefaults standardUserDefaults]objectForKey:@"ip"];
+    NSString *urlText = [NSString stringWithFormat:@"http://%@:8888/%@.pdf" ,ip,self.url];
+    [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlText]]];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -30,6 +32,24 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)showAlertIP:(id)sender {
+    NSString * ip =[[NSUserDefaults standardUserDefaults]objectForKey:@"ip"];
+    NSString * currenIP =[NSString stringWithFormat:@"IPActual %@",ip];
+    
+    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Configuración IP" message:currenIP delegate:self  cancelButtonTitle:@"Cancel" otherButtonTitles:@"Agregar", nil];
+    alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[NSUserDefaults standardUserDefaults]setObject:[alertView textFieldAtIndex:0].text forKey:@"ip"];
+        [self createView];
+    }
+    
+}
 /*
 #pragma mark - Navigation
 

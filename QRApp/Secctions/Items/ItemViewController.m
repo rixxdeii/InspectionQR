@@ -11,11 +11,20 @@
 #import "ERProgressHud.h"
 #import "CoreDataManager.h"
 #import "PendientesViewController.h"
+#import "FireBaseManager.h"
+#import "ERProgressHud.h"
+#import "ConfiguratinCalidadViewController.h"
 
-@interface ItemViewController ()
+@interface ItemViewController ()<FirebaseManagerDelegate>{
+    
+    BOOL isRecepcion;
+}
 @property (nonatomic, strong)NSArray * pendinetes;
+@property (nonatomic, strong)NSDictionary * materialRecepcion;
 @property (weak, nonatomic) IBOutlet UILabel *labelPenidentes;
 @property (weak, nonatomic) IBOutlet UIView *backGorundView;
+@property (weak, nonatomic) IBOutlet UILabel *labelRecepcion;
+
 
 @end
 
@@ -28,6 +37,8 @@
     
     self.labelPenidentes.layer.masksToBounds = YES;
     self.labelPenidentes.layer.cornerRadius = 15;
+    self.labelRecepcion.layer.masksToBounds = YES;
+    self.labelRecepcion.layer.cornerRadius = 15;
     
 }
 
@@ -45,9 +56,29 @@
     self.labelPenidentes.hidden=(_pendinetes.count == 0);
     
     [self.labelPenidentes setText:pendienteText];
-//
-//    self.backGorundView.backgroundColor =[UIColor colorWithPatternImage:[self blurredImageWithImage:[UIImage imageNamed:@"IMG_300479"]]];
-
+    
+    FireBaseManager * fbm =[[FireBaseManager alloc]init];
+    [[ERProgressHud sharedInstance]show];
+    [fbm getLotes:nil completion:^(BOOL isOK, BOOL Exist, NSDictionary *newModel) {
+        [[ERProgressHud sharedInstance]hide];
+        
+        if (isOK) {
+            
+                _materialRecepcion =newModel;
+                
+                NSString * recepcionCount = [NSString stringWithFormat:@"%lu",(unsigned long)_materialRecepcion.count];
+                self.labelRecepcion.hidden=(_materialRecepcion.count == 0);
+                [self.labelRecepcion setText:recepcionCount];
+        
+        }else{
+            [self userLostConectionFireBase];
+        }
+        
+    }];
+    
+    
+    
+    
 }
 
 - (UIImage *)blurredImageWithImage:(UIImage *)sourceImage{
@@ -75,25 +106,60 @@
     return retVal;
 }
 
+#pragma mark - navigationmethods
 
+- (IBAction)pendientesRecepcion:(id)sender
+{
+    isRecepcion =YES;
+    if (_materialRecepcion.count < 1) {
+        UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No tienes material en recepción." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+        [alert show];
+    }else{
+        [self performSegueWithIdentifier:@"pendienteSegue" sender:nil];
+    }
+    
+}
 
 - (IBAction)pendientes:(id)sender
 {
-    
+    isRecepcion=NO;
     if (_pendinetes.count < 1) {
         UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No tiene Pendientes" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
         [alert show];
     }else{
         [self performSegueWithIdentifier:@"pendienteSegue" sender:_pendinetes];
     }
-
+    
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray* )sender{
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(NSArray * )sender{
     if ([segue.identifier isEqualToString:@"pendienteSegue"]) {
         PendientesViewController *P = [segue destinationViewController ];
-        P.pendientes =sender;
+        
+        P.recepcion = isRecepcion;
+        if (isRecepcion)
+        {
+            P.pendientesRecepcion =_materialRecepcion;
+        }else{
+            P.pendientes =_pendinetes;
+        }
     }
+}
+#pragma mark - firebaseMethods
+- (void)userLostConectionFireBase {
+    [[ERProgressHud sharedInstance] hide];
+    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Error" message:@"No se puido conectar con servidor." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+    
+    [alert show];
+    
+}
+
+- (IBAction)settings:(id)sender
+{
+    ConfiguratinCalidadViewController * archive = [[ConfiguratinCalidadViewController alloc]init];
+    self.definesPresentationContext = YES; //self is presenting view controller
+    archive.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:archive animated:YES completion:nil];
     
 }
 

@@ -22,11 +22,11 @@
 @interface InitialViewController ()<FirebaseManagerDelegate,UITextFieldDelegate,UIAlertViewDelegate,registerUserDlegate>{
     BOOL isRememberme;
     BOOL existLote;
-    LoteModel * loteExistente;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *backGroundImage;
 @property (weak, nonatomic) IBOutlet UILabel *userlabel;
 @property (weak, nonatomic)  UIButton *inBuuton;
+@property (strong, nonatomic) LoteModel * loteExistente;
 
 
 @property (strong, nonatomic) NSMutableArray * foundBarcodes;
@@ -56,8 +56,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _scrollView.center =self.view.center;   _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height+100) ;
-    
+    //    _scrollView.center =self.view.center;   _scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height+100) ;
+    //
     self.title = @"";
     
     [self.userlabel setHidden:YES];
@@ -295,11 +295,11 @@
                      initWithSession:_captureSession];
     _previewLayer.videoGravity =
     AVLayerVideoGravityResizeAspectFill;
-//        if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
-//            [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
-//        }else{
-//            [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
-//        }
+    if ([UIApplication sharedApplication].statusBarOrientation == UIInterfaceOrientationLandscapeLeft ) {
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeLeft];
+    }else{
+        [_previewLayer.connection setVideoOrientation:AVCaptureVideoOrientationLandscapeRight];
+    }
     
     
     // capture and process the metadata
@@ -380,33 +380,31 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     dispatch_async( dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            // [self performSegueWithIdentifier:@"inspectionSegue" sender:nil];
-            
-            
+
             NSArray * data = [self.code componentsSeparatedByString:@"-"];
-            
-            if (data.count != 12) {
-                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
-                [alert show];
-                return ;
-            }
-            
-            
+        
             if ([[data firstObject]isEqualToString:@"FM"]) {//ControlFederal Mogul
+                
+                //getDataFromService Lote
+                
+                
+                
+                
+                
+                
                 
                 BarCodeModel * model = [[BarCodeModel alloc]init];
                 
-                model.noParte =[data objectAtIndex:1];
-                model.noLote =[data objectAtIndex:2];
-                model.palet =[data objectAtIndex:3];
-                model.paquete =[data objectAtIndex:4];
-                model.totalPalest =[data objectAtIndex:5];
-                model.paquetesPorLote =[data objectAtIndex:6];
-                model.cantidad =[data objectAtIndex:7];
-                model.UM =[data objectAtIndex:8];
-                model.proveedor =[data objectAtIndex:9];
-                model.fechaRecibo =[data objectAtIndex:10];
-                model.fechaCad =[data objectAtIndex:11];
+//                model.noParte =[data objectAtIndex:1];
+//                model.noLote =[data objectAtIndex:2];
+//                model.palet =[data objectAtIndex:3];
+//                model.paquete =[data objectAtIndex:4];
+//                model.totalPalest =[data objectAtIndex:5];
+//                model.paquetesPorLote =[data objectAtIndex:6];
+//                model.cantidad =[data objectAtIndex:7];
+//                model.UM =[data objectAtIndex:8];
+//                model.proveedor =[data objectAtIndex:9];
+//                model.fechaRecibo =[data objectAtIndex:10];
                 
                 _noParteSave =model.noParte;
                 FireBaseManager * fbm =[[FireBaseManager alloc]init];
@@ -415,11 +413,12 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
                 
                 [fbm getNumberOfPaletsFromModel: model.noParte lote:model.noLote completion:^(BOOL isOK,BOOL Exist ,LoteModel * newModel) {
                     
-                    existLote = Exist;
+                    
                     if (isOK){
+                        existLote = Exist;
                         if (Exist) {
                             NSLog(@"Exist");
-                            loteExistente = newModel;
+                            _loteExistente = newModel;
                         }else{
                             NSLog(@"esxist == NO");
                         }
@@ -432,14 +431,13 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
                                  
                                  if (Exist){
                                      
-                                     if (existLote) {
-                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel,loteExistente]];
+                                     if (_loteExistente) {
+                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel,_loteExistente]];
                                      }else{
                                          [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel]];
                                      }
                                      
-                                     
-                                     
+                                
                                  }else{
                                      UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                                      [alert show];
@@ -534,7 +532,7 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     CGPoint pointInTable = [textField.superview convertPoint:textField.frame.origin toView:self.scrollView];
     CGPoint contentOffset = self.scrollView.contentOffset;
     
-    contentOffset.y = (pointInTable.y -350);
+    contentOffset.y = (pointInTable.y- 50);
     
     NSLog(@"contentOffset is: %@", NSStringFromCGPoint(contentOffset));
     [self.scrollView setContentOffset:contentOffset  animated:YES];
@@ -547,14 +545,14 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
     {
         ConfirmViewController * c = [segue destinationViewController];
         c.barcode = [sender firstObject];
-        if (!existLote) {
+        if (!_loteExistente) {
             c.product = [sender lastObject];
         }else{
             c.lote = [sender lastObject];
             c.product = [sender objectAtIndex:1];
         }
         
-        c.existLote =existLote;
+        c.existLote =(_loteExistente != nil);
     }
     
 }
