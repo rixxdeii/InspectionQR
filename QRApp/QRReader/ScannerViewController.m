@@ -275,12 +275,24 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
                 model.proveedor = [_loteRepresentation objectForKey:@"proveedor"];
                 model.cantidad = [_loteRepresentation objectForKey:@"cantidadTotalporLote"];
                 
+                BOOL loteBool =[model.noLote isEqualToString:[_loteRepresentation objectForKey:@"noLote"]];
+                BOOL parteBool =[model.noParte isEqualToString:[_loteRepresentation objectForKey:@"noParte"]];
                 
+                if (!loteBool)
                 
-                if (![model.noParte isEqualToString:[_loteRepresentation objectForKey:@"noParte"]]&&![model.noLote isEqualToString:[_loteRepresentation objectForKey:@"noLote"]]) {
+                {
                     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No coincide el código" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                     [alert show];
-                    [self.navigationController popViewControllerAnimated:YES];
+                    return;
+    
+                }
+                if (!parteBool)
+                    
+                {
+                    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"No coincide el código" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                    [alert show];
+                    return;
+                    
                 }
                 
             

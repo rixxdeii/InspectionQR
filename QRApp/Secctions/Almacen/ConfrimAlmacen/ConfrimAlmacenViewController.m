@@ -62,12 +62,19 @@
 -(IBAction)userDidTapContinueButton:(id)sender
 {
     
-    
-    
     FireBaseManager * fbm =[[FireBaseManager alloc]init];
     [[ERProgressHud sharedInstance]show];
-    [fbm saveLote:_lote completion:^(BOOL isOK) {
+    [fbm saveLote:_lote completion:^(BOOL isOK, BOOL existe) {
+        
     [[ERProgressHud sharedInstance]hide];
+        if (existe) {
+            
+            UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:[NSString stringWithFormat:@"Existe registro de:%@ - %@",_noParte.text,_noLote.text] delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+            [alert show];
+            
+            return ;
+        }
+        
         if (isOK) {
             
            [self  performSegueWithIdentifier:@"segueExito" sender:nil];

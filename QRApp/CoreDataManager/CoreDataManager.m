@@ -56,9 +56,14 @@
     
     [loteData setValue:lote.ubicacion forKey:@"ubicacion"];
     [loteData setValue:lote.noPalet forKey:@"noPalet"];
+    [loteData setValue:lote.paquete forKey:@"paquete"];
     
     [loteData setValue:lote.noPaquetesPorPalet forKey:@"noPaquetesPorPalet"];
     [loteData setValue:lote.totalPalets forKey:@"totalPalets"];
+    [loteData setValue:lote.fechaLiberacion forKey:@"fechaLiberacion"];
+    [loteData setValue:lote.fechaLlegada forKey:@"fechaLlegada"];
+    [loteData setValue:lote.tipoPorducto forKey:@"tipoPorducto"];
+    [loteData setValue:lote.nivelRevision forKey:@"nivelRevision"];
     
     NSError *error = nil;
     // Save the object to persistent store
@@ -69,25 +74,33 @@
     
 }
 
-+(NSDictionary *)saveLotemodel:(LoteModel *)lote{
-    NSMutableDictionary * loteData = [[NSMutableDictionary alloc]init];
-    [loteData setValue:[NSKeyedArchiver archivedDataWithRootObject:lote.muestreo] forKey:@"muestreo"];
-    [loteData setValue:lote.noParte forKey:@"noParte"];
-    [loteData setValue:lote.noLote forKey:@"noLote"];
-    [loteData setValue:lote.estatusLiberacion forKey:@"estatusLiberacion"];
-    [loteData setValue:lote.fechaCaducidad forKey:@"fechaCaducidad"];
-    [loteData setValue:lote.fechaManufactura forKey:@"fechaManufactura"];
-    [loteData setValue:lote.proveedor forKey:@"proveedor"];
-    [loteData setValue:lote.cantidadTotalporLote forKey:@"cantidadTotalporLote"];
-    [loteData setValue:lote.unidadMedida forKey:@"unidadMedida"];
++(NSDictionary *)saveLotemodel:(LoteModel *)model{
     
-    [loteData setValue:lote.ubicacion forKey:@"ubicacion"];
-    [loteData setValue:lote.noPalet forKey:@"noPalet"];
     
-    [loteData setValue:lote.noPaquetesPorPalet forKey:@"noPaquetesPorPalet"];
-    [loteData setValue:lote.totalPalets forKey:@"totalPalets"];
     
-    return loteData;
+    NSDictionary * dicTosend = @{@"noParte":model.noParte,
+                                 @"noLote":model.noLote,
+                                 @"proveedor":model.proveedor,
+                                 @"cantidadTotalporLote":model.cantidadTotalporLote,
+                                 @"unidadMedida":model.unidadMedida,
+                                 @"noPalet":model.noPalet,
+                                 @"paquete":model.paquete,
+                                 @"fechaCaducidad":model.fechaCaducidad,
+                                 @"totalPalets":model.totalPalets,
+                                 @"totalPaquetes":model.noPaquetesPorPalet,
+                                 @"muestreo":[NSKeyedArchiver archivedDataWithRootObject:model.muestreo],
+                                 @"estatusLiberacion":model.estatusLiberacion,
+                                 @"noPaquetesPorPalet":model.noPaquetesPorPalet,
+                                 @"fechaLlegada":model.fechaLlegada,
+                                 @"tipoProducto":model.tipoPorducto,
+                                 @"ubicacion":model.ubicacion,
+                                 @"noFactura":model.noFactura,
+                                 @"fechaLiberacion":model.fechaLiberacion,
+                                 @"tipoPorducto":model.tipoPorducto,
+                                 @"nivelRevision":model.nivelRevision
+                                 };
+    
+    return dicTosend;
     
 }
 
@@ -152,6 +165,12 @@
             LOT.noPalet = [dic objectForKey:@"noPalet"];
             LOT.noPaquetesPorPalet = [dic objectForKey:@"noPaquetesPorPalet"];
             LOT.totalPalets = [dic objectForKey:@"totalPalets"];
+            LOT.noFactura =[dic objectForKey:@"noFactura"];
+            LOT.fechaLiberacion =[dic objectForKey:@"fechaLiberacion"];
+            LOT.paquete =[dic objectForKey:@"paquete"];
+            LOT.fechaLlegada =[dic objectForKey:@"fechaLlegada"];
+            LOT.tipoPorducto =[dic objectForKey:@"tipoPorducto"];
+            LOT.nivelRevision =[dic objectForKey:@"nivelRevision"];
             
             [arr addObject:LOT];
             
@@ -183,6 +202,12 @@
     LOT.noPalet = [dic objectForKey:@"noPalet"];
     LOT.noPaquetesPorPalet = [dic objectForKey:@"noPaquetesPorPalet"];
     LOT.totalPalets = [dic objectForKey:@"totalPalets"];
+    LOT.noFactura =[dic objectForKey:@"noFactura"];
+    LOT.fechaLiberacion =[dic objectForKey:@"fechaLiberacion"];
+    LOT.paquete =[dic objectForKey:@"paquete"];
+    LOT.fechaLlegada =[dic objectForKey:@"fechaLlegada"];
+    LOT.tipoPorducto =[dic objectForKey:@"tipoPorducto"];
+    LOT.nivelRevision =[dic objectForKey:@"nivelRevision"];
     
     return LOT;
 }
@@ -208,7 +233,7 @@
         
         
         [arrHelper removeObjectAtIndex:indexselected];
-
+        
         [[NSUserDefaults standardUserDefaults]setObject:[NSKeyedArchiver archivedDataWithRootObject:arrHelper] forKey:@"standarPendientes"];
         return;
         

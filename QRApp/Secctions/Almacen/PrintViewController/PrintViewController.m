@@ -35,7 +35,7 @@
     [self.coillectionView setDelegate:self];
     [self.coillectionView setDataSource:self];
     [_coillectionView registerNib:[UINib nibWithNibName:@"QRCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"cell"];
-
+    
 }
 
 -(NSInteger)integerFromString:(NSString *)string
@@ -64,12 +64,10 @@
     NSString * palet =[NSString stringWithFormat:@"%ld",(long)indexPath.section +1];
     NSString * paquete =[NSString stringWithFormat:@"%ld",(long)indexPath.row +1];
     
-    NSString * QRFormat =[NSString stringWithFormat:@"FM-%@-%@-%@-%@-%ld-%ld-%@-%@-%@-%@",_lote.noParte,_lote.noLote,palet,paquete,(long)noPalets,(long)nopaquetes,_lote.cantidadTotalporLote,_lote.unidadMedida,_lote.fechaLlegada,_lote.noFactura];
+    NSString * QRFormat =[NSString stringWithFormat:@"FM-%@-%@-%@-%@",_lote.noParte,_lote.noLote,palet,paquete];
     cell.imageViewQR.image =[[[QRCodeGenerator alloc] initWithString:QRFormat] getImage];
     
     [data addObject:QRFormat];
-    
-    
     
     return cell;
 }

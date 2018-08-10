@@ -11,7 +11,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PickerContainerViewController">
             <connections>
+                <outlet property="okButton" destination="Tsh-YF-XKc" id="gWt-hZ-VT8"/>
                 <outlet property="picker" destination="Ea0-WX-uox" id="WFq-Br-PmN"/>
+                <outlet property="pickerdate" destination="5S3-GJ-QQV" id="rHP-Zt-YCA"/>
+                <outlet property="unDefinedButton" destination="5D0-am-cLA" id="qr3-RL-J3c"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -55,26 +58,55 @@
                                 <action selector="userDidSelectObject:" destination="-1" eventType="touchUpInside" id="IOQ-yy-ZCx"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5D0-am-cLA">
+                            <rect key="frame" x="0.0" y="0.0" width="200" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="200" id="NeY-fL-Wus"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                            <state key="normal" title="Indefinido">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="userDidTapUndefinedButton:" destination="-1" eventType="touchUpInside" id="fzr-Iw-MMz"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" red="0.66377910539999996" green="0.0" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="34G-bv-Q67"/>
                         <constraint firstItem="Tsh-YF-XKc" firstAttribute="height" secondItem="z67-53-pTC" secondAttribute="height" id="VsB-aN-s9r"/>
                         <constraint firstItem="Tsh-YF-XKc" firstAttribute="centerY" secondItem="z67-53-pTC" secondAttribute="centerY" id="d4q-oo-bDR"/>
+                        <constraint firstItem="5D0-am-cLA" firstAttribute="height" secondItem="z67-53-pTC" secondAttribute="height" id="m4d-Iq-Nc0"/>
+                        <constraint firstItem="5D0-am-cLA" firstAttribute="leading" secondItem="z67-53-pTC" secondAttribute="leading" id="t2t-zo-STT"/>
                         <constraint firstAttribute="trailing" secondItem="Tsh-YF-XKc" secondAttribute="trailing" id="ugF-vY-LNx"/>
+                        <constraint firstItem="5D0-am-cLA" firstAttribute="centerY" secondItem="z67-53-pTC" secondAttribute="centerY" id="zj9-Rf-BX9"/>
                     </constraints>
                 </view>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="5S3-GJ-QQV">
+                    <rect key="frame" x="0.0" y="552" width="1024" height="216"/>
+                    <date key="date" timeIntervalSinceReferenceDate="553741289.12110996">
+                        <!--2018-07-20 01:01:29 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="getValue:" destination="-1" eventType="valueChanged" id="3c4-uG-lgE"/>
+                    </connections>
+                </datePicker>
             </subviews>
             <constraints>
                 <constraint firstItem="Ea0-WX-uox" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="05Z-EU-8zC"/>
                 <constraint firstItem="YJJ-MF-uMw" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" id="0bu-7g-r35"/>
                 <constraint firstItem="z67-53-pTC" firstAttribute="centerX" secondItem="Ea0-WX-uox" secondAttribute="centerX" id="2r6-dn-ZHL"/>
+                <constraint firstItem="5S3-GJ-QQV" firstAttribute="centerX" secondItem="Ea0-WX-uox" secondAttribute="centerX" id="46x-9d-DGD"/>
                 <constraint firstItem="Ea0-WX-uox" firstAttribute="top" secondItem="z67-53-pTC" secondAttribute="bottom" id="8gh-Xo-iLF"/>
                 <constraint firstItem="YJJ-MF-uMw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="DB4-7V-WcG"/>
                 <constraint firstAttribute="bottom" secondItem="Ea0-WX-uox" secondAttribute="bottom" id="Lk4-E7-yvL"/>
                 <constraint firstItem="YJJ-MF-uMw" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" id="T9h-gJ-btR"/>
+                <constraint firstItem="5S3-GJ-QQV" firstAttribute="centerY" secondItem="Ea0-WX-uox" secondAttribute="centerY" id="U8M-5A-Frw"/>
                 <constraint firstItem="z67-53-pTC" firstAttribute="width" secondItem="Ea0-WX-uox" secondAttribute="width" id="c1O-Ei-QTt"/>
                 <constraint firstItem="YJJ-MF-uMw" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="kAW-0r-iag"/>
+                <constraint firstItem="5S3-GJ-QQV" firstAttribute="width" secondItem="Ea0-WX-uox" secondAttribute="width" id="kBN-Hf-7e1"/>
+                <constraint firstItem="5S3-GJ-QQV" firstAttribute="height" secondItem="Ea0-WX-uox" secondAttribute="height" id="u76-SS-ZfU"/>
                 <constraint firstItem="Ea0-WX-uox" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="umE-Lb-w80"/>
             </constraints>
         </view>

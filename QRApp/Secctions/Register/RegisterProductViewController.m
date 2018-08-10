@@ -394,6 +394,7 @@ typedef enum : NSUInteger {
     PickerContainerViewController * modal = [[PickerContainerViewController alloc]init];
     modal.delegate =self;
     modal.fromButton = sender;
+    modal.isDate = NO;
     modal.data = (sender == _InstrumentButton)?ARR_INSTRUMENTS:ARR_UM;
 
     self.definesPresentationContext = YES; //self is presenting view controller

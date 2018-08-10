@@ -25,11 +25,14 @@
 @property (nonatomic, strong) NSString *fechaLlegada;
 @property (nonatomic, strong) NSString *tipoPorducto;
 @property (nonatomic, strong) NSString *fechaLiberacion;
+@property (nonatomic, strong) NSString *nivelRevision;
 
 @property  NSString * noPalet;
 @property  NSString * paquete;
 @property NSString * noPaquetesPorPalet;
 @property NSString * totalPalets;
 
+-(LoteModel *)getLoteModelFromDictionary:(NSDictionary *)model;
+-(NSDictionary *)getDictionaryFromLoteModel:(LoteModel *)model;
 
 @end

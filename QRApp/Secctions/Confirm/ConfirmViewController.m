@@ -63,7 +63,7 @@
         
         [_data addObject:[NSString stringWithFormat:@"Nivel de Revisión: %@",_product.nivelRevision]];
         [_data addObject:[NSString stringWithFormat:@"Tamaño de muestra: %@",_product.muestra]];
-        [_data addObject:[NSString stringWithFormat:@"AlmecenarFrio: %@",_product.almacenaje]];
+        [_data addObject:[NSString stringWithFormat:@"Almacenar Frío: %@",_product.almacenaje]];
         [_data addObject:[NSString stringWithFormat:@"Tipo de producto: %@",_product.tipoproducto]];
         [self getSpecificationsRegister:_product.especificaciones];
         
@@ -337,7 +337,15 @@
     
     if (alertView.tag ==101) {
         FireBaseManager * fbm =[[FireBaseManager alloc]init];
-        [fbm saveLiberation:_lote completion:^(BOOL isOK) {
+        [fbm saveLiberation:_lote completion:^(BOOL isOK, BOOL existe) {
+            
+            if (existe) {
+                UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"El produto ya se encuentra Liberado" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                [alert show];
+                
+                return ;
+            }
+            
             if (isOK) {
                 if (_comeFromPendientes) {
                     [CoreDataManager deleteLote:_pendenteInexx];
@@ -358,7 +366,14 @@
         {
             
             FireBaseManager * fbm =[[FireBaseManager alloc]init];
-            [fbm saveLiberation:_lote completion:^(BOOL isOK) {
+            [fbm saveLiberation:_lote completion:^(BOOL isOK, BOOL existe) {
+                
+                if (existe) {
+                    UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Aviso" message:@"El produto ya se encuentra Liberado" delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                    [alert show];
+                    
+                    return ;
+                }
                 if (isOK) {
                     if (_comeFromPendientes) {
                         [CoreDataManager deleteLote:_pendenteInexx];

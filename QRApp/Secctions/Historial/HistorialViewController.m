@@ -54,13 +54,6 @@
                       [_dataProduct addObject:key];
                   }
                   
-//                  for (NSString  *key in [_dicLiberationQuimico allKeys])
-//                  {
-//                      NSArray * separate =[key componentsSeparatedByString:@"-"];
-//
-//                      [_dataProduct addObject:[separate firstObject]];
-//                  }
-                  
                    [self.tbProduct reloadData];
                   
                   NSLog(@"calidad : %@ ",_dicCalidad);
@@ -73,14 +66,9 @@
              
          }];
         
-        
-//        _dataProduct = [newModel allKeys];
-//       [self.tbProduct reloadData];
-    
     }];
     
-  
-    
+
 }
 
 
@@ -160,7 +148,7 @@
             {
                 
                 if (![key isEqualToString:@"muestreo"]&&![key isEqualToString:@"noLote"]) {
-                    [arr addObject:@{@"subtitle":[NSString stringWithFormat:@"%@:%@",key,[dicRepresentation objectForKey:key]]}];
+                    [arr addObject:@{@"subtitle":[NSString stringWithFormat:@"%@:      %@",key,[dicRepresentation objectForKey:key]]}];
                 }
             }
 

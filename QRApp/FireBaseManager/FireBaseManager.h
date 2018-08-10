@@ -26,7 +26,7 @@
 
 
 -(void)saveGProduct:(GenericProductModel *)model completion:(void(^)(BOOL isOK))completion;
--(void)saveLiberation:(LoteModel *)model completion:(void(^)(BOOL isOK))completion;
+-(void)saveLiberation:(LoteModel *)model completion:(void(^)(BOOL isOK,BOOL existe))completion;
 -(void)registerUser:(UserModel *)user completion:(void(^)(BOOL isOK))completion;
 
 
@@ -35,7 +35,7 @@
 -(void)getNumberOfPaletsFromModel:(NSString *)model lote:(NSString *)lote completion:(void(^)(BOOL isOK,BOOL Exist, LoteModel*  newModel))completion;
 -(void)login:(NSString *)userCode pass:(NSString *)pass completion:(void(^)(BOOL isOK,BOOL userExist, UserModel *newModel))completion;
 
--(void)saveLote:(LoteModel *)model completion:(void(^)(BOOL isOK))completion;
+-(void)saveLote:(LoteModel *)model completion:(void(^)(BOOL isOK, BOOL existe))completion;
 
 -(void)getRealPartNumber:(NSString *)noParte completion:(void(^)(BOOL isOK, BOOL Exist,NSString * realNoParte))completion;
 -(void)saveRealNoParte:(NSString *)noParte real:(NSString *)real completion:(void(^)(BOOL isOK))completion;

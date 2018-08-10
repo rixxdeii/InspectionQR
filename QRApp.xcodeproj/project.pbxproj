@@ -17,6 +17,7 @@
 		220E182F20FFA54C00445798 /* HistorialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E182E20FFA54C00445798 /* HistorialViewController.m */; };
 		220E183321003FD300445798 /* ConfiguratinCalidadViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E183121003FD300445798 /* ConfiguratinCalidadViewController.m */; };
 		220E183421003FD300445798 /* ConfiguratinCalidadViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 220E183221003FD300445798 /* ConfiguratinCalidadViewController.xib */; };
+		220E1838211C8F2D00445798 /* ShowMaterialDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 220E1837211C8F2D00445798 /* ShowMaterialDetailViewController.m */; };
 		221A745F20E06A9400D7A010 /* FireBaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A745E20E06A9400D7A010 /* FireBaseManager.m */; };
 		221A746120E06AAA00D7A010 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 221A746020E06AAA00D7A010 /* GoogleService-Info.plist */; };
 		221A746720E0718800D7A010 /* GenericProductModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 221A746520E0718800D7A010 /* GenericProductModel.m */; };
@@ -138,6 +139,8 @@
 		220E183021003FD300445798 /* ConfiguratinCalidadViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConfiguratinCalidadViewController.h; sourceTree = "<group>"; };
 		220E183121003FD300445798 /* ConfiguratinCalidadViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConfiguratinCalidadViewController.m; sourceTree = "<group>"; };
 		220E183221003FD300445798 /* ConfiguratinCalidadViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfiguratinCalidadViewController.xib; sourceTree = "<group>"; };
+		220E1836211C8F2D00445798 /* ShowMaterialDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShowMaterialDetailViewController.h; sourceTree = "<group>"; };
+		220E1837211C8F2D00445798 /* ShowMaterialDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShowMaterialDetailViewController.m; sourceTree = "<group>"; };
 		221A745D20E06A9400D7A010 /* FireBaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FireBaseManager.h; sourceTree = "<group>"; };
 		221A745E20E06A9400D7A010 /* FireBaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FireBaseManager.m; sourceTree = "<group>"; };
 		221A746020E06AAA00D7A010 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -328,6 +331,15 @@
 				220E182E20FFA54C00445798 /* HistorialViewController.m */,
 			);
 			path = Historial;
+			sourceTree = "<group>";
+		};
+		220E1835211C8EAD00445798 /* ShowMaterialDetail */ = {
+			isa = PBXGroup;
+			children = (
+				220E1836211C8F2D00445798 /* ShowMaterialDetailViewController.h */,
+				220E1837211C8F2D00445798 /* ShowMaterialDetailViewController.m */,
+			);
+			path = ShowMaterialDetail;
 			sourceTree = "<group>";
 		};
 		22191C9320C8A44A0042A917 /* Models */ = {
@@ -604,6 +616,7 @@
 		22CEF1B120C77E3300C08582 /* Secctions */ = {
 			isa = PBXGroup;
 			children = (
+				220E1835211C8EAD00445798 /* ShowMaterialDetail */,
 				220E182C20FFA52C00445798 /* Historial */,
 				2235302F20FBBFF800A0B848 /* Almacen */,
 				22D5C8A820EFE79700D993DB /* Pedinetes */,
@@ -1032,6 +1045,7 @@
 				2281D9AD20C6E6A300830683 /* QRApp.xcdatamodeld in Sources */,
 				22D5C8AB20EFE7BA00D993DB /* PendientesViewController.m in Sources */,
 				22B7D7FC20E3104F005C4214 /* GlobalpositionViewController.m in Sources */,
+				220E1838211C8F2D00445798 /* ShowMaterialDetailViewController.m in Sources */,
 				220E181920FC706800445798 /* ConfrimAlmacenViewController.m in Sources */,
 				2282B75B20EAA1B600ED3785 /* UserModel.m in Sources */,
 				227FDA0920EA98DA001E37BD /* PickerContainerViewController.m in Sources */,

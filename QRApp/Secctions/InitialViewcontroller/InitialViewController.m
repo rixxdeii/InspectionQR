@@ -17,6 +17,7 @@
 #import "ConfirmViewController.h"
 
 #import "BarCodeModel.h"
+#import "ShowMaterialDetailViewController.h"
 //#import "CoreDataManager.h"
 
 @interface InitialViewController ()<FirebaseManagerDelegate,UITextFieldDelegate,UIAlertViewDelegate,registerUserDlegate>{
@@ -27,6 +28,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *userlabel;
 @property (weak, nonatomic)  UIButton *inBuuton;
 @property (strong, nonatomic) LoteModel * loteExistente;
+
+@property (nonatomic,strong) NSDictionary * dicCalidad;
+@property (nonatomic,strong) NSDictionary * dicLiberation;
+@property (nonatomic,strong) NSDictionary * dicLiberationQuimico;
 
 
 @property (strong, nonatomic) NSMutableArray * foundBarcodes;
@@ -385,84 +390,82 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
         
             if ([[data firstObject]isEqualToString:@"FM"]) {//ControlFederal Mogul
                 
-                //getDataFromService Lote
-                
-                
-                
-                
-                
-                
-                
+        
                 BarCodeModel * model = [[BarCodeModel alloc]init];
                 
-//                model.noParte =[data objectAtIndex:1];
-//                model.noLote =[data objectAtIndex:2];
-//                model.palet =[data objectAtIndex:3];
-//                model.paquete =[data objectAtIndex:4];
-//                model.totalPalest =[data objectAtIndex:5];
-//                model.paquetesPorLote =[data objectAtIndex:6];
-//                model.cantidad =[data objectAtIndex:7];
-//                model.UM =[data objectAtIndex:8];
-//                model.proveedor =[data objectAtIndex:9];
-//                model.fechaRecibo =[data objectAtIndex:10];
+                model.noParte =[data objectAtIndex:1];
+                model.noLote =[data objectAtIndex:2];
+                model.palet =[data objectAtIndex:3];
+                model.paquete =[data objectAtIndex:4];
                 
-                _noParteSave =model.noParte;
                 FireBaseManager * fbm =[[FireBaseManager alloc]init];
                 fbm.delegate =self;
                 [[ERProgressHud sharedInstance ] show];
                 
-                [fbm getNumberOfPaletsFromModel: model.noParte lote:model.noLote completion:^(BOOL isOK,BOOL Exist ,LoteModel * newModel) {
-                    
-                    
-                    if (isOK){
-                        existLote = Exist;
-                        if (Exist) {
-                            NSLog(@"Exist");
-                            _loteExistente = newModel;
-                        }else{
-                            NSLog(@"esxist == NO");
-                        }
-                        
-                        [fbm getGProduct:_noParteSave completion:^(BOOL isOK, BOOL Exist, GenericProductModel *newModel)
-                         {
-                             [[ERProgressHud sharedInstance ] hide];
+                ///
+                [fbm getGProduct:model.noParte completion:^(BOOL isOK, BOOL Exist, GenericProductModel *newModel)
+                 {
+                     [[ERProgressHud sharedInstance ] hide];
+                     
+                     if (isOK) {
+                         
+                         if (Exist){
                              
-                             if (isOK) {
-                                 
-                                 if (Exist){
-                                     
-                                     if (_loteExistente) {
-                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel,_loteExistente]];
-                                     }else{
-                                         [self performSegueWithIdentifier:@"productSegue" sender:@[model,newModel]];
-                                     }
-                                     
-                                
-                                 }else{
-                                     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
-                                     [alert show];
-                                     
-                                 }
-                                 
-                             }else{
-                                 [self userLostConectionFireBase];
-                             }
-                         }];
-                        
-                        
-                    }else{
-                        [self userLostConectionFireBase];
-                        
-                    }
-                }];
-            }else{
+                             [self performSegueWithIdentifier:@"showDetailSegue" sender:data];
+                             
+//                             [fbm getProdctStory:@"calidad" Completion:^(BOOL isOK, NSDictionary *newModel)
+//                              {
+//                                  self.dicCalidad = newModel;
+//
+//                                  [fbm getProdctStory:@"liberation" Completion:^(BOOL isOK, NSDictionary *newModel)
+//                                   {
+//                                       self.dicLiberation = newModel;
+//                                       [fbm getProdctStory:@"liberationQuimico" Completion:^(BOOL isOK, NSDictionary *newModel)
+//                                        {
+//                                            [[ERProgressHud sharedInstance ] hide];
+//
+//                                            self.dicLiberationQuimico = newModel;
+//
+//                                            //                               _dataProduct = [[NSMutableArray  alloc]init];
+//                                            //
+//                                            //                               for (NSString  *key in [_dicCalidad allKeys]) {
+//                                            //                                   [_dataProduct addObject:key];
+//                                            //                               }
+//                                            //
+//                                            //                               [self.tbProduct reloadData];
+//
+//                                            NSLog(@"calidad : %@ ",_dicCalidad);
+//                                            NSLog(@"liberation : %@ ",_dicLiberation);
+//                                            NSLog(@"liberationQuimico : %@ ",_dicLiberationQuimico);
+//
+//                                        }];
+//
+//
+//
+//                                   }];
+//
+//                              }];
+//
+                         }else{
+                             UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Este producto no está registrado." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
+                             [alert show];
+                             
+                         }
+                         
+                     }else{
+                         [self userLostConectionFireBase];
+                     }
+                 }];
                 
+                ///
+                
+                
+               
+            }else{
                 UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Código fuera de control." delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil, nil];
                 [alert show];
-                
             }
-            
-            
+                
         });
     });
 }
@@ -553,8 +556,14 @@ didOutputMetadataObjects:(NSArray *)metadataObjects
         }
         
         c.existLote =(_loteExistente != nil);
+    }else if ([segue.identifier isEqualToString:@"showDetailSegue"])
+    {
+        ShowMaterialDetailViewController * vc =[[ShowMaterialDetailViewController alloc]init];
+        
+        vc.dataLast =sender;
+        
     }
-    
+
 }
 -(void)finishUserRegistration{
     [[ERProgressHud sharedInstance]hide];

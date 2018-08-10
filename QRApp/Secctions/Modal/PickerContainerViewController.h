@@ -15,11 +15,14 @@
 @end
 
 @interface PickerContainerViewController : UIViewController
-
+@property BOOL isDate;
 @property (nonatomic, weak) id<PickerContainerDelegate> delegate;
 @property (nonatomic, strong) NSArray * data;
 @property (nonatomic, strong) UIButton * fromButton;
 
+@property (weak, nonatomic) IBOutlet UIDatePicker *pickerdate;
 @property (weak, nonatomic) IBOutlet UIPickerView *picker;
+@property (weak, nonatomic) IBOutlet UIButton *unDefinedButton;
+@property (weak, nonatomic) IBOutlet UIButton *okButton;
 
 @end

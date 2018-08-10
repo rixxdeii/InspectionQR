@@ -45,7 +45,7 @@
 
 }
 
--(void)saveLote:(LoteModel *)model completion:(void(^)(BOOL isOK))completion
+-(void)saveLote:(LoteModel *)model completion:(void(^)(BOOL isOK, BOOL existe))completion
 {
     timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
     
@@ -54,72 +54,49 @@
     // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
     NSLog(@"%@",[dateFormatter stringFromDate:[NSDate date]]);
     
-    NSDictionary * dicTosend = @{@"noParte":model.noParte,
-                                 @"noLote":model.noLote,
-                                 @"proveedor":model.proveedor,
-                                 @"cantidadTotalporLote":model.cantidadTotalporLote,
-                                 @"unidadMedida":model.unidadMedida,
-                                 @"totalPalets":model.totalPalets,
-                                 @"noPaquetesPorPalet":model.noPaquetesPorPalet,
-                                 @"fechaLlegada":model.fechaLlegada,
-                                 @"noFactura":model.noFactura
-                                 
-                                 };
-    FIRDatabaseReference * ref = [[FIRDatabase database] reference];
+    //Checar Primero Si Existe:
     
-    [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote]setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-        
+    FIRDatabaseReference * ref = [[FIRDatabase database] reference];
+    [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         [timer invalidate];
-        if (!error) {
-            completion(YES);;
+         completion(YES,snapshot.exists );
+
+        if (snapshot.exists) {
+            completion(YES, YES);
+        return ;
         }else{
-            completion(NO);;
+            NSDictionary * dicTosend = @{@"noParte":model.noParte,
+                                         @"noLote":model.noLote,
+                                         @"proveedor":model.proveedor,
+                                         @"cantidadTotalporLote":model.cantidadTotalporLote,
+                                         @"unidadMedida":model.unidadMedida,
+                                         @"totalPalets":model.totalPalets,
+                                         @"noPaquetesPorPalet":model.noPaquetesPorPalet,
+                                         @"fechaLlegada":model.fechaLlegada,
+                                         @"noFactura":model.noFactura
+                                         };
+            
+            [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote]setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+                
+                [timer invalidate];
+                if (!error) {
+                    completion(YES,NO);;
+                }else{
+                    completion(NO,NO);;
+                }
+                
+            }];
         }
         
+
     }];
     
-    
-//    [[[[ref child:@"recepcion"] child:model.noParte] child:@"cantidadGlobal"]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-//        [timer invalidate];
-//
-//
-//        if (snapshot.exists) {
-//            NSString * value =snapshot.value;
-//
-//            NSInteger  lastint = [self integerFromString:value] + [self integerFromString:model.cantidadTotalporLote ];
-//
-//            NSString * result =[NSString stringWithFormat:@"%ld",(long)lastint];
-//
-//
-//            [[[[ref child:@"recepcion"] child:model.noParte] child:@"cantidadGlobal"]setValue:result withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-//
-//                [timer invalidate];
-//                if (!error) {
-//
-//                }else{
-//
-//                }
-//
-//            }];
-//
-//
-//
-//        }
-//
-//
-//    } withCancelBlock:^(NSError * _Nonnull error) {
-//        [timer invalidate];
-//        NSLog(@"%@", error.localizedDescription);
-//
-//    }];
-
+    //
     
     
-
     
+   
 }
-
-
 
 -(NSInteger)integerFromString:(NSString *)string
 {
@@ -129,7 +106,7 @@
     return [numberObj integerValue];
 }
 
--(void)saveLiberation:(LoteModel *)model completion:(void(^)(BOOL isOK))completion
+-(void)saveLiberation:(LoteModel *)model completion:(void(^)(BOOL isOK,BOOL existe))completion
 {
     timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
     
@@ -139,91 +116,103 @@
     // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
     NSLog(@"%@",[dateFormatter stringFromDate:[NSDate date]]);
 
-    NSDictionary * dicTosend = @{@"noLote":model.noLote,
-                                 @"proveedor":model.proveedor,
-                                 @"cantidadTotalporLote":model.cantidadTotalporLote,
-                                 @"unidadMedida":model.unidadMedida,
-                                 @"palet":model.noPalet,
-                                 @"paquete":model.paquete,
-                                 @"fechaCaducidad":model.fechaCaducidad,
-                                 @"totalPalets":model.totalPalets,
-                                 @"totalPaquetes":model.noPaquetesPorPalet,
-                                 @"muestreo":model.muestreo,
-                                 @"estatusLiberacion":model.estatusLiberacion,
-                                 @"noPaquetesPorPalet":model.noPaquetesPorPalet,
-                                 @"fechaLlegada":model.fechaLlegada,
-                                 @"tipoProducto":model.tipoPorducto
-                                 };
+    NSDictionary * dicTosend =[model getDictionaryFromLoteModel:model];
+    
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     
 
     if  ([model.tipoPorducto isEqualToString:@"Químico"])
     {
+        //VErificar existencia
+        
         NSString *childName =[NSString stringWithFormat:@"%@-%@",model.noParte,model.noLote];
         NSString *subChildname =[NSString stringWithFormat:@"%@-%@",model.noPalet,model.paquete];
         
-        [[[[ref child:@"liberationQuimico"] child:childName]child:subChildname] setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-            
+        [[[[ref child:@"liberationQuimico"] child:childName]child:subChildname]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [timer invalidate];
-            if (!error) {
-                completion(YES);;
-            }else{
-                completion(NO);;
-            }
-            
-        }];
-        
-        
-        
-        [[[ref child:@"liberationQuimico"] child:childName] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            [timer invalidate];
+            completion(YES,snapshot.exists );
             
             if (snapshot.exists) {
-                        NSInteger  total = [model.noPaquetesPorPalet integerValue] * [model.totalPalets integerValue];
-                
-                NSDictionary * dic = snapshot.value;
-                
-                if (dic.count >= total) {
-                    [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote] removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-            
-                    }];
-                    
-                }
-                
+                completion(YES, YES);
+                return ;
             }else{
                 
+                [[[[ref child:@"liberationQuimico"] child:childName]child:subChildname] setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+                    
+                    [timer invalidate];
+                    if (!error) {
+                        completion(YES,NO);;
+                    }else{
+                        completion(NO,NO);;
+                    }
+                    
+                }];
+                
+                [[[ref child:@"liberationQuimico"] child:childName] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    [timer invalidate];
+                    
+                    if (snapshot.exists) {
+                        NSInteger  total = [model.noPaquetesPorPalet integerValue] * [model.totalPalets integerValue];
+                        
+                        NSDictionary * dic = snapshot.value;
+                        
+                        if (dic.count >= total) {
+                            [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote] removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+                                
+                            }];
+                            
+                        }
+                        
+                    }else{
+                        
+                    }
+                    
+                } withCancelBlock:^(NSError * _Nonnull error) {
+                    
+                    NSLog(@"%@", error.localizedDescription);
+                    
+                    
+                }];
+                
             }
-        
-        } withCancelBlock:^(NSError * _Nonnull error) {
-            
-            NSLog(@"%@", error.localizedDescription);
-            
             
         }];
-        
-        
-        
-        
-        
         
     }else{
         
-        [[[[ref child:@"liberation"] child:model.noParte] child:model.noLote]setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-            
+        [[[[ref child:@"liberation"] child:model.noParte] child:model.noLote]observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             [timer invalidate];
-            if (!error) {
-                completion(YES);;
+            completion(YES,snapshot.exists );
+            
+            if (snapshot.exists) {
+                completion(YES, YES);
+                return ;
             }else{
-                completion(NO);;
+                [[[[ref child:@"liberation"] child:model.noParte] child:model.noLote]setValue:dicTosend withCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+                    
+                    [timer invalidate];
+                    
+                    
+                    
+                    if (!error) {
+                        completion(YES,NO);;
+                    }else{
+                        completion(NO,NO);;
+                    }
+                    
+                }];
+                
+                
+                [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote] removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
+                    
+                    NSLog(@"status");
+                }];
+                
             }
             
         }];
         
-        
-        [[[[ref child:@"recepcion"] child:model.noParte] child:model.noLote] removeValueWithCompletionBlock:^(NSError * _Nullable error, FIRDatabaseReference * _Nonnull ref) {
-            
-            
-        }];
+
         
         
     }
@@ -262,10 +251,7 @@
 -(void)getGProduct:(NSString *)model completion:(void(^)(BOOL isOK,BOOL Exist, GenericProductModel *newModel))completion //valida:(blockGP)valida
 {
     timer = [NSTimer scheduledTimerWithTimeInterval:10.0 target:self selector:@selector(sinInternet) userInfo:nil repeats:NO] ;
-    
-    
-    
-    
+
     FIRDatabaseReference * ref = [[FIRDatabase database] reference];
     [[[ref child:@"calidad"] child:model] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         [timer invalidate];
@@ -276,7 +262,7 @@
             
             GP.noParte = snapshot.value[@"noParte"];
             GP.descript  =snapshot.value[@"descript"];
-            GP.nivelRevision  =@"nivelRevision";
+            GP.nivelRevision  =snapshot.value[@"nivelRevision"];
             GP.especificaciones  =snapshot.value[@"especificaciones"];
             GP.muestra  =snapshot.value[@"muestra"];
             GP.almacenaje  =snapshot.value[@"almacenajeFrio"];
@@ -520,8 +506,5 @@
 {
     [_delegate userLostConectionFireBase];
 }
-
-
-
 
 @end

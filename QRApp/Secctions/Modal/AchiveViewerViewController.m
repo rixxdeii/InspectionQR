@@ -34,7 +34,7 @@
 
 - (IBAction)showAlertIP:(id)sender {
     NSString * ip =[[NSUserDefaults standardUserDefaults]objectForKey:@"ip"];
-    NSString * currenIP =[NSString stringWithFormat:@"IPActual %@",ip];
+    NSString * currenIP =[NSString stringWithFormat:@"IP actual %@",ip];
     
     UIAlertView * alert =[[UIAlertView alloc]initWithTitle:@"Configuración IP" message:currenIP delegate:self  cancelButtonTitle:@"Cancel" otherButtonTitles:@"Agregar", nil];
     alert.alertViewStyle = UIAlertViewStylePlainTextInput;

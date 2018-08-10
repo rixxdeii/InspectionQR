@@ -18,7 +18,8 @@
 #import "UserModel.h"
 #import "CoreDataManager.h"
 #import "ScannerViewController.h"
-@interface InspectionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,ScannerDelegate>{
+#import "PickerContainerViewController.h"
+@interface InspectionViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate,MFMailComposeViewControllerDelegate,ScannerDelegate,PickerContainerDelegate>{
     int muestra;
     int auditoriaIndex;
     int IDlote;
@@ -55,11 +56,11 @@
         auditoriaIndex = 1;
         _recolecorMuestras =[[NSMutableDictionary alloc]init];
         muestra = [_product.muestra intValue];
-        
+        _lote.nivelRevision = _product.nivelRevision;
         
         NSString * PC = [NSString stringWithFormat:@"Palet:%@",_lote.noPalet];
         [self.paletText setText:PC];
-        NSString * PP = [NSString stringWithFormat:@"Paquete:%@",_barcode.paquete];
+        NSString * PP = [NSString stringWithFormat:@"Paquete:%@",_lote.paquete];
         [self.paqueteLabel setText:PP];
         
         
@@ -75,6 +76,7 @@
         _lote.muestreo = [[NSMutableDictionary alloc]init];
         _recolecorMuestras =[[NSMutableDictionary alloc]init];
         _lote.noParte = _barcode.noParte;
+        _lote.nivelRevision = _product.nivelRevision;
         
         NSString * PC = [NSString stringWithFormat:@"Palet:%@",_barcode.palet];
         [self.paletText setText:PC];
@@ -90,9 +92,9 @@
         [self.scannerButton setHidden:NO];
         [self.scannerTXT setHidden:NO];
         [self.Scannerlabel setHidden:NO];
-//
-//        NSInteger  paquetes = [_barcode.paquetesPorPalets integerValue];
-//        NSInteger  palets = [_barcode.paletsPorLote integerValue];
+        //
+        //        NSInteger  paquetes = [_barcode.paquetesPorPalets integerValue];
+        //        NSInteger  palets = [_barcode.paletsPorLote integerValue];
         
         muestra = 1;
         _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%d",muestra]];
@@ -102,7 +104,7 @@
         [self.scannerButton setHidden:YES];
         [self.scannerTXT setHidden:YES];
         [self.Scannerlabel setHidden:YES];
-            _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_product.muestra]];
+        _pageIndicatorTXT.text = [self constructInfoLabel:[NSString stringWithFormat:@"%d",auditoriaIndex] two:[NSString stringWithFormat:@"%@",_product.muestra]];
     }
     
     
@@ -421,13 +423,13 @@
 - (IBAction)continueButton:(id)sender
 {
     //Muestras completas
-//        if ([_product.tipoproducto isEqualToString: @"Químico"]) {
-//            if ([self.scannerTXT.text isEqualToString:@""]) {
-//                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Te faltra agregar fechaCaducidad" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//                [alert show];
-//                return;
-//            }
-//        }
+    //        if ([_product.tipoproducto isEqualToString: @"Químico"]) {
+    //            if ([self.scannerTXT.text isEqualToString:@""]) {
+    //                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"Aviso" message:@"Te faltra agregar fechaCaducidad" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    //                [alert show];
+    //                return;
+    //            }
+    //        }
     
     
     if (_recolecorMuestras.count != _arrayData.count-1)
@@ -464,9 +466,18 @@
         
     }else
     {
+        if (_comefromPendiente) {
+            _lote.fechaManufactura =@"";
+            _lote.fechaLlegada = _lote.fechaLlegada;
+            _lote.tipoPorducto = _lote.tipoPorducto;
+        }
+
         if (!_comefromPendiente){
+            _lote.fechaLlegada = _barcode.fechaRecibo;
+            _lote.tipoPorducto =_product.tipoproducto;
+            _lote.fechaManufactura = @"";
             _lote.noLote = _barcode.noLote;
-            _lote.fechaCaducidad = (NSString *)[_scannerTXT  titleLabel];
+            _lote.noFactura =_barcode.noFactura;
             _lote.proveedor = _barcode.proveedor;
             _lote.cantidadTotalporLote = _barcode.cantidad;
             _lote.unidadMedida = _barcode.UM;
@@ -474,12 +485,21 @@
             _lote.noPaquetesPorPalet =_barcode.paquetesPorPalets;
             _lote.totalPalets = _barcode.paletsPorLote;
             _lote.ubicacion =@"Calidad";
-            _lote.paquete = _barcode.paquete;
-            _lote.noFactura = _barcode.noFactura;
+            _lote.paquete = _paqueteLabel.text;
+           
             _lote.tipoPorducto = _product.tipoproducto;
-            _lote.fechaLlegada = _barcode.fechaRecibo;
             
-        
+            _lote.fechaLiberacion = @"pendiente";
+            _lote.tipoPorducto =_product.tipoproducto;
+            
+            if ([_product.tipoproducto isEqualToString: @"Químico"]) {
+                _lote.fechaCaducidad = _scannerTXT.titleLabel.text;
+            }else{
+                _lote.fechaCaducidad = @"N/A";
+            }
+            
+            
+            
             for (NSDictionary  *object in _arrayData) {
                 if ([[object objectForKey:@"tipoIstrumento"]isEqualToString:@"Laboratorio"]) {
                     
@@ -509,7 +529,7 @@
                         return;
                     }
                 }
-        
+                
             }
         }
         NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
@@ -566,17 +586,17 @@
 
 - (IBAction)userDidTapScannerButton:(id)sender
 {
+    [self showDateSheetWithInitialDate:_scannerTXT.titleLabel.text];
     
-    
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
-    ScannerViewController *scannerView = [storyboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
-    
-    scannerView.delegate = self;
-    scannerView.simpleScanner = YES;
-    self.definesPresentationContext = YES; //self is presenting view controller
-    scannerView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    [self presentViewController:scannerView animated:YES completion:nil];
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+//
+//    ScannerViewController *scannerView = [storyboard instantiateViewControllerWithIdentifier:@"ScannerViewController"];
+//
+//    scannerView.delegate = self;
+//    scannerView.simpleScanner = YES;
+//    self.definesPresentationContext = YES; //self is presenting view controller
+//    scannerView.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//    [self presentViewController:scannerView animated:YES completion:nil];
     
 }
 
@@ -584,9 +604,6 @@
 {
     [self.scannerTXT setTitle:code forState:UIControlStateNormal];
 }
-
-
-
 
 -(NSString *)fechaCaducidad:(NSString *)fecha
 {
@@ -602,16 +619,39 @@
         [offsetComponents setYear:1];
         dateResult = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
         
-       
+        
     }else{
         dateResult = [dateFormatter dateFromString:fecha];
     }
     
-  
+    
     
     NSLog(@"Fecha Liberación : %@",[dateFormatter stringFromDate:dateResult ]);
     return [dateFormatter stringFromDate:dateResult];
     
 }
+
+#pragma mark - dateSheet Methods
+
+-(void)showDateSheetWithInitialDate:(NSString *)initialDate
+{
+    
+    
+    PickerContainerViewController * modal = [[PickerContainerViewController alloc]init];
+    modal.delegate =self;
+    modal.isDate = YES;
+
+    self.definesPresentationContext = YES; //self is presenting view controller
+    modal.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:modal animated:YES completion:nil];
+}
+-(void)didUserSelect:(NSString *)object index:(NSInteger)index buttotn:(UIButton *)fromButton
+{
+   NSString * caducidadResult = [self fechaCaducidad:object];
+    
+    [self.scannerTXT setTitle:caducidadResult forState:UIControlStateNormal];
+    
+}
+
 
 @end

@@ -134,6 +134,9 @@
     PickerContainerViewController * pickerView =[[PickerContainerViewController alloc]init];
     
     pickerView.data = @[@"cm",@"mm",@"in",@"KG"];
+    
+    pickerView.isDate = NO;
+    
     self.definesPresentationContext = YES; //self is presenting view controller
     
     pickerView.delegate =self;

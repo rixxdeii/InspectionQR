@@ -27,6 +27,32 @@
     if (_data.count >0) {
         obejctSelected  =  [_data firstObject];
     }
+    
+    NSDate *today = [[NSDate alloc] init];
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setYear:9];
+
+    if (_isDate) {
+        [self.unDefinedButton setHidden:NO];
+        
+        [self.picker setHidden:YES];
+        [self.pickerdate setDate:[NSDate date]];
+        [self.pickerdate setMinimumDate:[NSDate date]];
+        [self.pickerdate setMaximumDate:[gregorian dateByAddingComponents:offsetComponents toDate:today options:0]];
+        self.pickerdate.datePickerMode = UIDatePickerModeDate;
+        self.pickerdate.backgroundColor = [UIColor whiteColor];
+        self.pickerdate.alpha =1;
+    }else{
+        [self.unDefinedButton setHidden:YES];
+    [self.pickerdate setHidden:YES];
+    }
+    
+    
+    
+    
+
+
 }
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
@@ -52,17 +78,42 @@
 {
     obejctSelected = [_data objectAtIndex:row];
 }
-    
+
 - (IBAction)userDidSelectObject:(id)sender {
     
     
     [self dismissViewControllerAnimated:YES completion:^
-    {
-       [_delegate didUserSelect:obejctSelected index:indexx buttotn:_fromButton];
-
-    }];
+     {
+         if (_isDate) {
+             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+             [formatter setFormatterBehavior:NSDateFormatterBehavior10_4];
+             [formatter setDateStyle:NSDateFormatterShortStyle];
+             [formatter setTimeStyle:NSDateFormatterNoStyle];
+             NSString *result = [formatter stringFromDate:self.pickerdate.date];
+             
+             [_delegate didUserSelect:result index:nil buttotn:nil];
+             
+         }else{
+             [_delegate didUserSelect:obejctSelected index:indexx buttotn:_fromButton];
+         }
+         
+         
+         
+     }];
 }
 
+- (IBAction)userDidTapUndefinedButton:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^
+     {
+         [_delegate didUserSelect:@"Indefinido" index:nil buttotn:nil];
+     }];
+}
+- (IBAction)getValue:(UIDatePicker *)sender
+{
+
+    
+}
 
 
 
